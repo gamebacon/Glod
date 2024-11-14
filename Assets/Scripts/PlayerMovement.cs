@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public float cameraDistance = 5f;
     public float cameraHeight = 3f;
     public float rotationSpeed = 3f;
-    
+
     private bool isGrounded;
     private bool cameraActive = true;  // Toggle for enabling/disabling camera follow
 
@@ -23,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
         {
             _cameraTransform = Camera.main.transform;
         }
+
+        // Hide the cursor initially (before Escape is pressed)
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -31,6 +35,21 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             cameraActive = !cameraActive;
+
+            /*
+            if (cameraActive)
+            {
+                // Re-enable camera follow and show the cursor
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+            }
+            else
+            {
+                // Disable camera follow and show the cursor
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
+            */
         }
 
         // Update player movement direction
@@ -60,6 +79,16 @@ public class PlayerMovement : MonoBehaviour
         if (cameraActive)
         {
             RotateCamera();
+        }
+
+        // Reactivate camera follow and hide cursor on left-click
+        if (Input.GetMouseButtonDown(0) && !cameraActive) // Left-click
+        {
+            cameraActive = true;
+
+            // Hide the cursor and lock it back into the screen
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
     }
 
