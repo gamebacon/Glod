@@ -40,7 +40,6 @@ public class EnvironmentSpawner : MonoBehaviour
     {
         foreach (SpawnableObject obj in objectsToSpawn)
         {
-            Debug.Log($"Spawning {obj.quantity} instances of {obj.prefab.name}");
 
             for (int i = 0; i < obj.quantity; i++)
             {
@@ -57,7 +56,6 @@ public class EnvironmentSpawner : MonoBehaviour
                 // If too many attempts are made, skip placing this object
                 if (attempts >= 10)
                 {
-                    Debug.LogWarning($"Skipping spawn for {obj.prefab.name} after {attempts} failed attempts to find spacing.");
                     continue;
                 }
 
@@ -103,7 +101,6 @@ public class EnvironmentSpawner : MonoBehaviour
 
         // Use the terrain's SampleHeight method to get the terrain height at the x, z coordinates
         float terrainHeight = terrain.SampleHeight(position);
-        Debug.Log($"Adjusting position {position} to terrain height: {terrainHeight}");
 
         // Update y-position to match terrain height
         return new Vector3(position.x, terrainHeight, position.z);
@@ -115,7 +112,6 @@ public class EnvironmentSpawner : MonoBehaviour
         {
             if (Vector3.Distance(position, spawnedPosition) < minSpacing)
             {
-                Debug.Log($"Position {position} is too close to {spawnedPosition}. Retrying...");
                 return true;
             }
         }
