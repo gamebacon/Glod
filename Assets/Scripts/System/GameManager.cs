@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
         }
         catch ( System.Exception e )
         {
-            Console.instance.AddMessage(e.ToString());
+            Console.AddMessage(e.ToString());
             // Something went wrong - it's one of these:
             //
             //     Steam is closed?
