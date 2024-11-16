@@ -3,27 +3,19 @@ using Steamworks;
 
 public class GameManager : MonoBehaviour
 {
+    public GameState gameState; 
+
+    public static GameManager instance;
+
     void Start()
     {
-        try
-        {
-            SteamClient.Init(480);
-        }
-        catch ( System.Exception e )
-        {
-            Console.AddMessage(e.ToString());
-            // Something went wrong - it's one of these:
-            //
-            //     Steam is closed?
-            //     Can't find steam_api dll?
-            //     Don't have permission to play app?
-            //
+        if (instance == null) {
+            instance = this;
         }
     }
-
-    void OnDestroy()
-    {
-        SteamClient.Shutdown();  // Proper shutdown of Steamworks when done
-    }
-
 }
+ public enum GameState {
+        Lobby,
+        Game,
+        GameOver,
+    }

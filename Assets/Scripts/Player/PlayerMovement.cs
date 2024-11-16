@@ -16,7 +16,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        return;
         _rb = GetComponent<Rigidbody>();
 
         // Initialize camera if main camera exists
@@ -25,14 +24,19 @@ public class PlayerMovement : MonoBehaviour
             _cameraTransform = Camera.main.transform;
         }
 
+        /* 
         // Hide the cursor initially (before Escape is pressed)
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        */
     }
 
     void Update()
     {
-        return;
+        if (GameManager.instance.gameState != GameState.Game) {
+            return;
+        }
+
         // Toggle camera movement with Escape key
         if (Input.GetKeyDown(KeyCode.Escape))
         {
