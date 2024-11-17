@@ -54,7 +54,6 @@ public class SteamManager : MonoBehaviour {
 
    void Start()
     {
-        SteamMatchmaking.OnLobbyMemberJoined += OnLobbyMemberJoinedCallback;
         /*
         // Callbacks
         SteamMatchmaking.OnLobbyGameCreated += OnLobbyGameCreatedCallback;
@@ -67,14 +66,6 @@ public class SteamManager : MonoBehaviour {
         SteamApps.OnDlcInstalled += OnDlcInstalledCallback;
         SceneManager.sceneLoaded += OnSceneLoaded;
         */
-    }
-
-    void OnLobbyMemberJoinedCallback(Lobby lobby, Friend friend) 
-    {
-        Console.AddMessage($"{friend.Name} joined the lobby!");
-        if (friend.Id != playerSteamId) {
-            AcceptP2P(friend.Id);
-        }
     }
 
     void Update()
@@ -91,7 +82,7 @@ public class SteamManager : MonoBehaviour {
         }
     }
 
-    private void AcceptP2P(SteamId opponentId)
+    public void AcceptP2P(SteamId opponentId)
     {
         try
         {
@@ -100,6 +91,18 @@ public class SteamManager : MonoBehaviour {
         catch
         {
         Debug.Log((object) "Unable to accept P2P Session with user");
+        }
+    }
+
+    public void CloseP2P(SteamId opponentId)
+    {
+        try
+        {
+        SteamNetworking.CloseP2PSessionWithUser(opponentId);
+        }
+        catch
+        {
+        Debug.Log((object) "Unable to close P2P Session with user");
         }
     }
 }

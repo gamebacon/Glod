@@ -23,6 +23,8 @@ public class LobbyManager : MonoBehaviour
 
     public bool hasStarted = false;
 
+    public LobbyVisuals lobbyVisuals;
+
     private void Awake()
     {
         // Ensure only one instance of LobbyManager exists
@@ -32,6 +34,9 @@ public class LobbyManager : MonoBehaviour
             return;
         }
         instance = this;
+
+        lobbyVisuals = GetComponent<LobbyVisuals>();
+
         DontDestroyOnLoad(gameObject); // Optional: Persist across scenes
     }
 
@@ -39,19 +44,41 @@ public class LobbyManager : MonoBehaviour
     {
         SteamMatchmaking.OnLobbyCreated += OnLobbyCreated;
         SteamMatchmaking.OnLobbyEntered += OnLobbyEntered;
+        SteamMatchmaking.OnLobbyMemberJoined += OnLobbyMemberJoinedCallback;
+        SteamMatchmaking. OnLobbyMemberLeave += OnLobbyMemberLeaveCallback;
+
     }
 
     void OnDestroy()
     {
         SteamMatchmaking.OnLobbyCreated -= OnLobbyCreated;
         SteamMatchmaking.OnLobbyEntered -= OnLobbyEntered;
-        SteamClient.Shutdown(); // Proper shutdown of Steamworks
+        SteamMatchmaking.OnLobbyMemberJoined -= OnLobbyMemberJoinedCallback;
+        SteamClient.Shutdown();
     }
 
-public async void /* Task<bool> */ CreateLobby()
+    private void OnLobbyMemberJoinedCallback(Lobby lobby, Friend friend) 
+    {
+        Console.AddMessage($"Join callback: {friend.Name} joined the lobby!");
+        if (friend.Id != SteamManager.instance.playerSteamId) {
+            SteamManager.instance.AcceptP2P(friend.Id);
+        }
+        lobbyVisuals.AddPlayer(friend.Name, friend.Id.ToString());
+    }
+
+    private void OnLobbyMemberLeaveCallback(Lobby lobby, Friend friend) 
+    {
+        Console.AddMessage($"Leave callback: {friend.Name} left the lobby!");
+        if (friend.Id != SteamManager.instance.playerSteamId) {
+            SteamManager.instance.CloseP2P(friend.Id);
+        }
+        lobbyVisuals.RemovePlayer(friend.Id.ToString());
+    }
+
+public async void CreateLobby()
 {
     try {
-        var createLobbyOutput = await SteamMatchmaking.CreateLobbyAsync(5);
+        var createLobbyOutput = await SteamMatchmaking.CreateLobbyAsync(4);
         if (!createLobbyOutput.HasValue)
         {
             Debug.Log("Lobby created but not correctly instantiated");
@@ -63,11 +90,9 @@ public async void /* Task<bool> */ CreateLobby()
         hostedMultiplayerLobby.SetJoinable(true);
         // currentLobby.SetData(staticDataString, lobbyParameters)
         currentLobby = hostedMultiplayerLobby;
-        // return true;
     } catch (Exception e) {
         Debug.Log("Failed to create multiplayer lobby");
         Debug.Log(e.ToString());
-        // return false;
     }
 }
 
@@ -117,6 +142,7 @@ private void OnLobbyCreated(Result result, Lobby lobby)
         foreach(Friend f in lobby.Members) {
             Console.AddMessage(f.Name);
         }
+        lobbyVisuals.AddPlayer(SteamManager.instance.playerName, SteamManager.instance.playerSteamIdString);
     }
 
 
@@ -127,6 +153,7 @@ private void OnLobbyCreated(Result result, Lobby lobby)
         if (currentLobby.Owner.Id.Value == SteamManager.instance.playerSteamId.Value)
             steamIdToClientId = new Dictionary<ulong, int>();
             hasStarted = false;
+            lobbyVisuals.RemovePlayer(SteamManager.instance.playerSteamIdString);
         }
     catch
     {
