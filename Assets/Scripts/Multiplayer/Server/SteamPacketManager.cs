@@ -49,7 +49,7 @@ public class SteamPacketManager : MonoBehaviour
         int length = p.Length();
         byte[] numArray = p.CloneBytes();
         Packet packet = new Packet(numArray);
-        if (steamId.Value != SteamManager.Instance.playerSteamId.Value)
+        if (steamId.Value != SteamManager.instance.playerSteamId.Value)
             SteamNetworking.SendP2PPacket(steamId.Value, numArray, length, (int) channel, p2pSend);
         else
         SteamPacketManager.HandlePacket(

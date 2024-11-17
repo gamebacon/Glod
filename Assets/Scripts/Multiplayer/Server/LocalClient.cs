@@ -8,6 +8,7 @@ public class LocalClient : MonoBehaviour
     public static LocalClient instance;
 
     public static bool isServerOwner;
+      public static bool serverOwner;
     public SteamId serverHost;
     public static Dictionary<int, LocalClient.PacketHandler> packetHandlers;
     public delegate void PacketHandler(Packet packet);
@@ -22,13 +23,13 @@ public class LocalClient : MonoBehaviour
         } 
         else
         {
-            if (!LocalClient.instance != this)
-            {
-                return;
-            }
+        if (!LocalClient.instance != this)
+        {
+            return;
+        }
 
-            Debug.Log("Instance already exists, destroying object");
-            Destroy(this);
+        Debug.Log("Instance already exists, destroying object");
+        Destroy(this);
         }
     }
 }

@@ -9,7 +9,7 @@ using TMPro;
 public class LobbyManager : MonoBehaviour
 {
     public TMP_InputField lobbyIDText;
-    public static LobbyManager Instance { get; private set; } // Singleton instance
+    public static LobbyManager instance { get; private set; } // Singleton instance
 
     private Lobby currentLobby; // Fully qualify the type name
     public bool IsHost { get; private set; } // Indicate if this player is the host
@@ -19,15 +19,19 @@ public class LobbyManager : MonoBehaviour
 
     public static Dictionary<ulong, int> steamIdToClientId = new Dictionary<ulong, int>();
 
+    public SteamId lobbyOwnerSteamId;
+
+    public bool hasStarted = false;
+
     private void Awake()
     {
         // Ensure only one instance of LobbyManager exists
-        if (Instance != null && Instance != this)
+        if (instance != null && instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        Instance = this;
+        instance = this;
         DontDestroyOnLoad(gameObject); // Optional: Persist across scenes
     }
 
@@ -67,6 +71,32 @@ public async void /* Task<bool> */ CreateLobby()
     }
 }
 
+  public void StartGame()
+  {
+    if(SteamClient.SteamId.Value != currentLobby.Owner.Id.Value)
+    {
+      Debug.LogError((object) "not owner, so cant start lobby");
+    }
+    else
+    {
+      Console.AddMessage("Starting lobby");
+        foreach (Client client in Server.clients.Values)
+        {
+            Debug.Log(client);
+            Debug.Log(client?.player);
+            if (client?.player != null)
+            {
+                ServerSend.StartGame(client.player.id);
+            }
+        }
+        currentLobby.SetJoinable(false);
+        hasStarted = true;
+        LocalClient.serverOwner = true;
+        Debug.Log(SteamManager.instance.playerSteamId);
+        LocalClient.instance.serverHost = SteamManager.instance.playerSteamId;
+  }
+}
+
 private void OnLobbyCreated(Result result, Lobby lobby)
 {
     if (result != Result.OK)
@@ -89,10 +119,40 @@ private void OnLobbyCreated(Result result, Lobby lobby)
         }
     }
 
-public void LeaveLobby()
-{
-    currentLobby.Leave();
-}
+
+  public void LeaveLobby()
+  {
+    try
+    {
+        if (currentLobby.Owner.Id.Value == SteamManager.instance.playerSteamId.Value)
+            steamIdToClientId = new Dictionary<ulong, int>();
+            hasStarted = false;
+        }
+    catch
+    {
+      Debug.Log("Steam lobby doesn't exist...");
+    }
+
+    try
+    {
+      currentLobby.Leave();
+      Debug.Log("Lobby left successfully");
+      Console.AddMessage("Left lobby");
+    }
+    catch
+    {
+      Debug.Log("Error leaving current lobby");
+    }
+    try
+    {
+      SteamNetworking.CloseP2PSessionWithUser(lobbyOwnerSteamId);
+    }
+    catch
+    {
+      Debug.Log("Error closing P2P session with opponent");
+    }
+    currentLobby = new Lobby();
+  }
 
 public void JoinLobby()
 {
