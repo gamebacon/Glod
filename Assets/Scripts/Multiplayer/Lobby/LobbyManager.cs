@@ -25,6 +25,8 @@ public class LobbyManager : MonoBehaviour
 
     public LobbyVisuals lobbyVisuals;
 
+    public int lobbySize = 10;
+
     private void Awake()
     {
         // Ensure only one instance of LobbyManager exists
@@ -59,11 +61,15 @@ public class LobbyManager : MonoBehaviour
 
     private void OnLobbyMemberJoinedCallback(Lobby lobby, Friend friend) 
     {
+
         Console.AddMessage($"Join callback: {friend.Name} joined the lobby!");
         if (friend.Id != SteamManager.instance.playerSteamId) {
             SteamManager.instance.AcceptP2P(friend.Id);
         }
         lobbyVisuals.AddPlayer(friend.Name, friend.Id.ToString());
+        currentLobby = lobby;
+        lobbyOwnerSteamId = lobby.Owner.Id.Value;
+        // lobbyPartnerDisconnected = false;
     }
 
     private void OnLobbyMemberLeaveCallback(Lobby lobby, Friend friend) 
@@ -104,7 +110,8 @@ public async void CreateLobby()
     }
     else
     {
-      Console.AddMessage("Starting lobby");
+      Console.AddMessage("Starting lobby"); // here
+      Debug.Log(Server.clients.Count);
         foreach (Client client in Server.clients.Values)
         {
             Debug.Log(client);
@@ -200,4 +207,14 @@ public void JoinLobby()
     }
 }
 
+  private void InitLobbyClients()
+  {
+    Server.clients = new Dictionary<int, Client>();
+    for (int index = 0; index < lobbySize; ++index) 
+    {
+      Server.clients[index] = new Client(index);
+    }
+  }
+
 }
+

@@ -201,7 +201,7 @@ MonoBehaviour:
   m_text: join game
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: fd473d41255cf45b690ee73466efce74, type: 2}
-  m_sharedMaterial: {fileID: -1889439406594041039, guid: fd473d41255cf45b690ee73466efce74, type: 2}
+  m_sharedMaterial: {fileID: -7709786610244525661, guid: fd473d41255cf45b690ee73466efce74, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

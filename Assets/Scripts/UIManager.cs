@@ -30,6 +30,7 @@ public class UIManager : MonoBehaviour
 
         menuPanel.panel.SetActive(true);
         menuPanel.playButton.onClick.AddListener(HandlePlayButton);
+        menuPanel.quitButton.onClick.AddListener(HandleQuitGame);
     }
 
     private void HandlePlayButton() 
@@ -56,6 +57,11 @@ public class UIManager : MonoBehaviour
     private void HandleStartGame() 
     {
         LobbyManager.instance.StartGame();
+    } 
+
+    private void HandleQuitGame() 
+    {
+        Application.Quit();
     } 
 
     private void GoToMainMenu() {
