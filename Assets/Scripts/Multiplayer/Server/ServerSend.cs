@@ -144,7 +144,6 @@ public class ServerSend
         packet.Write(player.id);
         packet.Write(player.username);
       }
-      Debug.Log((object) "Sending start game packet");
       ServerSend.SendTCPData(playerLobbyId, packet);
     }
   }

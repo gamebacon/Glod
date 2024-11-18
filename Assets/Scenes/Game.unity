@@ -3082,8 +3082,6 @@ Transform:
   - {fileID: 1360022160}
   - {fileID: 2212666}
   - {fileID: 832575519}
-  - {fileID: 1819995044}
-  - {fileID: 1330797000}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &687980548
@@ -3687,7 +3685,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1819995052}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
         m_MethodName: CreateLobby
         m_Mode: 1
@@ -5291,59 +5289,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a3c7728552d374399b2bf485f54c6dfa, type: 3}
---- !u!1 &1330796999
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1330797000}
-  - component: {fileID: 1330797001}
-  m_Layer: 0
-  m_Name: UIManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1330797000
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330796999}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 681518301}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1330797001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1330796999}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31cbf49994b02489a9fa06d095e540dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startMenu:
-    selectGamePanel:
-      panel: {fileID: 0}
-      button1: {fileID: 0}
-      button2: {fileID: 0}
-    createGamePanel:
-      panel: {fileID: 0}
-      createButton: {fileID: 0}
-      cancelButton: {fileID: 0}
 --- !u!1001 &1332946987
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7662,151 +7607,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a36a30f765c0041b8b6eb45ef169ed4a, type: 3}
---- !u!1 &1819995042
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1819995044}
-  - component: {fileID: 1819995045}
-  - component: {fileID: 1819995048}
-  - component: {fileID: 1819995050}
-  - component: {fileID: 1819995049}
-  - component: {fileID: 1819995051}
-  - component: {fileID: 1819995052}
-  m_Layer: 0
-  m_Name: 'GameManager old ? '
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1819995044
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819995042}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -494.51105, y: -147.92355, z: 5.967397}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 681518301}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1819995045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819995042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a5b900af128493c9b05c203b5fd44a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sounds:
-  - name: Footsteps
-    clip: {fileID: 8300000, guid: beb2adebbe549440ba470b216331c0f0, type: 3}
-    volume: 0.1
-    pitch: 1.57
-    loop: 0
-    source: {fileID: 0}
-  - name: WoodHit
-    clip: {fileID: 8300000, guid: cec8f76c4d5fe41d6afe94340eee4874, type: 3}
-    volume: 0.708
-    pitch: 1.57
-    loop: 0
-    source: {fileID: 0}
-  - name: TreeFalling
-    clip: {fileID: 8300000, guid: 404b6ae4bb9ed4021a0ce8b49202a2aa, type: 3}
-    volume: 0.546
-    pitch: 1.57
-    loop: 0
-    source: {fileID: 0}
-  minPitchOffset: 0.9
-  maxPitchOffset: 1.1
-  minVolumeOffset: 0.9
-  maxVolumeOffset: 1.1
---- !u!114 &1819995048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819995042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3fd264e58084d4ca59abcff5ec25d950, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1819995049
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819995042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13f969149296641ca9c86ebe66a97dac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isRealInstance: 0
-  appId: 480
-  playerName: 
-  playerSteamIdString: 
-  connectedToSteam: 0
---- !u!114 &1819995050
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819995042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d25fba2fa9004b6e8c67ebfbbf458ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gameState: 0
-  playerPrefab: {fileID: 2148947669889860999, guid: e2937c671185c47ec8f9ac7c289846ef, type: 3}
---- !u!114 &1819995051
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819995042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 554281abb3ed041d6a9bb46b48a00edf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  consoleText: {fileID: 1346132721}
---- !u!114 &1819995052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1819995042}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ba908f3b72ac4663bc599553c8450a2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lobbyIDText: {fileID: 899525261}
-  lobbyPartnerDisconnected: 0
-  hasStarted: 0
-  lobbyVisuals: {fileID: 0}
-  lobbySize: 10
 --- !u!1001 &1826985849
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9246,7 +9046,7 @@ PrefabInstance:
     - target: {fileID: 428718163270994917, guid: 560f3046c125a4679a5f323a2819a015, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1819995052}
+      objectReference: {fileID: 0}
     - target: {fileID: 860973016086519876, guid: 560f3046c125a4679a5f323a2819a015, type: 3}
       propertyPath: m_Enabled
       value: 0

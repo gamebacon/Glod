@@ -72,11 +72,6 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
     }
   }  
 
-public void Update() {
-    Debug.Log(GameManager.instance.gameState);
-}
-
-
   public void GameOver(int winnerId, float time = 4f)
   {
     Debug.Log("game over");
@@ -134,6 +129,11 @@ public void Update() {
     */
   }
 
+    public void d() {
+      Debug.Log("d");
+      Instantiate(playerPrefab); // , position, ) // Quaternion.Euler(0.0f, orientationY, 0.0f));
+    }
+
 
     public void SpawnPlayer(
     int id,
@@ -142,11 +142,18 @@ public void Update() {
     Vector3 position,
     float orientationY)
   {
+
     if (GameManager.players.ContainsKey(id)) {
+      Debug.Log("Coantins!");
+      Debug.Log(GameManager.players);
+      Debug.Log(GameManager.players.Count);
       return;
     }
 
-    Instantiate(playerPrefab, position, Quaternion.Euler(0.0f, orientationY, 0.0f));
+    Debug.Log("Instant!");
+    Instantiate(playerPrefab); // , position, ) // Quaternion.Euler(0.0f, orientationY, 0.0f));
+    Invoke("d", 4);
+
 
     /*
     Debug.Log("Spawning player");
