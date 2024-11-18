@@ -17,6 +17,8 @@ public class ClientHandle : MonoBehaviour
       return;
     }
     LocalClient.instance.udp.Connect(((IPEndPoint) LocalClient.instance.tcp.socket.Client.LocalEndPoint).Port);
+
+    MonoBehaviour.print("CLIENT welcome");
   }
 
   public static void Clock(Packet packet)
@@ -31,7 +33,7 @@ public class ClientHandle : MonoBehaviour
   public static void SpawnPlayer(Packet packet)
   {
 
-    Debug.Log("Spawning player now");
+    MonoBehaviour.print("CLIENT spawning player");
 
     int id = packet.ReadInt();
     string username = packet.ReadString();
@@ -79,7 +81,7 @@ public class ClientHandle : MonoBehaviour
       return;
     */
 
-    Debug.Log("Recieved start game packet (client)");
+    MonoBehaviour.print("CLIENT recieve startgmae");
 
     LocalClient.instance.myId = packet.ReadInt();
 
@@ -142,7 +144,7 @@ public class ClientHandle : MonoBehaviour
   }
   */
   public static void PlayerFinishedLoading(Packet packet) {
-    Debug.Log("Fin loading player (client) ");
+    MonoBehaviour.print("CLIENT fin loading");
    // LoadingScreen.Instance.UpdateStatuses(packet.ReadInt());
   }
 
