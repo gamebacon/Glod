@@ -18,7 +18,7 @@ public class ClientHandle : MonoBehaviour
     }
     LocalClient.instance.udp.Connect(((IPEndPoint) LocalClient.instance.tcp.socket.Client.LocalEndPoint).Port);
 
-    MonoBehaviour.print("CLIENT welcome");
+    Console.AddMessage("CLIENT welcome");
   }
 
   public static void Clock(Packet packet)
@@ -33,7 +33,7 @@ public class ClientHandle : MonoBehaviour
   public static void SpawnPlayer(Packet packet)
   {
 
-    MonoBehaviour.print("CLIENT spawning player");
+    Console.AddMessage("CLIENT spawning player");
 
     int id = packet.ReadInt();
     string username = packet.ReadString();
@@ -57,8 +57,8 @@ public class ClientHandle : MonoBehaviour
 
     // GameManager.gameSettings = new GameSettings(seed, gameMode, friendlyFire, difficulty, gameLength, multiplayer);
 
-    // MonoBehaviour.print((object) "Game settings successfully loaded");
-    // MonoBehaviour.print((object) ("loading game scene, assigned id: " + (object) LocalClient.instance.myId));
+    // Console.AddMessage((object) "Game settings successfully loaded");
+    // Console.AddMessage((object) ("loading game scene, assigned id: " + (object) LocalClient.instance.myId));
 
     NetworkController.Instance.nPlayers = playerCount;
 
@@ -81,7 +81,7 @@ public class ClientHandle : MonoBehaviour
       return;
     */
 
-    MonoBehaviour.print("CLIENT recieve startgmae");
+    Console.AddMessage("CLIENT recieve startgmae");
 
     LocalClient.instance.myId = packet.ReadInt();
 
@@ -100,8 +100,8 @@ public class ClientHandle : MonoBehaviour
     // GameManager.gameSettings = new GameSettings(seed, gameMode, friendlyFire, difficulty, gameLength, multiplayer);
 
     /*
-    MonoBehaviour.print((object) "Game settings successfully loaded");
-    MonoBehaviour.print((object) ("loading game scene, assigned id: " + (object) LocalClient.instance.myId));
+    Console.AddMessage((object) "Game settings successfully loaded");
+    Console.AddMessage((object) ("loading game scene, assigned id: " + (object) LocalClient.instance.myId));
     */
 
     int length = packet.ReadInt();
@@ -123,11 +123,11 @@ public class ClientHandle : MonoBehaviour
     NetStatus.AddPing((int) (DateTime.Now - DateTime.Parse(packet.ReadString())).TotalMilliseconds);
   }
 
-  public static void ReceiveStatus(Packet packet) => MonoBehaviour.print((object) "received status");
+  public static void ReceiveStatus(Packet packet) => Console.AddMessage("received status");
 
   public static void ConnectionEstablished(Packet packet)
   {
-    MonoBehaviour.print((object) "connection has successfully been established. ready to enter game");
+    Console.AddMessage("connection has successfully been established. ready to enter game");
     GameManager.isConnected = true;
   }
 
@@ -144,7 +144,7 @@ public class ClientHandle : MonoBehaviour
   }
   */
   public static void PlayerFinishedLoading(Packet packet) {
-    MonoBehaviour.print("CLIENT fin loading");
+    Console.AddMessage("CLIENT fin loading");
    // LoadingScreen.Instance.UpdateStatuses(packet.ReadInt());
   }
 
