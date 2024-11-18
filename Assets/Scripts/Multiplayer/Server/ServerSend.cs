@@ -118,6 +118,7 @@ public class ServerSend
 
     public static void StartGame(int playerLobbyId)
   {
+    Debug.Log("Sending start packet to " + playerLobbyId);
     using (Packet packet = new Packet(13))
     {
       packet.Write(playerLobbyId);

@@ -51,6 +51,12 @@ public class LobbyManager : MonoBehaviour
 
     }
 
+    private void InitLobby(Lobby lobby) {
+
+        InitLobbyClients();
+        steamIdToClientId = new Dictionary<ulong, int>();
+    }
+
     void OnDestroy()
     {
         SteamMatchmaking.OnLobbyCreated -= OnLobbyCreated;
@@ -70,6 +76,8 @@ public class LobbyManager : MonoBehaviour
         currentLobby = lobby;
         lobbyOwnerSteamId = lobby.Owner.Id.Value;
         // lobbyPartnerDisconnected = false;
+
+        AddClient(friend);
     }
 
     private void OnLobbyMemberLeaveCallback(Lobby lobby, Friend friend) 
@@ -110,21 +118,24 @@ public async void CreateLobby()
     }
     else
     {
-      Console.AddMessage("Starting lobby"); // here
-      Debug.Log(Server.clients.Count);
+        Console.AddMessage("Starting lobby");
+        Debug.Log($"Client count: {Server.clients.Count}");
         foreach (Client client in Server.clients.Values)
         {
             Debug.Log(client);
             Debug.Log(client?.player);
             if (client?.player != null)
             {
+                Debug.Log($"Sending to {client.player.username}!");
                 ServerSend.StartGame(client.player.id);
+            } else {
+                Debug.Log($"{client?.player} ist null!");
             }
         }
         currentLobby.SetJoinable(false);
         hasStarted = true;
         LocalClient.serverOwner = true;
-        Debug.Log(SteamManager.instance.playerSteamId);
+        Debug.Log($"PlayerId: {SteamManager.instance.playerSteamId}");
         LocalClient.instance.serverHost = SteamManager.instance.playerSteamId;
   }
 }
@@ -137,8 +148,12 @@ private void OnLobbyCreated(Result result, Lobby lobby)
         return;
     }
 
-    currentLobby = lobby;
     Console.AddMessage("Lobby created successfully!");
+
+    currentLobby = lobby;
+    hasStarted = false;
+    InitLobby(lobby);
+    AddClient(new Friend(HostSteamId));
 }
 
 
@@ -150,6 +165,9 @@ private void OnLobbyCreated(Result result, Lobby lobby)
             Console.AddMessage(f.Name);
         }
         lobbyVisuals.AddPlayer(SteamManager.instance.playerName, SteamManager.instance.playerSteamIdString);
+        LocalClient.instance.serverHost = lobby.Owner.Id.Value;
+        UiManager.instance.Host();
+        UiManager.instance.ConnectToServer();
     }
 
 
@@ -214,6 +232,35 @@ public void JoinLobby()
     {
       Server.clients[index] = new Client(index);
     }
+  }
+
+
+  private int FindAvailableClientId()
+  {
+    for (int key = 0; key < lobbySize; ++key)
+    {
+      if (!Server.clients[key].inLobby) {
+        return key;
+      }
+    }
+    return -1;
+  }
+
+  private void AddClient(Friend friend)
+  {
+    SteamId steamId = friend.Id.Value;
+    int availableLobbyId = this.FindAvailableClientId();
+
+    if (availableLobbyId == -1) {
+      return;
+    }
+
+    Debug.Log($"Found available id in steam as: {availableLobbyId} steam name: {friend.Name}");
+    steamIdToClientId[steamId] = availableLobbyId;
+    Client client = Server.clients[availableLobbyId];
+    client.inLobby = true;
+    client.player = new Player(availableLobbyId, friend.Name, UnityEngine.Color.black, steamId);
+    Debug.Log("finished adding player");
   }
 
 }

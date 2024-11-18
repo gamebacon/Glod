@@ -13,6 +13,8 @@ public class Client
     public Client.TCP tcp;
     public Client.UDP udp;
 
+    public bool inLobby;
+
 
     public Client(int clientId)
   {

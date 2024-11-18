@@ -1,9 +1,3 @@
-// Decompiled with JetBrains decompiler
-// Type: PlayerManager
-// Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 8DB17789-D6D5-48DE-86AB-E696A5FF6B2B
-// Assembly location: D:\SteamLibrary\steamapps\common\Muck\Muck_Data\Managed\Assembly-CSharp.dll
-
 using System;
 using TMPro;
 using UnityEngine;
@@ -12,13 +6,13 @@ public class PlayerManager : MonoBehaviour, IComparable
 {
   public int id;
   public string username;
-  public bool dead;
+  public bool isDead;
   public Color color;
   public OnlinePlayer onlinePlayer;
   public int kills;
   public int deaths;
   public int ping;
-  public bool disconnected;
+  public bool isDisconnected;
   public bool loaded;
   public TextMeshProUGUI nameText;
   private Collider collider;
