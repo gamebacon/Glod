@@ -50,6 +50,13 @@ public class ClientSend : MonoBehaviour
     }
   }
 
+
+  public static void PlayerFinishedLoading()
+  {
+    using (Packet packet = new Packet(29))
+      ClientSend.SendTCPData(packet);
+  }
+
     public static void PlayerPing(Vector3 pos)
   {
     try

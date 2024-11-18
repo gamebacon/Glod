@@ -5,9 +5,12 @@ using Steamworks;
 public class ServerSend
 {
 
+    public static int test = 1337;
     private static P2PSend TCPvariant = P2PSend.Reliable;
     private static P2PSend UDPVariant = P2PSend.Unreliable;
     private static void SendTCPData(int toClient, Packet p)
+
+
   {
     Debug.Log($"TCP Send {p}");
     Packet packet = new Packet();
@@ -81,10 +84,12 @@ public class ServerSend
   {
     using (Packet packet = new Packet(2))
     {
-      Debug.Log((object) ("spawning player, id: " + (object) player.id + ", sending to " + (object) toClient));
+      Debug.Log($"spawning player, id: {player.id} sending to {toClient}");
       packet.Write(player.id);
       packet.Write(player.username);
+
       Vector3 vector3 = new Vector3(player.color.r, player.color.g, player.color.b);
+
       packet.Write(vector3);
       player.pos = pos;
       packet.Write(pos);
@@ -116,6 +121,34 @@ public class ServerSend
   }
 
 
+  public static void StartGame(int playerLobbyId)
+  {
+    using (Packet packet = new Packet(13))
+    {
+      packet.Write(playerLobbyId); // lobbyid
+      packet.Write(123); // seed
+      packet.Write(123); // gamemode
+      packet.Write(123); // firnedly fire
+      packet.Write(123); // difficulty
+      packet.Write(123); // gmaelength
+      packet.Write(123); // multiplayer
+      List<Player> playerList = new List<Player>();
+      for (int key = 0; key < Server.clients.Values.Count; ++key)
+      {
+        if (Server.clients[key] != null && Server.clients[key].player != null)
+          playerList.Add(Server.clients[key].player);
+      }
+      packet.Write(playerList.Count); // player ocunt
+      foreach (Player player in playerList)
+      {
+        packet.Write(player.id);
+        packet.Write(player.username);
+      }
+      Debug.Log((object) "Sending start game packet");
+      ServerSend.SendTCPData(playerLobbyId, packet);
+    }
+  }
+  /*
     public static void StartGame(int playerLobbyId)
   {
     Debug.Log("Sending start packet to " + playerLobbyId);
@@ -139,6 +172,7 @@ public class ServerSend
       ServerSend.SendTCPData(playerLobbyId, packet);
     }
   }
+  */
 
 
   public static void ConnectionSuccessful(int toClient)

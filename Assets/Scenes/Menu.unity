@@ -4132,6 +4132,7 @@ Transform:
   - {fileID: 769468708}
   - {fileID: 1021017061}
   - {fileID: 1555038605}
+  - {fileID: 492568159}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &442788940
@@ -4488,6 +4489,100 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &492568158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 492568159}
+  - component: {fileID: 492568160}
+  - component: {fileID: 492568161}
+  - component: {fileID: 492568162}
+  - component: {fileID: 492568163}
+  m_Layer: 0
+  m_Name: NetworkManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &492568159
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492568158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 440388125}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &492568160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492568158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd19398475da44fc1b6b53fe8509684f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  networkType: 0
+  steam: {fileID: 0}
+  classic: {fileID: 0}
+  nPlayers: 0
+  playerNames: []
+--- !u!114 &492568161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492568158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad8414023425462493b715a4f33c7c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lobbyCam: {fileID: 0}
+  startMenu: {fileID: 0}
+  usernameField: {fileID: 0}
+  ipField: {fileID: 0}
+  portField: {fileID: 0}
+  server: {fileID: 0}
+--- !u!114 &492568162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492568158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 484f227a2ede74ff29a92326dfec2f6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &492568163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 492568158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f582013f9f2e74b6ab688ccd338580a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &522196232
 GameObject:
   m_ObjectHideFlags: 0
@@ -6321,6 +6416,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameState: 0
+  playerPrefab: {fileID: 2148947669889860999, guid: e2937c671185c47ec8f9ac7c289846ef, type: 3}
 --- !u!114 &769468713
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6355,7 +6451,7 @@ MonoBehaviour:
   - name: WoodHit
     clip: {fileID: 8300000, guid: cec8f76c4d5fe41d6afe94340eee4874, type: 3}
     volume: 0.708
-    pitch: 1.57
+    pitch: 1.34
     loop: 0
     source: {fileID: 0}
   - name: TreeFalling
@@ -17390,7 +17486,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6381022859223772116, guid: 560f3046c125a4679a5f323a2819a015, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.0000038147
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6381022859223772116, guid: 560f3046c125a4679a5f323a2819a015, type: 3}
       propertyPath: m_AnchoredPosition.y

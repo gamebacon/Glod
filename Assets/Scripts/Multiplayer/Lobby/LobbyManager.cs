@@ -122,11 +122,8 @@ public async void CreateLobby()
         Debug.Log($"Client count: {Server.clients.Count}");
         foreach (Client client in Server.clients.Values)
         {
-            Debug.Log(client);
-            Debug.Log(client?.player);
             if (client?.player != null)
             {
-                Debug.Log($"Sending to {client.player.username}!");
                 ServerSend.StartGame(client.player.id);
             } else {
                 Debug.Log($"{client?.player} ist null!");
@@ -135,7 +132,6 @@ public async void CreateLobby()
         currentLobby.SetJoinable(false);
         hasStarted = true;
         LocalClient.serverOwner = true;
-        Debug.Log($"PlayerId: {SteamManager.instance.playerSteamId}");
         LocalClient.instance.serverHost = SteamManager.instance.playerSteamId;
   }
 }
@@ -166,8 +162,6 @@ private void OnLobbyCreated(Result result, Lobby lobby)
         }
         lobbyVisuals.AddPlayer(SteamManager.instance.playerName, SteamManager.instance.playerSteamIdString);
         LocalClient.instance.serverHost = lobby.Owner.Id.Value;
-        UiManager.instance.Host();
-        UiManager.instance.ConnectToServer();
     }
 
 

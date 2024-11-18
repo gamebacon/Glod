@@ -24,7 +24,7 @@ public class UiManager : MonoBehaviour
     {
       if (!((UnityEngine.Object) UiManager.instance != (UnityEngine.Object) this))
         return;
-      Debug.Log((object) "Instance already exists, destroying object");
+      MonoBehaviour.print((object) "Instance already exists, destroying object");
       UnityEngine.Object.Destroy((UnityEngine.Object) this);
     }
   }
@@ -35,12 +35,18 @@ public class UiManager : MonoBehaviour
 
   public void Host()
   {
-    int port = int.Parse(this.portField.text);
+    MonoBehaviour.print("host!!!!!");
+    int port = 80; // int.Parse(this.portField.text);
+    MonoBehaviour.print("port!!!!!");
     LocalClient.instance.port = port;
+    MonoBehaviour.print("assing port!!!!!");
     NetworkManager.instance.StartServer(port);
+    MonoBehaviour.print("started server !!!!!");
     Server.ipAddress = IPAddress.Any;
-    MonoBehaviour.print((object) ("hosting server on: " + (object) Server.ipAddress + " on port: " + this.portField.text));
+    MonoBehaviour.print("assigned ip!!!!!");
+    MonoBehaviour.print($"hosting server on: {Server.ipAddress} on port: {portField.text}");
     this.ConnectTest();
+    MonoBehaviour.print("C Test !!!!!");
   }
 
   public void ConnectTest()

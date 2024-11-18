@@ -20,11 +20,9 @@ public class Client
   {
     id = clientId;
 
-    /*
     if (NetworkController.Instance.networkType != NetworkController.NetworkType.Classic) {
       return;
     }
-    */
 
     tcp = new Client.TCP(id);
     udp = new Client.UDP(id);

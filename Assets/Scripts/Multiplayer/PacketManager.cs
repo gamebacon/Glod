@@ -16,7 +16,6 @@ public class PacketManager : MonoBehaviour
         while (SteamNetworking.IsP2PPacketAvailable())
         {
             var packet = SteamNetworking.ReadP2PPacket();
-            Debug.Log(packet);
             if (packet.HasValue)
             {
                 HandleOpponentDataPacket(packet.Value.Data);

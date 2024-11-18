@@ -13,8 +13,9 @@ public class ClientHandle : MonoBehaviour
     UiManager.instance.ConnectionSuccessful();
     LocalClient.instance.myId = id;
     ClientSend.WelcomeReceived(id, LocalClient.instance.name);
-    if (NetworkController.Instance.networkType != NetworkController.NetworkType.Classic)
+    if (NetworkController.Instance.networkType != NetworkController.NetworkType.Classic) {
       return;
+    }
     LocalClient.instance.udp.Connect(((IPEndPoint) LocalClient.instance.tcp.socket.Client.LocalEndPoint).Port);
   }
 
@@ -26,8 +27,12 @@ public class ClientHandle : MonoBehaviour
 
   // public static void PlayerFinishedLoading(Packet packet) => LoadingScreen.Instance.UpdateStatuses(packet.ReadInt());
 
+// ??????????????
   public static void SpawnPlayer(Packet packet)
   {
+
+    Debug.Log("Spawning nowwwwwww");
+
     int id = packet.ReadInt();
     string username = packet.ReadString();
     Vector3 vector3 = packet.ReadVector3();
@@ -37,28 +42,59 @@ public class ClientHandle : MonoBehaviour
     GameManager.instance.StartGame();
   }
 
+/*
   public static void StartGame(Packet packet)
   {
-    if (NetworkController.Instance.loading) {
-      return;
+    // if (NetworkController.Instance.loading) {
+      // return;
+    // }
+
+    LocalClient.instance.myId = packet.ReadInt(); // 1
+    int playerCount = packet.ReadInt(); // 2
+
+    Debug.Log($"Client handle start game with {playerCount} players");
+
+    // GameManager.gameSettings = new GameSettings(seed, gameMode, friendlyFire, difficulty, gameLength, multiplayer);
+
+    // MonoBehaviour.print((object) "Game settings successfully loaded");
+    // MonoBehaviour.print((object) ("loading game scene, assigned id: " + (object) LocalClient.instance.myId));
+
+    NetworkController.Instance.nPlayers = playerCount;
+
+    string[] names = new string[playerCount];
+    for (int index = 0; index < playerCount; ++index)
+    {
+      packet.ReadInt();
+      string str = packet.ReadString();
+      names[index] = str;
     }
 
+    NetworkController.Instance.LoadGame(names);
+    // ClientSend.StartedLoading();
+  }
+  */  
+  public static void StartGame(Packet packet)
+  {
+    /*
+    if (NetworkController.Instance.loading)
+      return;
+    */
+
     LocalClient.instance.myId = packet.ReadInt();
+
     int seed = packet.ReadInt();
     int num1 = packet.ReadInt();
     int num2 = packet.ReadInt();
     int num3 = packet.ReadInt();
     int num4 = packet.ReadInt();
     int num5 = packet.ReadInt();
-
     int gameMode = num1;
     int friendlyFire = num2;
     int difficulty = num3;
     int gameLength = num4;
     int multiplayer = num5;
-    /*
-    GameManager.gameSettings = new GameSettings(seed, gameMode, friendlyFire, difficulty, gameLength, multiplayer);
-    */
+
+    // GameManager.gameSettings = new GameSettings(seed, gameMode, friendlyFire, difficulty, gameLength, multiplayer);
 
     /*
     MonoBehaviour.print((object) "Game settings successfully loaded");
@@ -67,7 +103,6 @@ public class ClientHandle : MonoBehaviour
 
     int length = packet.ReadInt();
     NetworkController.Instance.nPlayers = length;
-
     string[] names = new string[length];
     for (int index = 0; index < length; ++index)
     {
@@ -75,11 +110,8 @@ public class ClientHandle : MonoBehaviour
       string str = packet.ReadString();
       names[index] = str;
     }
-
     NetworkController.Instance.LoadGame(names);
-    /*
-    ClientSend.StartedLoading();
-    */
+    // ClientSend.StartedLoading();
   }
 
   public static void ReceivePing(Packet packet)
@@ -108,6 +140,10 @@ public class ClientHandle : MonoBehaviour
     AchievementManager.Instance.AddPlayerKill();
   }
   */
+  public static void PlayerFinishedLoading(Packet packet) {
+    Debug.Log("Fin loading");
+   // LoadingScreen.Instance.UpdateStatuses(packet.ReadInt());
+  }
 
   public static void Ready(Packet packet)
   {

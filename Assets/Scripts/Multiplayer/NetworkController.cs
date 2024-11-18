@@ -17,14 +17,14 @@ public class NetworkController : MonoBehaviour
 
   private void Awake()
   {
-    if ((bool) (Object) NetworkController.Instance)
+    if (NetworkController.Instance)
     {
-      Object.Destroy((Object) this.gameObject);
+      Object.Destroy(gameObject);
     }
     else
     {
       NetworkController.Instance = this;
-      Object.DontDestroyOnLoad((Object) this.gameObject);
+      DontDestroyOnLoad(gameObject);
     }
   }
 
@@ -34,11 +34,15 @@ public class NetworkController : MonoBehaviour
     this.playerNames = names;
     /*
     LoadingScreen.Instance.Show();
-    this.Invoke("StartLoadingScene", LoadingScreen.Instance.totalFadeTime);
     */
+    Invoke("StartLoadingScene", 1);
+    Debug.Log("Invoking game scene");
   }
 
-  // private void StartLoadingScene() => SceneManager.LoadScene("GameAfterLobby");
+  private void StartLoadingScene() {
+    SceneManager.LoadScene("Game");
+    ClientSend.PlayerFinishedLoading();
+  }
 
   public enum NetworkType
   {

@@ -21,15 +21,15 @@ public class Server
   {
     Server.MaxPlayers = maxPlayers;
     Server.Port = port;
-    Debug.Log((object) "Starting server.. ver.0.7");
+    Debug.Log("Starting server.. ver.0.7");
     Server.InitializeServerData();
     Server.tcpListener = new TcpListener(Server.ipAddress, Server.Port);
-    Debug.Log((object) string.Format("TclpListener on IP: {0}.", (object) Server.ipAddress));
+    Debug.Log($"TclpListener on IP: {Server.ipAddress}");
     Server.tcpListener.Start();
-    Server.tcpListener.BeginAcceptTcpClient(new AsyncCallback(Server.TCPConnectCallback), (object) null);
+    Server.tcpListener.BeginAcceptTcpClient(new AsyncCallback(Server.TCPConnectCallback), null);
     Server.udpListener = new UdpClient(Server.Port);
-    Server.udpListener.BeginReceive(new AsyncCallback(Server.UDPReceiveCallback), (object) null);
-    Debug.Log((object) ("Server started on port:" + (object) Server.Port));
+    Server.udpListener.BeginReceive(new AsyncCallback(Server.UDPReceiveCallback), null);
+    Debug.Log("Server started on port:" + Server.Port);
     ThreadManagerServer.Instance.ResetGame();
   }
 
@@ -88,6 +88,14 @@ public class Server
 
   public static void InitializeServerPackets() => Server.PacketHandlers = new Dictionary<int, Server.PacketHandler>()
   {
+    {
+      13,
+      new Server.PacketHandler(ServerHandle.StartGameTest)
+    },
+    {
+      51,
+      new Server.PacketHandler(ServerHandle.LoadingFinTest)
+    },
     {
       1,
       new Server.PacketHandler(ServerHandle.WelcomeReceived)

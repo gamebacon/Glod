@@ -82,12 +82,10 @@ public class LocalClient : MonoBehaviour
         14,
         new LocalClient.PacketHandler(ClientHandle.Clock)
       },
-      /*
       {
         51,
         new LocalClient.PacketHandler(ClientHandle.PlayerFinishedLoading)
       },
-      */
       {
         12,
         new LocalClient.PacketHandler(ClientHandle.GameOver)

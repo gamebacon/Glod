@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using System.Collections.Generic;
 using Steamworks;
@@ -11,32 +12,45 @@ public class GameManager : MonoBehaviour
 
     public GameState gameState; 
 
+    [SerializeField]
+    private GameObject playerPrefab;
+
     
 
     public static GameManager instance;
 
+  private void Awake()
+  {
+    if (GameManager.instance == null)
+    {
+      GameManager.instance = this;
+    } else if (GameManager.instance != this) {
+      Destroy(this);
+    }
+
+    GameManager.players = new Dictionary<int, PlayerManager>();
+  }
+
+
     void Start()
     {
-        if (instance == null) {
-            instance = this;
-        }
         AudioManager.Instance.Play("Menu");
     }
 
 public List<Vector3> FindSurvivalSpawnPositions(int size) {
     List<Vector3> list = new List<Vector3>();
 
+  for(int i = 0; i < size; i++) {
     list.Add(new Vector3(213, 20, 134));
-    list.Add(new Vector3(413, 20, 24));
-    list.Add(new Vector3(213, 20, 134));
-    list.Add(new Vector3(113, 20, 434));
+  }
 
     return list;
 }
 
 
-  public void SendPlayersIntoGame(List<Vector3> spawnPositions)
+  public void SendPlayersIntoGame(int amount)
   {
+    List<Vector3> spawnPositions = FindSurvivalSpawnPositions(amount);
     int index = 0;
     foreach (Client client1 in Server.clients.Values)
     {
@@ -46,7 +60,11 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
         {
           if (client2?.player != null)
           {
-            ServerSend.SpawnPlayer(client1.id, client2.player, this.spawnPositions[index] + Vector3.up);
+
+            ServerSend.SpawnPlayer(
+              client1.id,
+              client2.player, spawnPositions[index] + Vector3.up);
+
             ++index;
           }
         }
@@ -54,17 +72,14 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
     }
   }  
 
+public void Update() {
+    Debug.Log(GameManager.instance.gameState);
+}
+
 
   public void GameOver(int winnerId, float time = 4f)
   {
     Debug.Log("game over");
-    
-    /*
-    this.winnerId = winnerId;
-    this.Invoke("ShowEndScreen", time);
-    MusicController.Instance.StopSong();
-    AchievementManager.Instance.CheckGameOverAchievements(winnerId);
-    */
   }
 
   public void StartGame()
@@ -75,6 +90,7 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
     */
 
     GameManager.instance.gameState = GameState.Game;
+
 
     /*
     if (LocalClient.serverOwner) {
@@ -130,30 +146,32 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
       return;
     }
 
-    Debug.Log("Spawning player");
+    Instantiate(playerPrefab, position, Quaternion.Euler(0.0f, orientationY, 0.0f));
 
     /*
-    PlayerManager component;
-    if (id == LocalClient.instance.myId)
+    Debug.Log("Spawning player");
+
+    PlayerManager playerManager;
+    if (id == LocalClient.instance.myId) // is me
     {
-      Instantiate<GameObject>(localPlayerPrefab, position, Quaternion.Euler(0.0f, 0.0f, 0.0f));
-      component = PlayerMovement.Instance.gameObject.GetComponent<PlayerManager>();
+      Instantiate<GameObject>(playerPrefab, position, Quaternion.Euler(0.0f, 0.0f, 0.0f));
+      // GET LOCAL playerManager = PlayerMovement.Instance.gameObject.GetComponent<PlayerManager>();
     }
     else
     {
-      component = Instantiate<GameObject>(playerPrefab, position, Quaternion.Euler(0.0f, orientationY, 0.0f)).GetComponent<PlayerManager>();
-      component.SetDesiredPosition(position);
+      playerManager = Instantiate<GameObject>(playerPrefab, position, Quaternion.Euler(0.0f, orientationY, 0.0f)).GetComponent<PlayerManager>();
+      playerManager.SetDesiredPosition(position);
     }
-    component.SetDesiredPosition(position);
-    component.id = id;
-    component.username = username;
-    component.color = color;
-    GameManager.players.Add(id, component);
+    playerManager.SetDesiredPosition(position);
+    playerManager.id = id;
+    playerManager.username = username;
+    playerManager.color = color;
+    GameManager.players.Add(id, playerManager);
+
     if ((GameManager.gameSettings.gameMode != GameSettings.GameMode.Versus || id != LocalClient.instance.myId) && GameManager.gameSettings.gameMode == GameSettings.GameMode.Versus)
       return;
-    this.extraUi.InitPlayerStatus(id, username, component);
+    this.extraUi.InitPlayerStatus(id, username, playerManager);
     */
-
 
   }
 

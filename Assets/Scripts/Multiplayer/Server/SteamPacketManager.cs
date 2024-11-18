@@ -5,6 +5,14 @@ using UnityEngine;
 
 public class SteamPacketManager : MonoBehaviour
 {
+  private void Start()
+  {
+    DontDestroyOnLoad(gameObject);
+    Server.InitializeServerPackets();
+    LocalClient.InitializeClientData();
+
+    Debug.Log("server and client packets inited");
+  }
     
 
     private static void HandlePacket(P2Packet? p2Packet, int channel)
@@ -35,6 +43,9 @@ public class SteamPacketManager : MonoBehaviour
       }
 
       int key = packet.ReadInt();
+      /* 
+        To client
+      */
       if (channel == 0)
       {
         if (steamId.Value != LocalClient.instance.serverHost.Value) {
@@ -44,6 +55,9 @@ public class SteamPacketManager : MonoBehaviour
         LocalClient.packetHandlers[key](packet);
       }
       else
+        /* 
+          To Server
+        */
         Server.PacketHandlers[key](LobbyManager.steamIdToClientId[steamId.Value], packet);
     }
   }
@@ -53,6 +67,7 @@ public class SteamPacketManager : MonoBehaviour
         int length = p.Length();
         byte[] numArray = p.CloneBytes();
         Packet packet = new Packet(numArray);
+        Debug.Log($"{steamId.Value} - {SteamManager.instance.playerSteamId.Value}");
         if (steamId.Value != SteamManager.instance.playerSteamId.Value)
             SteamNetworking.SendP2PPacket(steamId.Value, numArray, length, (int) channel, p2pSend);
         else

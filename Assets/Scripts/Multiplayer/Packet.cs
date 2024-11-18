@@ -1,13 +1,8 @@
-// Decompiled with JetBrains decompiler
-// Type: Packet
-// Assembly: Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 8DB17789-D6D5-48DE-86AB-E696A5FF6B2B
-// Assembly location: D:\SteamLibrary\steamapps\common\Muck\Muck_Data\Managed\Assembly-CSharp.dll
-
 using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
+using System.Text;
 
 public class Packet : IDisposable
 {
@@ -35,6 +30,32 @@ public class Packet : IDisposable
     this.readPos = 0;
     this.SetBytes(_data);
   }
+
+    public override string ToString()
+    {
+        StringBuilder sb = new StringBuilder();
+        sb.AppendLine("Packet Information:");
+        sb.AppendLine($"Buffer Length: {buffer?.Count ?? 0}");
+        sb.AppendLine($"Readable Buffer Length: {readableBuffer?.Length ?? 0}");
+        sb.AppendLine($"Read Position: {readPos}");
+        sb.AppendLine($"Disposed: {disposed}");
+
+        if (buffer != null && buffer.Count > 0)
+        {
+            sb.Append("Buffer Data: ");
+            foreach (byte b in buffer)
+            {
+                sb.Append($"{b:X2} "); // Hexadecimal representation for clarity
+            }
+            sb.AppendLine();
+        }
+        else
+        {
+            sb.AppendLine("Buffer Data: Empty");
+        }
+
+        return sb.ToString();
+    }
 
   public void SetBytes(byte[] _data)
   {

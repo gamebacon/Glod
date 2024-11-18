@@ -19,7 +19,6 @@ public class Console : MonoBehaviour
     }
 
     public static void AddMessage(string msg) {
-        Debug.Log(msg);
         instance.consoleText.text += "\n" + msg;
     }
 

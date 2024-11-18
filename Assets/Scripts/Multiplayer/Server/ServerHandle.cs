@@ -27,6 +27,13 @@ public class ServerHandle
     }
     else
     {
+      Server.clients[fromClient].SendIntoGame();
+      return; // ??????
+      Debug.Log(packet.ToString());
+
+      // worng data? (removing id)
+      int playerId = packet.ReadInt();
+
       Debug.LogError((object) ("Player wants to join, id: " + (object) fromClient));
       Server.clients[fromClient].player.hasJoined = true;
       Server.clients[fromClient].player.username = packet.ReadString();
@@ -58,7 +65,7 @@ public class ServerHandle
     List<Vector3> spawnPositions = /* GameManager.gameSettings.gameMode == GameSettings.GameMode.Versus ? GameManager.instance.FindVersusSpawnPositions(nPlayers) : */ GameManager.instance.FindSurvivalSpawnPositions(nPlayers);
     if (num < nPlayers)
       return;
-    GameManager.instance.SendPlayersIntoGame(spawnPositions);
+    GameManager.instance.SendPlayersIntoGame(nPlayers);
   }
 
   public static void PlayerDisconnect(int fromClient, Packet packet)
@@ -125,6 +132,22 @@ public class ServerHandle
     string msg = packet.ReadString();
     string username = GameManager.players[fromClient].username;
     ServerSend.SendChatMessage(fromClient, username, msg);
+  }
+
+  public static void StartGameTest(int fromClient, Packet packet)
+  {
+    if (Server.clients[fromClient].player == null)
+      return;
+
+      Debug.Log("Test start game serv handle!");
+  }
+
+  public static void LoadingFinTest(int fromClient, Packet packet)
+  {
+    if (Server.clients[fromClient].player == null)
+      return;
+
+      Debug.Log("Test loading fin serv handle!");
   }
 
   public static void ReceivePing(int fromClient, Packet packet)
