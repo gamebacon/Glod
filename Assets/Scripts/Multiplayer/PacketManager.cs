@@ -25,7 +25,6 @@ public class PacketManager : MonoBehaviour
 
 
     void HandleOpponentDataPacket(byte[] data)  {
-        Debug.Log(data);
     }
     
 }

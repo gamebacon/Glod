@@ -31,7 +31,7 @@ public class ClientHandle : MonoBehaviour
   public static void SpawnPlayer(Packet packet)
   {
 
-    Debug.Log("Spawning nowwwwwww");
+    Debug.Log("Spawning player now");
 
     int id = packet.ReadInt();
     string username = packet.ReadString();
@@ -52,7 +52,6 @@ public class ClientHandle : MonoBehaviour
     LocalClient.instance.myId = packet.ReadInt(); // 1
     int playerCount = packet.ReadInt(); // 2
 
-    Debug.Log($"Client handle start game with {playerCount} players");
 
     // GameManager.gameSettings = new GameSettings(seed, gameMode, friendlyFire, difficulty, gameLength, multiplayer);
 
@@ -79,6 +78,8 @@ public class ClientHandle : MonoBehaviour
     if (NetworkController.Instance.loading)
       return;
     */
+
+    Debug.Log("Recieved start game packet (client)");
 
     LocalClient.instance.myId = packet.ReadInt();
 
@@ -141,7 +142,7 @@ public class ClientHandle : MonoBehaviour
   }
   */
   public static void PlayerFinishedLoading(Packet packet) {
-    Debug.Log("Fin loading");
+    Debug.Log("Fin loading player (client) ");
    // LoadingScreen.Instance.UpdateStatuses(packet.ReadInt());
   }
 

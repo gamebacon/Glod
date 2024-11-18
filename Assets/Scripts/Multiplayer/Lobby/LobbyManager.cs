@@ -119,14 +119,16 @@ public async void CreateLobby()
     else
     {
         Console.AddMessage("Starting lobby");
-        Debug.Log($"Client count: {Server.clients.Count}");
+
+        Debug.Log($"Starting game with {Server.clients.Count} clients");
+
         foreach (Client client in Server.clients.Values)
         {
             if (client?.player != null)
             {
+                Debug.Log($"Sending start packet to {client.player.ToString()}");
                 ServerSend.StartGame(client.player.id);
             } else {
-                Debug.Log($"{client?.player} ist null!");
             }
         }
         currentLobby.SetJoinable(false);
@@ -254,7 +256,7 @@ public void JoinLobby()
     Client client = Server.clients[availableLobbyId];
     client.inLobby = true;
     client.player = new Player(availableLobbyId, friend.Name, UnityEngine.Color.black, steamId);
-    Debug.Log("finished adding player");
+    Debug.Log($"finished adding client. ({friend.Name}) ");
   }
 
 }

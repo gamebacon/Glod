@@ -66,17 +66,6 @@ public class EnvironmentSpawner : MonoBehaviour
                 // Instantiate the object at the calculated position
                 GameObject newObject = Instantiate(obj.prefab, spawnPosition, Quaternion.Euler(0, Random.Range(0, 360), 0), transform);
                 
-                /*
-                if (newObject != null)
-                {
-                    Debug.Log($"Spawned {obj.prefab.name} at {spawnPosition}");
-                }
-                else
-                {
-                    Debug.LogError($"Failed to spawn {obj.prefab.name} at {spawnPosition}");
-                }
-                */
-
                 // Randomize the scale
                 float randomScale = Random.Range(obj.minScale, obj.maxScale);
                 newObject.transform.localScale = new Vector3(randomScale, randomScale, randomScale);
