@@ -71,6 +71,8 @@ public class LobbyManager : MonoBehaviour
         Console.AddMessage($"Join callback: {friend.Name} joined the lobby!");
         if (friend.Id != SteamManager.instance.playerSteamId) {
             SteamManager.instance.AcceptP2P(friend.Id);
+        } else {
+          Debug.Log($"{friend.Id} - {SteamManager.instance.playerSteamId}");
         }
         lobbyVisuals.AddPlayer(friend.Name, friend.Id.ToString());
         currentLobby = lobby;
