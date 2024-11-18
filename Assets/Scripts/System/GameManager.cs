@@ -130,7 +130,7 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
   }
 
     public void d() {
-      Debug.Log("d");
+      Debug.Log("init prefab player");
       Instantiate(playerPrefab); // , position, ) // Quaternion.Euler(0.0f, orientationY, 0.0f));
     }
 
@@ -144,13 +144,11 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
   {
 
     if (GameManager.players.ContainsKey(id)) {
-      Debug.Log("Coantins!");
-      Debug.Log(GameManager.players);
-      Debug.Log(GameManager.players.Count);
+      Debug.Log("player already exi " + id);
       return;
     }
 
-    Debug.Log("Instant!");
+    Debug.Log("Instantiate preab invoke!");
     Instantiate(playerPrefab); // , position, ) // Quaternion.Euler(0.0f, orientationY, 0.0f));
     Invoke("d", 4);
 

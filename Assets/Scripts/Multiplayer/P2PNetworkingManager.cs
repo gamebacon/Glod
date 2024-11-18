@@ -38,13 +38,9 @@ public class P2PNetworkingManager : MonoBehaviour
 
     private void StartHost()
     {
-        Debug.Log("Hosting game...");
-        // Host-specific logic
     }
 
     private void StartClient()
     {
-        Debug.Log("Connecting to host...");
-        // Client-specific logic
     }
 }

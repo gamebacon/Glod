@@ -139,7 +139,7 @@ public class ServerHandle
     if (Server.clients[fromClient].player == null)
       return;
 
-      Debug.Log("Test start game serv handle!");
+      Debug.Log("Test start game serv handle!" + fromClient);
   }
 
   public static void LoadingFinTest(int fromClient, Packet packet)
@@ -147,7 +147,7 @@ public class ServerHandle
     if (Server.clients[fromClient].player == null)
       return;
 
-      Debug.Log("Test loading fin serv handle!");
+      Debug.Log("Test loading fin serv handle! " + fromClient);
   }
 
   public static void ReceivePing(int fromClient, Packet packet)

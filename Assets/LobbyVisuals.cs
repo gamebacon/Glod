@@ -23,7 +23,6 @@ public class LobbyVisuals : MonoBehaviour
     }
 
     public void AddPlayer(string playerName, string playerId) {
-        Debug.Log($"{playerName} added as lobby player");
         int playerNum = lobbyPlayers.Count + 1;
         Transform parentPos = playerPos[playerNum - 1];
         GameObject obj = Instantiate(lobbyPlayerPrefab, parentPos);
@@ -33,7 +32,6 @@ public class LobbyVisuals : MonoBehaviour
     }
 
 public void RemovePlayer(string playerId) {
-    Debug.Log($"{playerId} removed as lobby player");
     LobbyPlayer lobbyPlayer = lobbyPlayers.FirstOrDefault(p => p.playerId == playerId);
     if (lobbyPlayer != null) {
         lobbyPlayers.Remove(lobbyPlayer);
