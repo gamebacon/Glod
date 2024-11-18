@@ -15,7 +15,10 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        return;
+        if (GameManager.instance.gameState != GameState.Game) {
+            return;
+        }
+
         // Handle melee attack
         if (Input.GetMouseButtonDown(0)) // Left mouse button
         {

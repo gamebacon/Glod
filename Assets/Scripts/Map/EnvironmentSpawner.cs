@@ -9,6 +9,7 @@ public class SpawnableObject
     public float minScale = 0.2f;         // Minimum scale for size variation
     public float maxScale = 1f;         // Maximum scale for size variation
     public float minSpacing = 3f;         // Minimum spacing from other objects
+
 }
 
 public class EnvironmentSpawner : MonoBehaviour
@@ -63,7 +64,7 @@ public class EnvironmentSpawner : MonoBehaviour
                 spawnPosition = GetTerrainHeightAdjustedPosition(spawnPosition);
 
                 // Instantiate the object at the calculated position
-                GameObject newObject = Instantiate(obj.prefab, spawnPosition, Quaternion.Euler(0, Random.Range(0, 360), 0));
+                GameObject newObject = Instantiate(obj.prefab, spawnPosition, Quaternion.Euler(0, Random.Range(0, 360), 0), transform);
                 
                 /*
                 if (newObject != null)

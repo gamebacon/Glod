@@ -8,7 +8,7 @@ public class P2PNetworkingManager : MonoBehaviour
 
     void Start()
     {
-        if (LobbyManager.Instance.IsHost)
+        if (LobbyManager.instance.IsHost)
         {
             isHost = true;
             hostSteamId = SteamClient.SteamId;
@@ -17,7 +17,7 @@ public class P2PNetworkingManager : MonoBehaviour
         else
         {
             isHost = false;
-            hostSteamId = LobbyManager.Instance.HostSteamId; // Get the host's Steam ID
+            hostSteamId = LobbyManager.instance.HostSteamId; // Get the host's Steam ID
             StartClient();
         }
     }
