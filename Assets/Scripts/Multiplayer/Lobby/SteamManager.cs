@@ -87,6 +87,7 @@ public class SteamManager : MonoBehaviour {
         try
         {
         SteamNetworking.AcceptP2PSessionWithUser(opponentId);
+        Debug.Log($"{opponentId} enter p2p session");
         }
         catch
         {
