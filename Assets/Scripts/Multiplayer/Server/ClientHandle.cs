@@ -119,7 +119,6 @@ public class ClientHandle : MonoBehaviour
 
   public static void ReceivePing(Packet packet)
   {
-    Debug.Log("[Client] Receive ping");
     packet.ReadInt();
     NetStatus.AddPing((int) (DateTime.Now - DateTime.Parse(packet.ReadString())).TotalMilliseconds);
   }
@@ -201,7 +200,6 @@ public class ClientHandle : MonoBehaviour
 
   public static void ReceivePlayerPing(Packet packet)
   {
-    Debug.Log("[Client] Receive player ping");
     Vector3 pos = packet.ReadVector3();
     string name = packet.ReadString();
     PingController.Instance.MakePing(pos, name, "");
