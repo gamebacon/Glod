@@ -150,7 +150,7 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
 
     Debug.Log("Instantiate preab invoke!");
     Instantiate(playerPrefab); // , position, ) // Quaternion.Euler(0.0f, orientationY, 0.0f));
-    Invoke("d", 4);
+    Invoke("d", 10);
 
 
     /*
