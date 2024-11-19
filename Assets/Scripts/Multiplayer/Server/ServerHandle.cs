@@ -120,7 +120,6 @@ public class ServerHandle
   {
     if (Server.clients[fromClient].player == null)
       return;
-    Debug.Log("[Server] Ping recieved");
     string ms = packet.ReadString();
     Server.clients[fromClient].player.PingPlayer();
     ServerSend.PingPlayer(fromClient, ms);

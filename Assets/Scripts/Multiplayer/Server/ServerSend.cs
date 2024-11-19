@@ -53,7 +53,6 @@ public class ServerSend
   {
     using (Packet packet = new Packet(8))
     {
-      Debug.Log("[Server] Ping sent");
       packet.Write(player);
       packet.Write(ms);
       ServerSend.SendUDPData(player, packet);
