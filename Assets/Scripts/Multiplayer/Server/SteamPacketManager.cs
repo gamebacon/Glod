@@ -13,6 +13,24 @@ public class SteamPacketManager : MonoBehaviour
 
     Debug.Log("server and client packets inited");
   }
+
+    private void Update()
+  {
+    SteamClient.RunCallbacks();
+    CheckForPackets();
+  }
+
+  private void CheckForPackets()
+  {
+    for (int channel = 0; channel < 2; ++channel)
+    {
+      if (SteamNetworking.IsP2PPacketAvailable(channel))
+      {
+        while (SteamNetworking.IsP2PPacketAvailable(channel))
+          SteamPacketManager.HandlePacket(SteamNetworking.ReadP2PPacket(channel), channel);
+      }
+    }
+  }
     
 
     private static void HandlePacket(P2Packet? p2Packet, int channel)
@@ -82,6 +100,23 @@ public class SteamPacketManager : MonoBehaviour
             }), (int) channel);
     }
 
+
+  private void OnApplicationQuit() => SteamPacketManager.CloseConnections();
+
+  public static void CloseConnections()
+  {
+    foreach (ulong key in LobbyManager.steamIdToClientId.Keys)
+      SteamNetworking.CloseP2PSessionWithUser((SteamId) key);
+    try
+    {
+      SteamNetworking.CloseP2PSessionWithUser(LocalClient.instance.serverHost);
+    }
+    catch
+    {
+      Debug.Log((object) "Failed to close p2p with host");
+    }
+    SteamClient.Shutdown();
+  }
 
   public enum NetworkChannel
   {
