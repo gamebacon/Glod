@@ -2,34 +2,41 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
-using System.Text;
 
 public class Packet : IDisposable
 {
-  private List<byte> buffer;
-  private byte[] readableBuffer;
-  private int readPos;
-  private bool disposed;
+    private List<byte> buffer;
+    private byte[] readableBuffer;
+    private int readPos;
+    private bool disposed;
 
-  public Packet()
-  {
-    this.buffer = new List<byte>();
-    this.readPos = 0;
-  }
+    public Packet()
+    {
+        buffer = new List<byte>();
+        readPos = 0;
+    }
 
-  public Packet(int _id)
-  {
-    this.buffer = new List<byte>();
-    this.readPos = 0;
-    this.Write(_id);
-  }
+    public Packet(int _id)
+    {
+        buffer = new List<byte>();
+        readPos = 0;
+        Write(_id);
+    }
 
-  public Packet(byte[] _data)
-  {
-    this.buffer = new List<byte>();
-    this.readPos = 0;
-    this.SetBytes(_data);
-  }
+    public Packet(byte[] _data)
+    {
+        buffer = new List<byte>();
+        readPos = 0;
+        SetBytes(_data);
+    }
+
+    private void EnsureReadableBuffer()
+    {
+        if (readableBuffer == null)
+        {
+            readableBuffer = buffer.ToArray();
+        }
+    }
 
     public override string ToString()
     {
@@ -42,10 +49,10 @@ public class Packet : IDisposable
 
         if (buffer != null && buffer.Count > 0)
         {
-            sb.Append("Buffer Data: ");
+            sb.Append("Buffer Data (Hex): ");
             foreach (byte b in buffer)
             {
-                sb.Append($"{b:X2} "); // Hexadecimal representation for clarity
+                sb.Append($"{b:X2} ");
             }
             sb.AppendLine();
         }
@@ -54,191 +61,224 @@ public class Packet : IDisposable
             sb.AppendLine("Buffer Data: Empty");
         }
 
+        if (readableBuffer != null && readableBuffer.Length > 0)
+        {
+            sb.Append("Readable Buffer Data (Hex): ");
+            foreach (byte b in readableBuffer)
+            {
+                sb.Append($"{b:X2} ");
+            }
+            sb.AppendLine();
+        }
+        else
+        {
+            sb.AppendLine("Readable Buffer Data: Empty");
+        }
+
         return sb.ToString();
     }
 
-  public void SetBytes(byte[] _data)
-  {
-    this.Write(_data);
-    this.readableBuffer = this.buffer.ToArray();
-  }
-
-  public void WriteLength() => this.buffer.InsertRange(0, (IEnumerable<byte>) BitConverter.GetBytes(this.buffer.Count));
-
-  public void InsertInt(int _value) => this.buffer.InsertRange(0, (IEnumerable<byte>) BitConverter.GetBytes(_value));
-
-  public byte[] ToArray()
-  {
-    this.readableBuffer = this.buffer.ToArray();
-    return this.readableBuffer;
-  }
-
-  public int Length() => this.buffer.Count;
-
-  public int UnreadLength() => this.Length() - this.readPos;
-
-  public void Reset(bool _shouldReset = true)
-  {
-    if (_shouldReset)
+    public void SetBytes(byte[] _data)
     {
-      this.buffer.Clear();
-      this.readableBuffer = (byte[]) null;
-      this.readPos = 0;
+        if (_data == null || _data.Length == 0)
+        {
+            throw new ArgumentException("Data cannot be null or empty.", nameof(_data));
+        }
+        buffer.Clear();
+        Write(_data);
+        readableBuffer = buffer.ToArray();
+        readPos = 0;
     }
-    else
-      this.readPos -= 4;
-  }
 
-  public void Write(byte _value) => this.buffer.Add(_value);
+    public void WriteLength() => buffer.InsertRange(0, BitConverter.GetBytes(buffer.Count));
+    public void InsertInt(int _value) => buffer.InsertRange(0, BitConverter.GetBytes(_value));
 
-  public void Write(byte[] _value) => this.buffer.AddRange((IEnumerable<byte>) _value);
-
-  public void Write(short _value) => this.buffer.AddRange((IEnumerable<byte>) BitConverter.GetBytes(_value));
-
-  public void Write(int _value) => this.buffer.AddRange((IEnumerable<byte>) BitConverter.GetBytes(_value));
-
-  public void Write(long _value) => this.buffer.AddRange((IEnumerable<byte>) BitConverter.GetBytes(_value));
-
-  public void Write(float _value) => this.buffer.AddRange((IEnumerable<byte>) BitConverter.GetBytes(_value));
-
-  public void Write(bool _value) => this.buffer.AddRange((IEnumerable<byte>) BitConverter.GetBytes(_value));
-
-  public void Write(string _value)
-  {
-    this.Write(_value.Length);
-    this.buffer.AddRange((IEnumerable<byte>) Encoding.ASCII.GetBytes(_value));
-  }
-
-  public void Write(Vector3 _value)
-  {
-    this.Write(_value.x);
-    this.Write(_value.y);
-    this.Write(_value.z);
-  }
-
-  public void Write(Quaternion _value)
-  {
-    this.Write(_value.x);
-    this.Write(_value.y);
-    this.Write(_value.z);
-    this.Write(_value.w);
-  }
-
-  public byte ReadByte(bool _moveReadPos = true)
-  {
-    if (this.buffer.Count <= this.readPos)
-      throw new Exception("Could not read value of type 'byte'!");
-    int num = (int) this.readableBuffer[this.readPos];
-    if (!_moveReadPos)
-      return (byte) num;
-    ++this.readPos;
-    return (byte) num;
-  }
-
-  public byte[] ReadBytes(int _length, bool _moveReadPos = true)
-  {
-    if (this.buffer.Count <= this.readPos)
-      throw new Exception("Could not read value of type 'byte[]'!");
-    byte[] array = this.buffer.GetRange(this.readPos, _length).ToArray();
-    if (!_moveReadPos)
-      return array;
-    this.readPos += _length;
-    return array;
-  }
-
-  public byte[] CloneBytes() => this.buffer.ToArray();
-
-  public short ReadShort(bool _moveReadPos = true)
-  {
-    if (this.buffer.Count <= this.readPos)
-      throw new Exception("Could not read value of type 'short'!");
-    int int16 = (int) BitConverter.ToInt16(this.readableBuffer, this.readPos);
-    if (!_moveReadPos)
-      return (short) int16;
-    this.readPos += 2;
-    return (short) int16;
-  }
-
-  public int ReadInt(bool _moveReadPos = true)
-  {
-    if (this.buffer.Count <= this.readPos)
-      throw new Exception("Could not read value of type 'int'!");
-    int int32 = BitConverter.ToInt32(this.readableBuffer, this.readPos);
-    if (!_moveReadPos)
-      return int32;
-    this.readPos += 4;
-    return int32;
-  }
-
-  public long ReadLong(bool _moveReadPos = true)
-  {
-    if (this.buffer.Count <= this.readPos)
-      throw new Exception("Could not read value of type 'long'!");
-    long int64 = BitConverter.ToInt64(this.readableBuffer, this.readPos);
-    if (!_moveReadPos)
-      return int64;
-    this.readPos += 8;
-    return int64;
-  }
-
-  public float ReadFloat(bool _moveReadPos = true)
-  {
-    if (this.buffer.Count <= this.readPos)
-      throw new Exception("Could not read value of type 'float'!");
-    double single = (double) BitConverter.ToSingle(this.readableBuffer, this.readPos);
-    if (!_moveReadPos)
-      return (float) single;
-    this.readPos += 4;
-    return (float) single;
-  }
-
-  public bool ReadBool(bool _moveReadPos = true)
-  {
-    if (this.buffer.Count <= this.readPos)
-      throw new Exception("Could not read value of type 'bool'!");
-    int num = BitConverter.ToBoolean(this.readableBuffer, this.readPos) ? 1 : 0;
-    if (!_moveReadPos)
-      return num != 0;
-    ++this.readPos;
-    return num != 0;
-  }
-
-  public string ReadString(bool _moveReadPos = true)
-  {
-    try
+    public byte[] ToArray()
     {
-      int count = this.ReadInt();
-      string str = Encoding.ASCII.GetString(this.readableBuffer, this.readPos, count);
-      if (_moveReadPos && str.Length > 0)
-        this.readPos += count;
-      return str;
+        readableBuffer = buffer.ToArray();
+        return readableBuffer;
     }
-    catch
+
+    public int Length() => buffer.Count;
+    public int UnreadLength() => Length() - readPos;
+
+    public void Reset(bool _shouldReset = true)
     {
-      throw new Exception("Could not read value of type 'string'!");
+        if (_shouldReset)
+        {
+            buffer.Clear();
+            readableBuffer = null;
+            readPos = 0;
+        }
+        else
+        {
+            readPos = Math.Max(0, readPos - 4); // Prevent negative read positions
+        }
     }
-  }
 
-  public Vector3 ReadVector3(bool moveReadPos = true) => new Vector3(this.ReadFloat(moveReadPos), this.ReadFloat(moveReadPos), this.ReadFloat(moveReadPos));
+    public void Write(byte _value) => buffer.Add(_value);
 
-  public Quaternion ReadQuaternion(bool moveReadPos = true) => new Quaternion(this.ReadFloat(moveReadPos), this.ReadFloat(moveReadPos), this.ReadFloat(moveReadPos), this.ReadFloat(moveReadPos));
-
-  protected virtual void Dispose(bool _disposing)
-  {
-    if (this.disposed)
-      return;
-    if (_disposing)
+    public void Write(byte[] _value)
     {
-      this.buffer = (List<byte>) null;
-      this.readableBuffer = (byte[]) null;
-      this.readPos = 0;
+        if (_value == null)
+        {
+            throw new ArgumentNullException(nameof(_value), "Cannot write a null byte array.");
+        }
+        buffer.AddRange(_value);
     }
-    this.disposed = true;
-  }
 
-  public void Dispose()
-  {
-    this.Dispose(true);
-    GC.SuppressFinalize((object) this);
-  }
+    public void Write(short _value) => buffer.AddRange(BitConverter.GetBytes(_value));
+    public void Write(int _value) => buffer.AddRange(BitConverter.GetBytes(_value));
+    public void Write(long _value) => buffer.AddRange(BitConverter.GetBytes(_value));
+    public void Write(float _value) => buffer.AddRange(BitConverter.GetBytes(_value));
+    public void Write(bool _value) => buffer.AddRange(BitConverter.GetBytes(_value));
+
+    public void Write(string _value)
+    {
+        if (_value == null)
+        {
+            throw new ArgumentNullException(nameof(_value), "Cannot write a null string.");
+        }
+        Write(_value.Length);
+        buffer.AddRange(Encoding.ASCII.GetBytes(_value));
+    }
+
+    public void Write(Vector3 _value)
+    {
+        Write(_value.x);
+        Write(_value.y);
+        Write(_value.z);
+    }
+
+    public void Write(Quaternion _value)
+    {
+        Write(_value.x);
+        Write(_value.y);
+        Write(_value.z);
+        Write(_value.w);
+    }
+
+    public byte ReadByte(bool _moveReadPos = true)
+    {
+        EnsureReadableBuffer();
+        if (buffer.Count <= readPos)
+            throw new Exception("Could not read value of type 'byte'!");
+        byte value = readableBuffer[readPos];
+        if (_moveReadPos)
+            readPos++;
+        return value;
+    }
+
+    public byte[] ReadBytes(int _length, bool _moveReadPos = true)
+    {
+        EnsureReadableBuffer();
+        if (buffer.Count <= readPos)
+            throw new Exception("Could not read value of type 'byte[]'!");
+        byte[] value = buffer.GetRange(readPos, _length).ToArray();
+        if (_moveReadPos)
+            readPos += _length;
+        return value;
+    }
+
+    public byte[] CloneBytes() => buffer.ToArray();
+
+    public short ReadShort(bool _moveReadPos = true)
+    {
+        EnsureReadableBuffer();
+        if (readPos + sizeof(short) > readableBuffer.Length)
+            throw new Exception("Could not read value of type 'short'!");
+        short value = BitConverter.ToInt16(readableBuffer, readPos);
+        if (_moveReadPos)
+            readPos += sizeof(short);
+        return value;
+    }
+
+    public int ReadInt(bool _moveReadPos = true)
+    {
+        EnsureReadableBuffer();
+        if (readPos + sizeof(int) > readableBuffer.Length)
+            throw new Exception("Could not read value of type 'int'!");
+        int value = BitConverter.ToInt32(readableBuffer, readPos);
+        if (_moveReadPos)
+            readPos += sizeof(int);
+        return value;
+    }
+
+    public long ReadLong(bool _moveReadPos = true)
+    {
+        EnsureReadableBuffer();
+        if (readPos + sizeof(long) > readableBuffer.Length)
+            throw new Exception("Could not read value of type 'long'!");
+        long value = BitConverter.ToInt64(readableBuffer, readPos);
+        if (_moveReadPos)
+            readPos += sizeof(long);
+        return value;
+    }
+
+    public float ReadFloat(bool _moveReadPos = true)
+    {
+        EnsureReadableBuffer();
+        if (readPos + sizeof(float) > readableBuffer.Length)
+            throw new Exception("Could not read value of type 'float'!");
+        float value = BitConverter.ToSingle(readableBuffer, readPos);
+        if (_moveReadPos)
+            readPos += sizeof(float);
+        return value;
+    }
+
+    public bool ReadBool(bool _moveReadPos = true)
+    {
+        EnsureReadableBuffer();
+        if (readPos + sizeof(bool) > readableBuffer.Length)
+            throw new Exception("Could not read value of type 'bool'!");
+        bool value = BitConverter.ToBoolean(readableBuffer, readPos);
+        if (_moveReadPos)
+            readPos++;
+        return value;
+    }
+
+    public string ReadString(bool _moveReadPos = true)
+    {
+        EnsureReadableBuffer();
+        try
+        {
+            int length = ReadInt();
+            if (length <= 0)
+                return string.Empty;
+
+            string value = Encoding.ASCII.GetString(readableBuffer, readPos, length);
+            if (_moveReadPos)
+                readPos += length;
+            return value;
+        }
+        catch
+        {
+            throw new Exception("Could not read value of type 'string'!");
+        }
+    }
+
+    public Vector3 ReadVector3(bool moveReadPos = true) =>
+        new Vector3(ReadFloat(moveReadPos), ReadFloat(moveReadPos), ReadFloat(moveReadPos));
+
+    public Quaternion ReadQuaternion(bool moveReadPos = true) =>
+        new Quaternion(ReadFloat(moveReadPos), ReadFloat(moveReadPos), ReadFloat(moveReadPos), ReadFloat(moveReadPos));
+
+    protected virtual void Dispose(bool _disposing)
+    {
+        if (disposed)
+            return;
+        if (_disposing)
+        {
+            buffer = null;
+            readableBuffer = null;
+            readPos = 0;
+        }
+        disposed = true;
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
 }

@@ -34,19 +34,19 @@ public class ClientSend : MonoBehaviour
 
   }
 
-    public static void PingServer()
+  public static void PingServer()
   {
     try
     {
       using (Packet packet = new Packet(6))
       {
-        packet.Write(DateTime.Now.ToString()); //"yyyy-MM-dd HH:mm:ss.fff"));
+        packet.Write(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
         ClientSend.SendUDPData(packet);
       }
     }
     catch (Exception ex)
     {
-      Debug.Log((object) ex);
+      Debug.Log(ex);
     }
   }
 
