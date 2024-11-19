@@ -107,7 +107,7 @@ public async void CreateLobby()
         // currentLobby.SetData(staticDataString, lobbyParameters)
         currentLobby = hostedMultiplayerLobby;
     } catch (Exception e) {
-        Debug.Log("Failed to create multiplayer lobby");
+        Debug.Log("Failed to create multiplayer lobby (Is steam running?)");
         Debug.Log(e.ToString());
     }
 }
