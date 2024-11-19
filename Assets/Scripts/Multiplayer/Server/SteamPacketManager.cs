@@ -42,7 +42,6 @@ public class SteamPacketManager : MonoBehaviour
 
       int key = packet.ReadInt();
 
-      Debug.Log($"[To Client] [Receive] packet: {key}!");
       /* 
         To client
       */
@@ -51,10 +50,10 @@ public class SteamPacketManager : MonoBehaviour
         if (steamId.Value != LocalClient.instance.serverHost.Value) {
           return;
         }
+        Debug.Log($"[To Client] [Receive] packet: {key}!");
 
         LocalClient.packetHandlers[key](packet);
-      }
-      else {
+      } else {
         /* 
           To Server
         */
@@ -70,7 +69,8 @@ public class SteamPacketManager : MonoBehaviour
         byte[] numArray = p.CloneBytes();
         Packet packet = new Packet(numArray);
         if (steamId.Value != SteamManager.instance.playerSteamId.Value) {
-            Debug.Log($"[Send packet] to: {steamId.Value} packet: {p.ReadInt(false)}");
+            Debug.Log($"[Send packet] to: {steamId.Value} size: {p.ReadInt(false)}");
+            Debug.Log(p.ToString());
             SteamNetworking.SendP2PPacket(steamId.Value, numArray, length, (int) channel, p2pSend);
         }
         else
