@@ -6,6 +6,8 @@
 
 
 # vs code
+.vs/
+obj/
 *.sln
 .vsconfig
 *.csproj
