@@ -11,8 +11,10 @@ public class NetStatus : MonoBehaviour
 
   private void SlowUpdate()
   {
-    if (!(bool) (Object) GameManager.instance)
+    if (!GameManager.instance || !DebugNet.Instance.isOn) {
       return;
+    }
+    
     ClientSend.PingServer();
   }
 

@@ -40,7 +40,7 @@ public class ClientSend : MonoBehaviour
     {
       using (Packet packet = new Packet(6))
       {
-        packet.Write(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.fff"));
+        packet.Write(DateTime.Now.ToString()); //"yyyy-MM-dd HH:mm:ss.fff"));
         ClientSend.SendUDPData(packet);
       }
     }
