@@ -48,24 +48,24 @@ public class ServerHandle
     Debug.Log((object) ("Player finished loading: " + (object) fromClient));
     Server.clients[fromClient].player.isReady = true;
     ServerSend.PlayerFinishedLoading(fromClient);
-    int num = 0;
-    int nPlayers = 0;
+    int totalPlayers = 0;
+    int totalReadyPlayers = 0;
     foreach (Client client in Server.clients.Values)
     {
       if (client?.player != null)
       {
-        ++nPlayers;
+        ++totalReadyPlayers;
         if (client.player.isReady)
-          ++num;
+          ++totalPlayers;
       }
     }
-    if (num < nPlayers)
+    if (totalPlayers < totalReadyPlayers)
       return;
-    Debug.Log((object) ("ready players: " + (object) num + " / " + (object) nPlayers));
-    List<Vector3> spawnPositions = /* GameManager.gameSettings.gameMode == GameSettings.GameMode.Versus ? GameManager.instance.FindVersusSpawnPositions(nPlayers) : */ GameManager.instance.FindSurvivalSpawnPositions(nPlayers);
-    if (num < nPlayers)
+    Debug.Log((object) ("ready players: " + (object) totalPlayers + " / " + (object) totalReadyPlayers));
+    List<Vector3> spawnPositions = /* GameManager.gameSettings.gameMode == GameSettings.GameMode.Versus ? GameManager.instance.FindVersusSpawnPositions(nPlayers) : */ GameManager.instance.FindSurvivalSpawnPositions(totalReadyPlayers);
+    if (totalPlayers < totalReadyPlayers)
       return;
-    GameManager.instance.SendPlayersIntoGame(nPlayers);
+    GameManager.instance.SendPlayersIntoGame(totalReadyPlayers);
   }
 
   public static void PlayerDisconnect(int fromClient, Packet packet)

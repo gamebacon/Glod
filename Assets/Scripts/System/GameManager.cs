@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
 public List<Vector3> FindSurvivalSpawnPositions(int size) {
     List<Vector3> list = new List<Vector3>();
 
-  for(int i = 0; i < size; i++) {
+  for(int i = 0; i <= size; i++) {
     list.Add(new Vector3(213, 20, 134));
   }
 
@@ -50,27 +50,32 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
 
   public void SendPlayersIntoGame(int amount)
   {
-    List<Vector3> spawnPositions = FindSurvivalSpawnPositions(amount);
+    Debug.Log($"Init spawnpos {amount} ");
+    spawnPositions = FindSurvivalSpawnPositions(amount);
+    Invoke("SendPlayersIntoGameNow", 2f);
+  }  
+
+  private void SendPlayersIntoGameNow()
+  {
     int index = 0;
-    foreach (Client client1 in Server.clients.Values)
+    foreach (Client toClient in Server.clients.Values)
     {
-      if (client1?.player != null)
+      if (toClient?.player != null)
       {
-        foreach (Client client2 in Server.clients.Values)
+        foreach (Client clientData in Server.clients.Values)
         {
-          if (client2?.player != null)
+          if (clientData?.player != null)
           {
-
-            ServerSend.SpawnPlayer(
-              client1.id,
-              client2.player, spawnPositions[index] + Vector3.up);
-
+            Debug.Log($"spawn player {toClient.id} -> {clientData.player.username} [size: {spawnPositions.Count} index: {index}]");
+            ServerSend.SpawnPlayer(toClient.id, clientData.player, spawnPositions[index] + Vector3.up);
             ++index;
           }
         }
       }
     }
-  }  
+  }
+
+
 
   public void GameOver(int winnerId, float time = 4f)
   {
@@ -150,7 +155,7 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
 
     Debug.Log("Instantiate preab invoke!");
     Instantiate(playerPrefab); // , position, ) // Quaternion.Euler(0.0f, orientationY, 0.0f));
-    Invoke("d", 10);
+    Invoke("d", 3);
 
 
     /*
