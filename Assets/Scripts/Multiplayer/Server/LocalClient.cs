@@ -11,7 +11,6 @@ public class LocalClient : MonoBehaviour
     public static LocalClient instance;
       public static int dataBufferSize = 4096;
 
-    public static bool isServerOwner;
       public static bool serverOwner;
     public SteamId serverHost;
     public static Dictionary<int, LocalClient.PacketHandler> packetHandlers;

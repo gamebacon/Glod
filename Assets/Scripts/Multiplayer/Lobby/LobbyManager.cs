@@ -165,6 +165,7 @@ private void OnLobbyCreated(Result result, Lobby lobby)
             Console.AddMessage(f.Name);
         }
         lobbyVisuals.AddPlayer(SteamManager.instance.playerName, SteamManager.instance.playerSteamIdString);
+        LocalClient.serverOwner = true;
         LocalClient.instance.serverHost = lobby.Owner.Id.Value;
     }
 
