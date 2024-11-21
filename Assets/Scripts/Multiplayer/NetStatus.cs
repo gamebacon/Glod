@@ -11,9 +11,11 @@ public class NetStatus : MonoBehaviour
 
   private void SlowUpdate()
   {
+    /*
     if (GameManager.instance.gameState == GameState.Game) {
-      ClientSend.PingServer();
     }
+    */
+    ClientSend.PingServer();
     
   }
 
