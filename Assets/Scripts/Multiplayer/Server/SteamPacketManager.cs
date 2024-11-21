@@ -45,8 +45,7 @@ public class SteamPacketManager : MonoBehaviour
     SteamId steamId = p2Packet.Value.SteamId.Value;
 
     byte[] data = p2Packet.Value.Data;
-
-    if (!LocalClient.isServerOwner && steamId.Value != LocalClient.instance.serverHost.Value)
+    if (!LocalClient.serverOwner && steamId.Value != LocalClient.instance.serverHost.Value)
     {
       Debug.LogError($"Received packet from someone other than server: {new Friend(steamId).Name}\nDenying packet...");
     }

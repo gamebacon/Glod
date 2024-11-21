@@ -9,26 +9,29 @@ public class PlayerMovement : MonoBehaviour
     public float jumpForce = 5f;
     public float cameraDistance = 5f;
     public float cameraHeight = 3f;
-    public float rotationSpeed = 3f;
+    public float rotationSpeed = 2f;
+
+
 
     private bool isGrounded;
     private bool cameraActive = true;  // Toggle for enabling/disabling camera follow
+
+    [SerializeField]
+    private Camera camera;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
 
         // Initialize camera if main camera exists
-        if (Camera.main != null)
+        if (camera)
         {
-            _cameraTransform = Camera.main.transform;
+            _cameraTransform = camera.transform;
         }
 
-        /* 
         // Hide the cursor initially (before Escape is pressed)
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        */
     }
 
     void Update()

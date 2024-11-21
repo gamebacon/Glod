@@ -27,10 +27,9 @@ public class PlayerManager : MonoBehaviour, IComparable
 
   private void Start()
   {
-    if ((bool) (UnityEngine.Object) this.nameText)
+    if (nameText)
     {
-      this.nameText.text = "";
-      TextMeshProUGUI nameText = this.nameText;
+      nameText.text = "";
       nameText.text = nameText.text + "\n<size=100%>" + this.username;
     }
     // this.hitable.SetId(this.id);
@@ -38,20 +37,20 @@ public class PlayerManager : MonoBehaviour, IComparable
 
   public void SetDesiredPosition(Vector3 position)
   {
-    if (!(bool) (UnityEngine.Object) this.onlinePlayer)
+    if (!onlinePlayer)
       return;
-    this.onlinePlayer.desiredPos = position;
+    onlinePlayer.desiredPos = position;
   }
 
   public void SetDesiredRotation(float orientationY, float orientationX)
   {
-    if (!(bool) (UnityEngine.Object) this.onlinePlayer)
+    if (!onlinePlayer)
       return;
-    this.onlinePlayer.orientationY = orientationY;
-    this.onlinePlayer.orientationX = orientationX;
+    onlinePlayer.orientationY = orientationY;
+    onlinePlayer.orientationX = orientationX;
   }
 
-  public void SetDesiredHpRatio(float ratio) => this.onlinePlayer.hpRatio = ratio;
+  public void SetDesiredHpRatio(float ratio) => onlinePlayer.hpRatio = ratio;
 
   public int CompareTo(object obj) => 0;
 

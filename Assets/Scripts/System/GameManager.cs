@@ -13,7 +13,13 @@ public class GameManager : MonoBehaviour
     public GameState gameState; 
 
     [SerializeField]
-    private GameObject playerPrefab;
+    private GameObject onlinePlayerPrefab;
+
+    [SerializeField]
+    private GameObject localPlayerPrefab;
+
+    [SerializeField]
+    private Transform spawn;
 
     
 
@@ -37,40 +43,61 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.Play("Menu");
     }
 
-public List<Vector3> FindSurvivalSpawnPositions(int size) {
+public List<Vector3> FindSurvivalSpawnPositions(int size)
+{
     List<Vector3> list = new List<Vector3>();
+    System.Random random = new System.Random();
+    Vector3 referencePosition = spawn.position;
 
-  for(int i = 0; i < size; i++) {
-    list.Add(new Vector3(213, 20, 134));
-  }
+    for (int i = 0; i < size; i++)
+    {
+        // Generate random offsets between -100 and 100 for x and z
+        float offsetX = (float)(random.NextDouble() * 100 - 50);
+        float offsetZ = (float)(random.NextDouble() * 100 - 50);
+
+        // Create the new position based on the reference position
+        Vector3 newPosition = new Vector3(
+            referencePosition.x + offsetX,
+            referencePosition.y,
+            referencePosition.z + offsetZ
+        );
+
+        list.Add(newPosition);
+    }
 
     return list;
 }
 
 
+
   public void SendPlayersIntoGame(int amount)
   {
-    List<Vector3> spawnPositions = FindSurvivalSpawnPositions(amount);
+    Debug.Log($"Init spawnpos {amount} ");
+    spawnPositions = FindSurvivalSpawnPositions(amount);
+    Invoke("SendPlayersIntoGameNow", 2f);
+  }  
+
+  private void SendPlayersIntoGameNow()
+  {
     int index = 0;
-    foreach (Client client1 in Server.clients.Values)
+    foreach (Client toClient in Server.clients.Values)
     {
-      if (client1?.player != null)
+      if (toClient?.player != null)
       {
-        foreach (Client client2 in Server.clients.Values)
+        foreach (Client clientData in Server.clients.Values)
         {
-          if (client2?.player != null)
+          if (clientData?.player != null)
           {
-
-            ServerSend.SpawnPlayer(
-              client1.id,
-              client2.player, spawnPositions[index] + Vector3.up);
-
+            Debug.Log($"spawn player {toClient.id} -> {clientData.player.username} [size: {spawnPositions.Count} index: {index}]");
+            ServerSend.SpawnPlayer(toClient.id, clientData.player, spawnPositions[index] + Vector3.up);
             ++index;
           }
         }
       }
     }
-  }  
+  }
+
+
 
   public void GameOver(int winnerId, float time = 4f)
   {
@@ -79,6 +106,7 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
 
   public void StartGame()
   {
+    AudioManager.Instance.Stop("Menu");
     /*
     LoadingScreen.Instance.Hide();
     this.lobbyCamera.SetActive(false);
@@ -129,12 +157,6 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
     */
   }
 
-    public void d() {
-      Debug.Log("init prefab player");
-      Instantiate(playerPrefab); // , position, ) // Quaternion.Euler(0.0f, orientationY, 0.0f));
-    }
-
-
     public void SpawnPlayer(
     int id,
     string username,
@@ -144,13 +166,17 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
   {
 
     if (GameManager.players.ContainsKey(id)) {
-      Debug.Log("player already exi " + id);
       return;
     }
 
-    Debug.Log("Instantiate preab invoke!");
-    Instantiate(playerPrefab); // , position, ) // Quaternion.Euler(0.0f, orientationY, 0.0f));
-    Invoke("d", 10);
+    GameObject prefab = LocalClient.instance.myId == id ? localPlayerPrefab : onlinePlayerPrefab;
+    PlayerManager playerManager = Instantiate(prefab, position, Quaternion.Euler(0.0f, orientationY, 0.0f)).GetComponent<PlayerManager>();
+
+    playerManager.SetDesiredPosition(position);
+    playerManager.id = id;
+    playerManager.username = username;
+    playerManager.color = color;
+    GameManager.players.Add(id, playerManager);
 
 
     /*

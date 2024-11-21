@@ -81,8 +81,6 @@ public class ClientHandle : MonoBehaviour
       return;
     */
 
-    Console.AddMessage("CLIENT recieve startgmae");
-
     LocalClient.instance.myId = packet.ReadInt();
 
     int seed = packet.ReadInt();
