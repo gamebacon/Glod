@@ -4798,6 +4798,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LocalPlayer Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2623337572080480822, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 4806612304833271418, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
       propertyPath: _handAnimator
       value: 
