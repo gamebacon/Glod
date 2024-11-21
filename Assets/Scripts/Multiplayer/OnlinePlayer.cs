@@ -37,31 +37,39 @@ public class OnlinePlayer : MonoBehaviour
   private void Start()
   {
     this.grounded = true;
+    /*
     this.filter = this.weapon.GetComponent<MeshFilter>();
     this.renderer = this.weapon.GetComponent<MeshRenderer>();
+    */
   }
 
   private void FixedUpdate()
   {
+    /*
     this.fallSpeed = Mathf.Abs(this.rb.linearVelocity.y);
     this.rb.MovePosition(Vector3.Lerp(this.rb.position, this.desiredPos, Time.deltaTime * this.moveSpeed));
+    */
   }
 
   private void Update()
   {
+    /*
     this.grounded = Physics.Raycast(this.transform.position, Vector3.down, 2.4f, (int) this.whatIsGround);
     this.Animate();
     this.Sfx();
     this.FootSteps();
-    this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(0.0f, this.orientationY, 0.0f), Time.deltaTime * this.rotationSpeed);
     this.hpBar.localScale = new Vector3(Mathf.Lerp(this.hpBar.localScale.x, this.hpRatio, Time.deltaTime * 10f), 1f, 1f);
+    */
+    this.transform.rotation = Quaternion.Lerp(this.transform.rotation, Quaternion.Euler(0.0f, this.orientationY, 0.0f), Time.deltaTime * this.rotationSpeed);
   }
 
   private void LateUpdate()
   {
+    /*
     this.currentTorsoRotation = Mathf.Lerp(this.currentTorsoRotation, this.orientationX, Time.deltaTime * this.rotationSpeed);
     this.upperBody.localRotation = Quaternion.Euler(this.currentTorsoRotation, this.upperBody.localRotation.y, this.upperBody.localRotation.z);
     this.lastFallSpeed = this.rb.linearVelocity.y;
+    */
   }
 
   private void FootSteps()

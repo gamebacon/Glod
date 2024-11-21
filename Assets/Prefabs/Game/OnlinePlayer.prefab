@@ -4655,6 +4655,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: OnlinePlayer
       objectReference: {fileID: 0}
+    - target: {fileID: 5215737731754946740, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
+      propertyPath: onlinePlayer
+      value: 
+      objectReference: {fileID: 2410318687194036977}
     - target: {fileID: 8042456836223775407, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 521.7455
@@ -4716,6 +4720,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8042456836223775407, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
   m_PrefabInstance: {fileID: 6064366358691443715}
   m_PrefabAsset: {fileID: 0}
+--- !u!54 &6882574547978285733 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 840805357814154918, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
+  m_PrefabInstance: {fileID: 6064366358691443715}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8092689863384172085 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2623337572080480822, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
@@ -4734,7 +4743,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 0}
-  rb: {fileID: 0}
+  rb: {fileID: 6882574547978285733}
   desiredPos: {x: 0, y: 0, z: 0}
   orientationY: 0
   orientationX: 0
