@@ -70,6 +70,10 @@ public class LocalClient : MonoBehaviour
         new LocalClient.PacketHandler(ClientHandle.SpawnPlayer)
       },
       {
+        3,
+        new LocalClient.PacketHandler(ClientHandle.PlayerPosition)
+      },
+      {
         8,
         new LocalClient.PacketHandler(ClientHandle.ReceivePing)
       },

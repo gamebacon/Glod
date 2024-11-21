@@ -89,6 +89,16 @@ public class ServerHandle
     Server.clients[fromClient] = (Client) null;
   }
 
+  public static void PlayerPosition(int fromClient, Packet packet)
+  {
+    if (Server.clients[fromClient].player == null)
+      return;
+    Vector3 vector3 = packet.ReadVector3();
+    Server.clients[fromClient].player.pos = vector3;
+    ServerSend.PlayerPosition(Server.clients[fromClient].player, 0);
+  }
+
+
   public static void SpawnPlayersRequest(int fromClient, Packet packet)
   {
     Debug.Log((object) "received request to spawn players");

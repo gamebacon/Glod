@@ -49,6 +49,18 @@ public class ServerSend
       ServerSend.SendTCPDataToAll(packet);
     }
   }
+
+
+  public static void PlayerPosition(Player player, int t)
+  {
+    using (Packet packet = new Packet(3))
+    {
+      packet.Write(player.id);
+      packet.Write(player.pos);
+      ServerSend.SendUDPDataToAll(player.id, packet);
+    }
+  }
+  
   public static void PingPlayer(int player, string ms)
   {
     using (Packet packet = new Packet(8))
