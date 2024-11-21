@@ -25,8 +25,10 @@ public class ClientHandle : MonoBehaviour
   {
     int key = packet.ReadInt();
     Vector3 position = packet.ReadVector3();
-    if (!GameManager.players.ContainsKey(key))
+    if (!GameManager.players.ContainsKey(key)) {
+      Debug.Log("not find key plaer pos " + key);
       return;
+    }
     GameManager.players[key].SetDesiredPosition(position);
   }
 

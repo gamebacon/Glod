@@ -47,8 +47,8 @@ public class OnlinePlayer : MonoBehaviour
   {
     /*
     this.fallSpeed = Mathf.Abs(this.rb.linearVelocity.y);
-    this.rb.MovePosition(Vector3.Lerp(this.rb.position, this.desiredPos, Time.deltaTime * this.moveSpeed));
     */
+    this.rb.MovePosition(Vector3.Lerp(this.rb.position, this.desiredPos, Time.deltaTime * this.moveSpeed));
   }
 
   private void Update()
