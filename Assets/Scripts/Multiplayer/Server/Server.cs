@@ -89,6 +89,10 @@ public class Server
   public static void InitializeServerPackets() => Server.PacketHandlers = new Dictionary<int, Server.PacketHandler>()
   {
     {
+      3,
+      new Server.PacketHandler(ServerHandle.PlayerPosition)
+    },
+    {
       13,
       new Server.PacketHandler(ServerHandle.StartGameTest)
     },

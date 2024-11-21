@@ -21,6 +21,15 @@ public class ClientHandle : MonoBehaviour
     Console.AddMessage("CLIENT welcome");
   }
 
+  public static void PlayerPosition(Packet packet)
+  {
+    int key = packet.ReadInt();
+    Vector3 position = packet.ReadVector3();
+    if (!GameManager.players.ContainsKey(key))
+      return;
+    GameManager.players[key].SetDesiredPosition(position);
+  }
+
   public static void Clock(Packet packet)
   {
     int index = packet.ReadInt();

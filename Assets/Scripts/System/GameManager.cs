@@ -76,26 +76,34 @@ public List<Vector3> FindSurvivalSpawnPositions(int size)
     spawnPositions = FindSurvivalSpawnPositions(amount);
     Invoke("SendPlayersIntoGameNow", 2f);
   }  
-
-  private void SendPlayersIntoGameNow()
-  {
+private void SendPlayersIntoGameNow()
+{
     int index = 0;
     foreach (Client toClient in Server.clients.Values)
     {
-      if (toClient?.player != null)
-      {
-        foreach (Client clientData in Server.clients.Values)
+        if (toClient?.player != null)
         {
-          if (clientData?.player != null)
-          {
-            Debug.Log($"spawn player {toClient.id} -> {clientData.player.username} [size: {spawnPositions.Count} index: {index}]");
-            ServerSend.SpawnPlayer(toClient.id, clientData.player, spawnPositions[index] + Vector3.up);
-            ++index;
-          }
+            foreach (Client clientData in Server.clients.Values)
+            {
+                if (clientData?.player != null)
+                {
+                    Debug.Log($"spawn player {toClient.id} -> {clientData.player.username} [size: {spawnPositions.Count} index: {index}]");
+
+                    // Check to ensure index is within bounds
+                    if (index >= spawnPositions.Count)
+                    {
+                        Debug.LogError("Not enough spawn positions! Make sure spawnPositions has enough entries.");
+                        return;
+                    }
+
+                    ServerSend.SpawnPlayer(toClient.id, clientData.player, spawnPositions[index] + Vector3.up);
+                }
+            }
+            ++index; // Increment index only after each `toClient` is processed
         }
-      }
     }
-  }
+}
+
 
 
 
