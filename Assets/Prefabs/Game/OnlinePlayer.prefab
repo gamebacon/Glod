@@ -4653,7 +4653,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2623337572080480822, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
       propertyPath: m_Name
-      value: Player Variant
+      value: OnlinePlayer
       objectReference: {fileID: 0}
     - target: {fileID: 8042456836223775407, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4704,10 +4704,49 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8042456836223775407, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3444291389574442037}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2623337572080480822, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2410318687194036977}
   m_SourcePrefab: {fileID: 100100000, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
 --- !u!4 &4302203126609757868 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8042456836223775407, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
   m_PrefabInstance: {fileID: 6064366358691443715}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8092689863384172085 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2623337572080480822, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
+  m_PrefabInstance: {fileID: 6064366358691443715}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2410318687194036977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8092689863384172085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd8f0ec58d8a2433e8419af8121414ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 0}
+  rb: {fileID: 0}
+  desiredPos: {x: 0, y: 0, z: 0}
+  orientationY: 0
+  orientationX: 0
+  grounded: 0
+  dashing: 0
+  whatIsGround:
+    serializedVersion: 2
+    m_Bits: 0
+  jumpSfx: {fileID: 0}
+  dashFx: {fileID: 0}
+  weapon: {fileID: 0}
+  hpBar: {fileID: 0}
+  upperBody: {fileID: 0}
+  armor: []
+  footstepFx: {fileID: 0}
+  smokeFx: {fileID: 0}
+  jumpSmokeFxPos: {fileID: 0}

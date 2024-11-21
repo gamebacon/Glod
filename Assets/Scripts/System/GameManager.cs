@@ -157,11 +157,6 @@ public List<Vector3> FindSurvivalSpawnPositions(int size)
     */
   }
 
-    public void d() {
-      Debug.Log("init prefab player");
-    }
-
-
     public void SpawnPlayer(
     int id,
     string username,
@@ -171,13 +166,17 @@ public List<Vector3> FindSurvivalSpawnPositions(int size)
   {
 
     if (GameManager.players.ContainsKey(id)) {
-      Debug.Log("player already exi " + id);
       return;
     }
 
     GameObject prefab = LocalClient.instance.myId == id ? localPlayerPrefab : onlinePlayerPrefab;
+    PlayerManager playerManager = Instantiate(prefab, position, Quaternion.Euler(0.0f, orientationY, 0.0f)).GetComponent<PlayerManager>();
 
-    Instantiate(prefab, position, Quaternion.Euler(0.0f, orientationY, 0.0f));
+    playerManager.SetDesiredPosition(position);
+    playerManager.id = id;
+    playerManager.username = username;
+    playerManager.color = color;
+    GameManager.players.Add(id, playerManager);
 
 
     /*
