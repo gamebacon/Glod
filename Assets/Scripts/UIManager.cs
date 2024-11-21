@@ -13,9 +13,16 @@ public class UIManager : MonoBehaviour
     private MenuState menuState = MenuState.MainMenu;
 
 
+    public static UIManager instance;
 
     void Start()
     {
+        if (instance == null) {
+            instance = this; 
+        } else if (this != instance) {
+            Destroy(gameObject);
+        }
+
         _cameraMenuTransition = GetComponent<CameraMenuTransition>();
 
 
@@ -39,12 +46,15 @@ public class UIManager : MonoBehaviour
     } 
     private void HandleCreateLobby() 
     {
+        lobbyPanel.startButton.gameObject.SetActive(true);
         LobbyManager.instance.CreateLobby();
         GoToLobby();
     } 
     private void HandleJoinLobby() 
     {
+        Debug.Log("jon lobby");
         LobbyManager.instance.JoinLobby();
+        lobbyPanel.startButton.gameObject.SetActive(false);
         GoToLobby();
     } 
 

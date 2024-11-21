@@ -13,7 +13,13 @@ public class GameManager : MonoBehaviour
     public GameState gameState; 
 
     [SerializeField]
-    private GameObject playerPrefab;
+    private GameObject onlinePlayerPrefab;
+
+    [SerializeField]
+    private GameObject localPlayerPrefab;
+
+    [SerializeField]
+    private Transform spawn;
 
     
 
@@ -37,15 +43,31 @@ public class GameManager : MonoBehaviour
         AudioManager.Instance.Play("Menu");
     }
 
-public List<Vector3> FindSurvivalSpawnPositions(int size) {
+public List<Vector3> FindSurvivalSpawnPositions(int size)
+{
     List<Vector3> list = new List<Vector3>();
+    System.Random random = new System.Random();
+    Vector3 referencePosition = spawn.position;
 
-  for(int i = 0; i <= size; i++) {
-    list.Add(new Vector3(213, 20, 134));
-  }
+    for (int i = 0; i < size; i++)
+    {
+        // Generate random offsets between -100 and 100 for x and z
+        float offsetX = (float)(random.NextDouble() * 100 - 50);
+        float offsetZ = (float)(random.NextDouble() * 100 - 50);
+
+        // Create the new position based on the reference position
+        Vector3 newPosition = new Vector3(
+            referencePosition.x + offsetX,
+            referencePosition.y,
+            referencePosition.z + offsetZ
+        );
+
+        list.Add(newPosition);
+    }
 
     return list;
 }
+
 
 
   public void SendPlayersIntoGame(int amount)
@@ -84,6 +106,7 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
 
   public void StartGame()
   {
+    AudioManager.Instance.Stop("Menu");
     /*
     LoadingScreen.Instance.Hide();
     this.lobbyCamera.SetActive(false);
@@ -136,7 +159,6 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
 
     public void d() {
       Debug.Log("init prefab player");
-      Instantiate(playerPrefab); // , position, ) // Quaternion.Euler(0.0f, orientationY, 0.0f));
     }
 
 
@@ -153,9 +175,9 @@ public List<Vector3> FindSurvivalSpawnPositions(int size) {
       return;
     }
 
-    Debug.Log("Instantiate preab invoke!");
-    Instantiate(playerPrefab); // , position, ) // Quaternion.Euler(0.0f, orientationY, 0.0f));
-    Invoke("d", 3);
+    GameObject prefab = LocalClient.instance.myId == id ? localPlayerPrefab : onlinePlayerPrefab;
+
+    Instantiate(prefab, position, Quaternion.Euler(0.0f, orientationY, 0.0f));
 
 
     /*
