@@ -60,6 +60,17 @@ public class ServerSend
       ServerSend.SendUDPDataToAll(player.id, packet);
     }
   }
+
+  public static void PlayerRotation(Player player)
+  {
+    using (Packet packet = new Packet(4))
+    {
+      packet.Write(player.id);
+      packet.Write(player.yOrientation);
+      packet.Write(player.xOrientation);
+      ServerSend.SendUDPDataToAll(player.id, packet);
+    }
+  }
   
   public static void PingPlayer(int player, string ms)
   {

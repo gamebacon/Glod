@@ -74,6 +74,10 @@ public class LocalClient : MonoBehaviour
         new LocalClient.PacketHandler(ClientHandle.PlayerPosition)
       },
       {
+        4,
+        new LocalClient.PacketHandler(ClientHandle.PlayerRotation)
+      },
+      {
         8,
         new LocalClient.PacketHandler(ClientHandle.ReceivePing)
       },

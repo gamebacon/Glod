@@ -32,6 +32,16 @@ public class ClientHandle : MonoBehaviour
     GameManager.players[key].SetDesiredPosition(position);
   }
 
+  public static void PlayerRotation(Packet packet)
+  {
+    int key = packet.ReadInt();
+    if (!GameManager.players.ContainsKey(key))
+      return;
+    float orientationY = packet.ReadFloat();
+    float orientationX = packet.ReadFloat();
+    GameManager.players[key].SetDesiredRotation(orientationY, orientationX);
+  }
+
   public static void Clock(Packet packet)
   {
     int index = packet.ReadInt();
