@@ -2,127 +2,139 @@ using Steamworks;
 using Steamworks.Data;
 using UnityEngine;
 
-
 public class SteamPacketManager : MonoBehaviour
 {
-  private void Start()
-  {
-    DontDestroyOnLoad(gameObject);
-    Server.InitializeServerPackets();
-    LocalClient.InitializeClientData();
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+        Server.InitializeServerPackets();
+        LocalClient.InitializeClientData();
 
-    Debug.Log("server and client packets inited");
-  }
+        Debug.Log("Server and client packets initialized.");
+    }
 
     private void Update()
-  {
-    SteamClient.RunCallbacks();
-    CheckForPackets();
-  }
-
-  private void CheckForPackets()
-  {
-    for (int channel = 0; channel < 2; ++channel)
     {
-      if (SteamNetworking.IsP2PPacketAvailable(channel))
-      {
-        while (SteamNetworking.IsP2PPacketAvailable(channel))
-          SteamPacketManager.HandlePacket(SteamNetworking.ReadP2PPacket(channel), channel);
-      }
-    }
-  }
-    
-
-    private static void HandlePacket(P2Packet? p2Packet, int channel)
-  {
-
-    if (!p2Packet.HasValue)
-    {
-      Debug.Log("No packet data");
-      return;
+        SteamClient.RunCallbacks();
+        CheckForPackets();
     }
 
-    SteamId steamId = p2Packet.Value.SteamId.Value;
-
-    byte[] data = p2Packet.Value.Data;
-    if (!LocalClient.serverOwner && steamId.Value != LocalClient.instance.serverHost.Value)
+    private void CheckForPackets()
     {
-      Debug.LogError($"Received packet from someone other than server: {new Friend(steamId).Name}\nDenying packet...");
-    }
-    else
-    {
-      Packet packet = new Packet();
-      packet.SetBytes(data);
-      if (packet.Length() != packet.ReadInt() + 4)  {
-        Debug.LogError((object) "didnt read entire packet");
-      }
-
-      int key = packet.ReadInt();
-      Debug.Log($"Get: {key}");
-
-      /* 
-        To client
-      */
-      if (channel == 0)
-      {
-        if (steamId.Value != LocalClient.instance.serverHost.Value) {
-          return;
+        foreach (NetworkChannel channel in System.Enum.GetValues(typeof(NetworkChannel)))
+        {
+            while (SteamNetworking.IsP2PPacketAvailable((int)channel))
+            {
+                HandlePacket(SteamNetworking.ReadP2PPacket((int)channel), channel);
+            }
         }
-        Debug.Log($"[To Client] [Receive] packet: {key}!");
-
-        LocalClient.packetHandlers[key](packet);
-      } else {
-        /* 
-          To Server
-        */
-        Debug.Log($"[To Server] packet: {key}!");
-        Server.PacketHandlers[key](LobbyManager.steamIdToClientId[steamId.Value], packet);
-      }
     }
-  }
 
-    public static void SendPacket(SteamId steamId, Packet p, P2PSend p2pSend, SteamPacketManager.NetworkChannel channel)
+    private static void HandlePacket(P2Packet? p2Packet, NetworkChannel channel)
     {
-        int length = p.Length();
-        byte[] numArray = p.CloneBytes();
-        Packet packet = new Packet(numArray);
-        if (steamId.Value != SteamManager.instance.playerSteamId.Value) {
-            /*
-            Debug.Log($"[Send packet] to: {steamId.Value} size: {p.ReadInt(false)}");
-            */
-            Debug.Log("Send: " + p.ToString());
-            SteamNetworking.SendP2PPacket(steamId.Value, numArray, length, (int) channel, p2pSend);
+        if (!p2Packet.HasValue)
+        {
+            Debug.LogWarning("No packet data received.");
+            return;
+        }
+
+        SteamId senderSteamId = p2Packet.Value.SteamId.Value;
+        byte[] data = p2Packet.Value.Data;
+
+        // Validate sender if client isn't server owner
+        if (!LocalClient.serverOwner && senderSteamId.Value != LocalClient.instance.serverHost.Value)
+        {
+            Debug.LogWarning($"Packet denied: Sender {new Friend(senderSteamId).Name} is not the server.");
+            return;
+        }
+
+        // Parse and validate the packet
+        Packet packet = new Packet(data);
+        if (packet.Length() != packet.ReadInt() + 4)
+        {
+            Debug.LogError("Incomplete packet received.");
+            return;
+        }
+
+        int key = packet.ReadInt();
+        Debug.Log($"Packet received. Key: {key}, Channel: {channel}");
+
+        // Route packet based on channel
+        if (channel == NetworkChannel.ToClient)
+        {
+            if (senderSteamId.Value != LocalClient.instance.serverHost.Value)
+            {
+                Debug.LogWarning("Packet to client ignored: Sender is not the server.");
+                return;
+            }
+
+            Debug.Log($"[To Client] Packet: {key}");
+            LocalClient.packetHandlers[key](packet);
+        }
+        else if (channel == NetworkChannel.ToServer)
+        {
+            Debug.Log($"[To Server] Packet: {key}");
+            if (LobbyManager.steamIdToClientId.TryGetValue(senderSteamId.Value, out int clientId))
+            {
+                Server.PacketHandlers[key](clientId, packet);
+            }
+            else
+            {
+                Debug.LogError("Sender not found in client ID mapping.");
+            }
+        }
+    }
+
+    public static void SendPacket(SteamId steamId, Packet packet, P2PSend p2pSend, NetworkChannel channel)
+    {
+        byte[] packetData = packet.CloneBytes();
+        int length = packet.Length();
+
+        // Simulate handling locally if sending to self
+        if (steamId.Value == SteamManager.instance.playerSteamId.Value)
+        {
+            Debug.Log($"[Local] Handling packet locally: {packet}");
+            HandlePacket(new P2Packet
+            {
+                SteamId = steamId,
+                Data = packetData
+            }, channel);
         }
         else
-        SteamPacketManager.HandlePacket(
-            new P2Packet?(new P2Packet()
-            {
-                SteamId = (SteamId) steamId.Value,
-                Data = numArray
-            }), (int) channel);
+        {
+            Debug.Log($"[Send] Packet to {steamId.Value}, Channel: {channel}, Size: {length}");
+            SteamNetworking.SendP2PPacket(steamId.Value, packetData, length, (int)channel, p2pSend);
+        }
     }
 
-
-  private void OnApplicationQuit() => SteamPacketManager.CloseConnections();
-
-  public static void CloseConnections()
-  {
-    foreach (ulong key in LobbyManager.steamIdToClientId.Keys)
-      SteamNetworking.CloseP2PSessionWithUser((SteamId) key);
-    try
+    private void OnApplicationQuit()
     {
-      SteamNetworking.CloseP2PSessionWithUser(LocalClient.instance.serverHost);
+        CloseConnections();
     }
-    catch
-    {
-      Debug.Log((object) "Failed to close p2p with host");
-    }
-    SteamClient.Shutdown();
-  }
 
-  public enum NetworkChannel
-  {
-    ToClient,
-    ToServer,
-  }
+    public static void CloseConnections()
+    {
+        foreach (ulong steamId in LobbyManager.steamIdToClientId.Keys)
+        {
+            SteamNetworking.CloseP2PSessionWithUser((SteamId)steamId);
+        }
+
+        try
+        {
+            SteamNetworking.CloseP2PSessionWithUser(LocalClient.instance.serverHost);
+        }
+        catch
+        {
+            Debug.LogWarning("Failed to close P2P session with host.");
+        }
+
+        SteamClient.Shutdown();
+        Debug.Log("Steam client shutdown complete.");
+    }
+
+    public enum NetworkChannel
+    {
+        ToClient = 0,
+        ToServer = 1
+    }
 }

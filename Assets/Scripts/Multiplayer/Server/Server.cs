@@ -93,6 +93,10 @@ public class Server
       new Server.PacketHandler(ServerHandle.PlayerPosition)
     },
     {
+      4,
+      new Server.PacketHandler(ServerHandle.PlayerRotation)
+    },
+    {
       13,
       new Server.PacketHandler(ServerHandle.StartGameTest)
     },

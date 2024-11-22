@@ -102,7 +102,22 @@ public class ClientSend : MonoBehaviour
     }
   }
 
-    
+  public static void PlayerRotation(float yOrientation, float xOrientation)
+  {
+    try
+    {
+      using (Packet packet = new Packet(4))
+      {
+        packet.Write(yOrientation);
+        packet.Write(xOrientation);
+        ClientSend.SendUDPData(packet);
+      }
+    }
+    catch (Exception ex)
+    {
+      Debug.Log((object) ex);
+    }
+  }  
 
   public static void WelcomeReceived(int id, string username)
   {

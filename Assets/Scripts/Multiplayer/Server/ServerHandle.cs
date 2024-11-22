@@ -98,6 +98,16 @@ public class ServerHandle
     ServerSend.PlayerPosition(Server.clients[fromClient].player, 0);
   }
 
+  public static void PlayerRotation(int fromClient, Packet packet)
+  {
+    if (Server.clients[fromClient].player == null)
+      return;
+    float num1 = packet.ReadFloat();
+    float num2 = packet.ReadFloat();
+    Server.clients[fromClient].player.yOrientation = num1;
+    Server.clients[fromClient].player.xOrientation = num2;
+    ServerSend.PlayerRotation(Server.clients[fromClient].player);
+  }
 
   public static void SpawnPlayersRequest(int fromClient, Packet packet)
   {
