@@ -200,8 +200,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: join game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: fd473d41255cf45b690ee73466efce74, type: 2}
-  m_sharedMaterial: {fileID: -7709786610244525661, guid: fd473d41255cf45b690ee73466efce74, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f825924069ed5409d86945cdb590394d, type: 2}
+  m_sharedMaterial: {fileID: -7319915646071738469, guid: f825924069ed5409d86945cdb590394d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -212,7 +212,7 @@ MonoBehaviour:
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
-    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topLeft: {r: 0.8018868, g: 0.8018868, b: 0.8018868, a: 1}
     topRight: {r: 1, g: 1, b: 1, a: 1}
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
@@ -225,17 +225,17 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 32
-  m_fontSizeBase: 32
+  m_fontSize: 36
+  m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 16
+  m_fontStyle: 8
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 8
+  m_characterSpacing: 27.5
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
