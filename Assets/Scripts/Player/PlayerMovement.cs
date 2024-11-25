@@ -11,91 +11,67 @@ public class PlayerMovement : MonoBehaviour
     public float cameraHeight = 3f;
     public float rotationSpeed = 2f;
 
-
-
     private bool isGrounded;
-    private bool cameraActive = true;  // Toggle for enabling/disabling camera follow
+    private bool cameraActive = true;
 
     [SerializeField]
     private Camera camera;
+
+    private float verticalClampAngle = 80f;
+    private float currentVerticalRotation = 0f;
 
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
 
-        // Initialize camera if main camera exists
         if (camera)
         {
             _cameraTransform = camera.transform;
         }
 
-        // Hide the cursor initially (before Escape is pressed)
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
     void Update()
     {
-        if (GameManager.instance.gameState != GameState.Game) {
+        if (GameManager.instance.gameState != GameState.Game)
             return;
-        }
 
-        // Toggle camera movement with Escape key
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             cameraActive = !cameraActive;
 
-/*
-            if (cameraActive)
-            {
-                // Re-enable camera follow and show the cursor
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-            else
-            {
-                // Disable camera follow and show the cursor
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            */
+            Cursor.lockState = cameraActive ? CursorLockMode.Locked : CursorLockMode.None;
+            Cursor.visible = !cameraActive;
         }
 
-        // Update player movement direction
         Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical")).normalized;
         MovePlayer(movement);
 
-        // Play footstep sound if moving and grounded
         if (movement.magnitude > 0.1f && isGrounded)
         {
             if (!AudioManager.Instance.IsPlaying("Footsteps"))
-            {
                 AudioManager.Instance.Play("Footsteps");
-            }
         }
         else
         {
             AudioManager.Instance.Stop("Footsteps");
         }
 
-        // Handle jumping
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Jump();
         }
 
-        // Handle camera rotation if active
         if (cameraActive)
         {
             RotateCamera();
         }
 
-        // Reactivate camera follow and hide cursor on left-click
-        if (Input.GetMouseButtonDown(0) && !cameraActive) // Left-click
+        if (Input.GetMouseButtonDown(0) && !cameraActive)
         {
             cameraActive = true;
-
-            // Hide the cursor and lock it back into the screen
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -103,7 +79,6 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer(Vector3 movement)
     {
-        // Calculate movement relative to player direction
         Vector3 moveDirection = transform.TransformDirection(movement) * speed;
         _rb.linearVelocity = new Vector3(moveDirection.x, _rb.linearVelocity.y, moveDirection.z);
     }
@@ -117,32 +92,32 @@ public class PlayerMovement : MonoBehaviour
     {
         if (_cameraTransform == null) return;
 
-        // Get mouse inputs
         float horizontalRotation = Input.GetAxis("Mouse X") * rotationSpeed;
-        float verticalRotation = Input.GetAxis("Mouse Y") * rotationSpeed;
+        float verticalRotation = -Input.GetAxis("Mouse Y") * rotationSpeed;
 
-        // Rotate the player around the Y-axis
         transform.Rotate(0, horizontalRotation, 0);
 
-        // Calculate and clamp the vertical rotation for the camera
-        _cameraTransform.RotateAround(transform.position, transform.right, -verticalRotation);
+        currentVerticalRotation = Mathf.Clamp(currentVerticalRotation + verticalRotation, -verticalClampAngle, verticalClampAngle);
+        _cameraTransform.localEulerAngles = new Vector3(currentVerticalRotation, 0, 0);
 
-        /*
-        // Set camera position and offset
         Vector3 offset = transform.position - _cameraTransform.forward * cameraDistance + Vector3.up * cameraHeight;
         _cameraTransform.position = offset;
-        */
     }
 
     void OnCollisionStay(Collision collision)
     {
-        // Check if the player is on the ground
-        isGrounded = true;
+        foreach (ContactPoint contact in collision.contacts)
+        {
+            if (Vector3.Dot(contact.normal, Vector3.up) > 0.9f)
+            {
+                isGrounded = true;
+                return;
+            }
+        }
     }
 
     void OnCollisionExit(Collision collision)
     {
-        // Player is no longer grounded
         isGrounded = false;
     }
 }
