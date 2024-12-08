@@ -6371,6 +6371,7 @@ GameObject:
   - component: {fileID: 769468711}
   - component: {fileID: 769468710}
   - component: {fileID: 769468715}
+  - component: {fileID: 769468716}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6495,6 +6496,20 @@ MonoBehaviour:
   myId: 0
   ip: 127.0.0.1
   port: 26950
+--- !u!114 &769468716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 769468707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2201c5bfc361dc945a52accf6e85078e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive: 1
+  screenshotKey: 293
 --- !u!1001 &771075563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7688,7 +7703,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1222714143}
   m_Direction: 2
   m_Value: 0.99999964
-  m_Size: 0.4029
+  m_Size: 0.40290004
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -12597,7 +12612,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1619520737
 Transform:
   m_ObjectHideFlags: 0
