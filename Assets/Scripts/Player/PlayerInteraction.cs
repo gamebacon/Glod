@@ -47,6 +47,10 @@ public class PlayerInteraction : MonoBehaviour
         // Update the last attack time
         _lastAttackTime = Time.time;
 
+    }
+
+    public void RaycastAttack()
+    {
         // Detect objects within attack range
         RaycastHit hit;
         Vector3 attackDirection = transform.forward;
@@ -63,7 +67,11 @@ public class PlayerInteraction : MonoBehaviour
             if (hittable != null)
             {
                 Debug.Log("Hitting: " + hittable.gameObject.name);
-                hittable.TakeDamage(attackDamage);  // Call TakeDamage on Hittable script
+                GameEntity gameEntity = hit.collider.GetComponent<GameEntity>();
+
+                ClientSend.AttackEntity(gameEntity.id);
+
+                // hittable.TakeDamage(attackDamage);  // Call TakeDamage on Hittable script
                 // Play attack animation or sound (if applicable)
                 // Animator.SetTrigger("Attack"); // Example
             }
@@ -76,6 +84,7 @@ public class PlayerInteraction : MonoBehaviour
         {
             Debug.Log("Attack missed - no object in range");
         }
+
     }
 
     void AttemptInteraction()

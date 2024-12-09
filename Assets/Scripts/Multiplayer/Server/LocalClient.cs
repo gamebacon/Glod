@@ -57,75 +57,28 @@ public class LocalClient : MonoBehaviour
     this.udp = new LocalClient.UDP();
   }
 
-      public static void InitializeClientData()
-  {
-    LocalClient.packetHandlers = new Dictionary<int, LocalClient.PacketHandler>()
+    public static void InitializeClientData()
     {
-      {
-        1,
-        new LocalClient.PacketHandler(ClientHandle.Welcome)
-      },
-      {
-        2,
-        new LocalClient.PacketHandler(ClientHandle.SpawnPlayer)
-      },
-      {
-        3,
-        new LocalClient.PacketHandler(ClientHandle.PlayerPosition)
-      },
-      {
-        4,
-        new LocalClient.PacketHandler(ClientHandle.PlayerRotation)
-      },
-      {
-        8,
-        new LocalClient.PacketHandler(ClientHandle.ReceivePing)
-      },
-      {
-        11,
-        new LocalClient.PacketHandler(ClientHandle.ReceiveStatus)
-      },
-      {
-        14,
-        new LocalClient.PacketHandler(ClientHandle.Clock)
-      },
-      {
-        51,
-        new LocalClient.PacketHandler(ClientHandle.PlayerFinishedLoading)
-      },
-      {
-        12,
-        new LocalClient.PacketHandler(ClientHandle.GameOver)
-      },
-      {
-        5,
-        new LocalClient.PacketHandler(ClientHandle.DisconnectPlayer)
-      },
-      {
-        16,
-        new LocalClient.PacketHandler(ClientHandle.Ready)
-      },
-      {
-        13,
-        new LocalClient.PacketHandler(ClientHandle.StartGame)
-      },
-      /*
-      {
-        40,
-        new LocalClient.PacketHandler(ClientHandle.ReceiveChatMessage)
-      },
-      */
-      {
-        41,
-        new LocalClient.PacketHandler(ClientHandle.ReceivePlayerPing)
-      },
+        LocalClient.packetHandlers = new Dictionary<int, LocalClient.PacketHandler>()
+    {
+        { 1, new LocalClient.PacketHandler(ClientHandle.Welcome) },
+        { 2, new LocalClient.PacketHandler(ClientHandle.SpawnPlayer) },
+        { 3, new LocalClient.PacketHandler(ClientHandle.PlayerPosition) },
+        { 4, new LocalClient.PacketHandler(ClientHandle.PlayerRotation) },
+        { 5, new LocalClient.PacketHandler(ClientHandle.DisconnectPlayer) },
+        { 8, new LocalClient.PacketHandler(ClientHandle.ReceivePing) },
+        { 11, new LocalClient.PacketHandler(ClientHandle.ReceiveStatus) },
+        { 12, new LocalClient.PacketHandler(ClientHandle.GameOver) },
+        { 13, new LocalClient.PacketHandler(ClientHandle.StartGame) },
+        { 14, new LocalClient.PacketHandler(ClientHandle.Clock) },
+        { 16, new LocalClient.PacketHandler(ClientHandle.Ready) },
+        { 41, new LocalClient.PacketHandler(ClientHandle.ReceivePlayerPing) },
+        { 51, new LocalClient.PacketHandler(ClientHandle.PlayerFinishedLoading) },
     };
-    Debug.Log((object) "Initializing packets.");
-  }
+        Debug.Log((object)"Initializing packets.");
+    }
 
-
-
-      public void ConnectToServer(string ip, string username)
+    public void ConnectToServer(string ip, string username)
   {
         this.ip = ip;
         this.StartProtocols();

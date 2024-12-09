@@ -22,6 +22,8 @@ public class EnvironmentSpawner : MonoBehaviour
     private List<Vector3> _spawnedPositions = new List<Vector3>();  // Track spawned positions for spacing
     private Vector3 _terrainCenter;                // Center of the terrain
 
+    private ObjectManager _objectManager;
+
     private void Start()
     {
         // Retrieve the active terrain and calculate its center
@@ -31,6 +33,9 @@ public class EnvironmentSpawner : MonoBehaviour
             Debug.LogError("No active terrain found! Please add a terrain to the scene.");
             return;
         }
+
+        _objectManager = ObjectManager.instance;
+
 
         _terrainCenter = terrain.transform.position + new Vector3(terrain.terrainData.size.x / 2, 0, terrain.terrainData.size.z / 2);
 
@@ -64,7 +69,7 @@ public class EnvironmentSpawner : MonoBehaviour
                 spawnPosition = GetTerrainHeightAdjustedPosition(spawnPosition);
 
                 // Instantiate the object at the calculated position
-                GameObject newObject = Instantiate(obj.prefab, spawnPosition, Quaternion.Euler(0, Random.Range(0, 360), 0), transform);
+                GameObject newObject = _objectManager.SpawnObject(obj.prefab, spawnPosition); // Instantiate(obj.prefab, spawnPosition, Quaternion.Euler(0, Random.Range(0, 360), 0), transform);
                 
                 // Randomize the scale
                 float randomScale = Random.Range(obj.minScale, obj.maxScale);

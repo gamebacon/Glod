@@ -86,67 +86,25 @@ public class Server
   }
 
 
-  public static void InitializeServerPackets() => Server.PacketHandlers = new Dictionary<int, Server.PacketHandler>()
-  {
-    {
-      3,
-      new Server.PacketHandler(ServerHandle.PlayerPosition)
-    },
-    {
-      4,
-      new Server.PacketHandler(ServerHandle.PlayerRotation)
-    },
-    {
-      13,
-      new Server.PacketHandler(ServerHandle.StartGameTest)
-    },
-    {
-      51,
-      new Server.PacketHandler(ServerHandle.LoadingFinTest)
-    },
-    {
-      1,
-      new Server.PacketHandler(ServerHandle.WelcomeReceived)
-    },
-    {
-      2,
-      new Server.PacketHandler(ServerHandle.JoinRequest)
-    },
-    {
-      33,
-      new Server.PacketHandler(ServerHandle.StartedLoading)
-    },
-    {
-      29,
-      new Server.PacketHandler(ServerHandle.PlayerFinishedLoading)
-    },
-    {
-      5,
-      new Server.PacketHandler(ServerHandle.PlayerDisconnect)
-    },
-    {
-      6,
-      new Server.PacketHandler(ServerHandle.PingReceived)
-    },
-    {
-      9,
-      new Server.PacketHandler(ServerHandle.PlayerRequestedSpawns)
-    },
-    {
-      8,
-      new Server.PacketHandler(ServerHandle.Ready)
-    },
-    {
-      23,
-      new Server.PacketHandler(ServerHandle.ReceiveChatMessage)
-    },
-    {
-      24,
-      new Server.PacketHandler(ServerHandle.ReceivePing)
-    },
-  };
-
-  public static void InitializeServerData()
+    public static void InitializeServerPackets() => Server.PacketHandlers = new Dictionary<int, Server.PacketHandler>()
+{
+    { 1, new Server.PacketHandler(ServerHandle.WelcomeReceived) },
+    { 2, new Server.PacketHandler(ServerHandle.JoinRequest) },
+    { 3, new Server.PacketHandler(ServerHandle.PlayerPosition) },
+    { 4, new Server.PacketHandler(ServerHandle.PlayerRotation) },
+    { 5, new Server.PacketHandler(ServerHandle.PlayerDisconnect) },
+    { 6, new Server.PacketHandler(ServerHandle.PingReceived) },
+    { 8, new Server.PacketHandler(ServerHandle.Ready) },
+    { 9, new Server.PacketHandler(ServerHandle.PlayerRequestedSpawns) },
+    { 10, new Server.PacketHandler(ServerHandle.AttackEntity ) },
+    { 13, new Server.PacketHandler(ServerHandle.StartGameTest) },
+    { 23, new Server.PacketHandler(ServerHandle.ReceiveChatMessage) },
+    { 24, new Server.PacketHandler(ServerHandle.ReceivePing) },
+    { 29, new Server.PacketHandler(ServerHandle.PlayerFinishedLoading) },
+    { 33, new Server.PacketHandler(ServerHandle.StartedLoading) },
+    { 51, new Server.PacketHandler(ServerHandle.LoadingFinTest) },
+};
+    public static void InitializeServerData()
   {
     for (int index = 1; index <= Server.MaxPlayers; ++index) {
       Server.clients.Add(index, new Client(index));

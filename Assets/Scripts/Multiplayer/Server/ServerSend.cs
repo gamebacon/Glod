@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
+using System;
 
 public class ServerSend
 {
@@ -339,4 +340,14 @@ public class ServerSend
     }
   }
 
+    internal static void HitEntity(int fromClient, int entityId)
+    {
+
+        using (Packet packet = new Packet(11))
+        {
+          packet.Write(fromClient);
+          packet.Write(entityId);
+          ServerSend.SendTCPDataToAll(packet);
+        }
+    }
 }

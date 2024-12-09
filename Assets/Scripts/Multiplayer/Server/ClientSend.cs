@@ -132,5 +132,13 @@ public class ClientSend : MonoBehaviour
       ClientSend.SendTCPData(packet);
     }
   }
-    
+
+    internal static void AttackEntity(int id)
+    {
+        using (Packet packet = new Packet(10))
+        {
+            packet.Write(id);
+            SendTCPData(packet);
+        }
+    }
 }

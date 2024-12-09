@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -179,4 +180,14 @@ public class ServerHandle
     ServerSend.SendPing(fromClient, pos, username);
   }
 
+    internal static void AttackEntity(int fromClient, Packet packet)
+    {
+        if (Server.clients[fromClient].player == null)
+          return;
+
+        int entityId = packet.ReadInt();
+        Debug.Log($"Server handle entity attack from client {fromClient} to entity {entityId}");
+        ObjectManager.instance.Damage(10, entityId);
+        ServerSend.HitEntity(fromClient, entityId);
+    }
 }

@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.6320754, g: 0.09410051, b: 0.062611245, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -117,7 +117,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 860973016086519876}
+  m_TargetGraphic: {fileID: 693590709333637024}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -200,8 +200,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: join game
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: f825924069ed5409d86945cdb590394d, type: 2}
-  m_sharedMaterial: {fileID: -7319915646071738469, guid: f825924069ed5409d86945cdb590394d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f613748a6b7a41a41bad4bad4ddb8fd8, type: 2}
+  m_sharedMaterial: {fileID: -2557641616064067368, guid: f613748a6b7a41a41bad4bad4ddb8fd8, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -231,7 +231,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 8
+  m_fontStyle: 16
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
