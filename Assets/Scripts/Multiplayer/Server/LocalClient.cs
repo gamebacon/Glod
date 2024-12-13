@@ -67,6 +67,7 @@ public class LocalClient : MonoBehaviour
         { 4, new LocalClient.PacketHandler(ClientHandle.PlayerRotation) },
         { 5, new LocalClient.PacketHandler(ClientHandle.DisconnectPlayer) },
         { 8, new LocalClient.PacketHandler(ClientHandle.ReceivePing) },
+        { 10, new LocalClient.PacketHandler(ClientHandle.EntityHit) },
         { 11, new LocalClient.PacketHandler(ClientHandle.ReceiveStatus) },
         { 12, new LocalClient.PacketHandler(ClientHandle.GameOver) },
         { 13, new LocalClient.PacketHandler(ClientHandle.StartGame) },

@@ -343,7 +343,7 @@ public class ServerSend
     internal static void HitEntity(int fromClient, int entityId)
     {
 
-        using (Packet packet = new Packet(11))
+        using (Packet packet = new Packet(10))
         {
           packet.Write(fromClient);
           packet.Write(entityId);

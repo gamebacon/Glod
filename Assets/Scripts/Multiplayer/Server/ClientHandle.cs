@@ -230,4 +230,11 @@ public class ClientHandle : MonoBehaviour
     GameManager.instance.GameOver(winnerId);
   }
 
+  public static void EntityHit(Packet packet)
+  {
+    int sourceId = packet.ReadInt();
+    int entityId = packet.ReadInt();
+    Debug.Log(f"[ClientHandle] {sourceId} hit {entityId}");
+  }
+
 }
