@@ -20,7 +20,6 @@ public class Hand : MonoBehaviour
 
     public void Hit()
     {
-        Debug.Log("Hand!!!!!!");
         _playerInteraction.RaycastAttack();
     } 
 }

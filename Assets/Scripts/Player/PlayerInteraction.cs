@@ -34,12 +34,10 @@ public class PlayerInteraction : MonoBehaviour
 
     void AttemptAttack()
     {
-        Debug.Log("Attempting attack");
 
         // Check if attack cooldown has passed
         if (Time.time - _lastAttackTime < attackCooldown)
         {
-            Debug.Log("Attack on cooldown");
             return;
         }
         _handAnimator.SetTrigger("Swing");
@@ -60,13 +58,11 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Physics.Raycast(transform.position, attackDirection, out hit, attackRange))
         {
-            Debug.Log("Raycast hit: " + hit.collider.gameObject.name);
 
             // Check if the object has a Hittable component
             Hittable hittable = hit.collider.GetComponent<Hittable>();
             if (hittable != null)
             {
-                Debug.Log("Hitting: " + hittable.gameObject.name);
                 GameEntity gameEntity = hit.collider.GetComponent<GameEntity>();
 
                 ClientSend.AttackEntity(gameEntity.id);
@@ -79,10 +75,6 @@ public class PlayerInteraction : MonoBehaviour
             {
                 Debug.Log("Hit an object, but it is not hittable: " + hit.collider.gameObject.name);
             }
-        }
-        else
-        {
-            Debug.Log("Attack missed - no object in range");
         }
 
     }

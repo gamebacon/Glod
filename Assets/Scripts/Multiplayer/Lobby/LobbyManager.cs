@@ -38,8 +38,6 @@ public class LobbyManager : MonoBehaviour
         instance = this;
 
         lobbyVisuals = GetComponent<LobbyVisuals>();
-
-        DontDestroyOnLoad(gameObject); // Optional: Persist across scenes
     }
 
     void Start()

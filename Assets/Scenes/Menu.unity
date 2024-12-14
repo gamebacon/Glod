@@ -5675,7 +5675,6 @@ GameObject:
   - component: {fileID: 492568161}
   - component: {fileID: 492568162}
   - component: {fileID: 492568163}
-  - component: {fileID: 492568164}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -5757,21 +5756,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f582013f9f2e74b6ab688ccd338580a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &492568164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 492568158}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 43f0d455bed624ec289c5ce6e8446a1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
-  distThreshold: 0.1
-  rotThreshold: 0.1
 --- !u!1 &497100662
 GameObject:
   m_ObjectHideFlags: 0
@@ -8444,7 +8428,6 @@ GameObject:
   - component: {fileID: 769468710}
   - component: {fileID: 769468715}
   - component: {fileID: 769468716}
-  - component: {fileID: 769468717}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -8583,20 +8566,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 1
   screenshotKey: 293
---- !u!114 &769468717
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 769468707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2946b704d06cfd048aa73014cf3c2c82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debugSpawnList: []
-  debugSpawnPos: {fileID: 0}
 --- !u!1001 &771075563
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9965,8 +9934,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1222714144}
   m_HandleRect: {fileID: 1222714143}
   m_Direction: 2
-  m_Value: 1.0000001
-  m_Size: 0.4029
+  m_Value: 1.0000004
+  m_Size: 0.40290004
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11877,7 +11846,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!223 &1131757889
 Canvas:
   m_ObjectHideFlags: 0
@@ -15459,7 +15428,7 @@ MonoBehaviour:
     optionsButton: {fileID: 2933054205605305398}
     quitButton: {fileID: 4275139024627008671}
     cameraPos: {fileID: 942615410}
-  _camTransitionDuration: 50
+  _camTransitionDuration: 6.14
 --- !u!114 &1555038607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17906,7 +17875,6 @@ GameObject:
   - component: {fileID: 1730240373}
   - component: {fileID: 1730240376}
   - component: {fileID: 1730240377}
-  - component: {fileID: 1730240378}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -18054,18 +18022,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1730240378
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1730240372}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2839dc26bc8bc4f9dbfee948120e00c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1730837900 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2894652416639355859, guid: bee651b89d6b3ef48b19cfe8a4c9fa42, type: 3}

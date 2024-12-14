@@ -64,8 +64,11 @@ public class ServerHandle
       return;
     Debug.Log((object) ("ready players: " + (object) totalPlayers + " / " + (object) totalReadyPlayers));
     List<Vector3> spawnPositions = /* GameManager.gameSettings.gameMode == GameSettings.GameMode.Versus ? GameManager.instance.FindVersusSpawnPositions(nPlayers) : */ GameManager.instance.FindSurvivalSpawnPositions(totalReadyPlayers);
+
     if (totalPlayers < totalReadyPlayers)
       return;
+
+    // todo make single start game call in gm
     GameManager.instance.SendPlayersIntoGame(totalReadyPlayers);
   }
 

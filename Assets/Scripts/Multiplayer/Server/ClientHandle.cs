@@ -234,7 +234,8 @@ public class ClientHandle : MonoBehaviour
   {
     int sourceId = packet.ReadInt();
     int entityId = packet.ReadInt();
-    Debug.Log(f"[ClientHandle] {sourceId} hit {entityId}");
+    Debug.Log($"[ClientHandle] {sourceId} hit {entityId}");
+    ObjectManager.instance.Damage(10, entityId);
   }
 
 }

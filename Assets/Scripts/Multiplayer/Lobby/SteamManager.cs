@@ -25,8 +25,6 @@ public class SteamManager : MonoBehaviour {
         if (instance == null) {
             instance = this;
             isRealInstance = true;
-            DontDestroyOnLoad(gameObject);
-
             playerName = "";
 
             try {

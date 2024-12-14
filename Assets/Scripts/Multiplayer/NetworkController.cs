@@ -24,7 +24,6 @@ public class NetworkController : MonoBehaviour
     else
     {
       NetworkController.Instance = this;
-      DontDestroyOnLoad(gameObject);
     }
   }
 

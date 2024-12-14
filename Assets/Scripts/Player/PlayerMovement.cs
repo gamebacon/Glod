@@ -1,3 +1,4 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -12,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public float rotationSpeed = 2f;
 
     private bool isGrounded;
+    private bool isSprinting;
     private bool cameraActive = true;
 
     [SerializeField]
@@ -35,8 +37,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.instance.gameState != GameState.Game)
+        if (GameManager.instance.gameState != GameState.Game) {
             return;
+        }
 
         if (Input.GetKeyDown(KeyCode.Escape))
         {
@@ -75,11 +78,20 @@ public class PlayerMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
+
+        isSprinting = Input.GetKey(KeyCode.LeftShift);
     }
 
     void MovePlayer(Vector3 movement)
     {
-        Vector3 moveDirection = transform.TransformDirection(movement) * speed;
+
+        float calculatedSpeed = speed;
+
+        if (isSprinting) {
+            calculatedSpeed *= 10;
+        }
+
+        Vector3 moveDirection = transform.TransformDirection(movement) * calculatedSpeed;
         _rb.linearVelocity = new Vector3(moveDirection.x, _rb.linearVelocity.y, moveDirection.z);
     }
 

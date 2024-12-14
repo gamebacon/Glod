@@ -6,7 +6,6 @@ public class SteamPacketManager : MonoBehaviour
 {
     private void Start()
     {
-        DontDestroyOnLoad(gameObject);
         Server.InitializeServerPackets();
         LocalClient.InitializeClientData();
 
@@ -57,7 +56,7 @@ public class SteamPacketManager : MonoBehaviour
         }
 
         int key = packet.ReadInt();
-        Debug.Log($"Packet received. Key: {key}, Channel: {channel}");
+        // Debug.Log($"Packet received. Key: {key}, Channel: {channel}");
 
         // Route packet based on channel
         if (channel == NetworkChannel.ToClient)
@@ -68,12 +67,12 @@ public class SteamPacketManager : MonoBehaviour
                 return;
             }
 
-            Debug.Log($"[To Client] Packet: {key}");
+            // Debug.Log($"[To Client] Packet: {key}");
             LocalClient.packetHandlers[key](packet);
         }
         else if (channel == NetworkChannel.ToServer)
         {
-            Debug.Log($"[To Server] Packet: {key}");
+            //Debug.Log($"[To Server] Packet: {key}");
             if (LobbyManager.steamIdToClientId.TryGetValue(senderSteamId.Value, out int clientId))
             {
                 Server.PacketHandlers[key](clientId, packet);
@@ -93,7 +92,7 @@ public class SteamPacketManager : MonoBehaviour
         // Simulate handling locally if sending to self
         if (steamId.Value == SteamManager.instance.playerSteamId.Value)
         {
-            Debug.Log($"[Local] Handling packet locally: {packet}");
+            // Debug.Log($"[Local] Handling packet locally: {packet}");
             HandlePacket(new P2Packet
             {
                 SteamId = steamId,
@@ -102,7 +101,7 @@ public class SteamPacketManager : MonoBehaviour
         }
         else
         {
-            Debug.Log($"[Send] Packet to {steamId.Value}, Channel: {channel}, Size: {length}");
+            // Debug.Log($"[Send] Packet to {steamId.Value}, Channel: {channel}, Size: {length}");
             SteamNetworking.SendP2PPacket(steamId.Value, packetData, length, (int)channel, p2pSend);
         }
     }

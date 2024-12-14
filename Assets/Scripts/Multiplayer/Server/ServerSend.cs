@@ -347,7 +347,7 @@ public class ServerSend
         {
           packet.Write(fromClient);
           packet.Write(entityId);
-          ServerSend.SendTCPDataToAll(packet);
+          ServerSend.SendTCPDataToAll(LocalClient.instance.myId, packet);
         }
     }
 }

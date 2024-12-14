@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Hittable))]
 public class Tree : MonoBehaviour
 {
        private Hittable hittable;

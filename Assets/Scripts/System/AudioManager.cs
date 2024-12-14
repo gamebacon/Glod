@@ -22,7 +22,6 @@ public class AudioManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -55,9 +54,7 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning("Sound: " + soundName + " not found!");
             return;
-        } else {
-            Debug.Log("Playing: " + soundName);
-        }
+        } 
 
         // Apply a random pitch offset relative to the original pitch
         sound.source.pitch = sound.pitch * Random.Range(minPitchOffset, maxPitchOffset);
