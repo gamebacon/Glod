@@ -4906,6 +4906,10 @@ PrefabInstance:
       propertyPath: _handAnimator
       value: 
       objectReference: {fileID: 2665902019060763446}
+    - target: {fileID: 5215737731754946740, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
+      propertyPath: nameText
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8042456836223775407, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 521.7455
@@ -4947,7 +4951,8 @@ PrefabInstance:
       value: -0.28
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 3164659710866000015, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 8042456836223775407, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
       insertIndex: -1

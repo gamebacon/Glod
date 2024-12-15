@@ -136,6 +136,38 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &5090787120877082550
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 725832472420500881}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &725832472420500881
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5090787120877082550}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: 0.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5374571357692810389}
+  m_Father: {fileID: 2072892023768673901}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7280625652868271137
 GameObject:
   m_ObjectHideFlags: 0
@@ -169,7 +201,7 @@ RectTransform:
   m_Children:
   - {fileID: 2952642074316443481}
   - {fileID: 4376887140522352907}
-  m_Father: {fileID: 2072892023768673901}
+  m_Father: {fileID: 725832472420500881}
   m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -402,11 +434,11 @@ Transform:
   m_GameObject: {fileID: 8831854854602854778}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 880.5633, y: 33.508, z: 491.8536}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5374571357692810389}
+  - {fileID: 725832472420500881}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3203520500966295202
@@ -423,6 +455,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   idText: {fileID: 2135423479455261565}
   healthText: {fileID: 6575860515935798038}
+  canvasParent: {fileID: 5090787120877082550}
 --- !u!114 &3041416821754558869
 MonoBehaviour:
   m_ObjectHideFlags: 0
