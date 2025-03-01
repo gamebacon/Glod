@@ -13,7 +13,7 @@ public class ServerSend
 
 
   {
-    Debug.Log($"TCP Send {p}");
+    // Debug.Log($"TCP Send {p}");
     Packet packet = new Packet();
     packet.SetBytes(p.CloneBytes());
     packet.WriteLength();
@@ -108,7 +108,7 @@ public class ServerSend
   {
     using (Packet packet = new Packet(2))
     {
-      Debug.Log($"spawning player, id: {player.id} sending to {toClient}");
+      // Debug.Log($"spawning player, id: {player.id} sending to {toClient}");
       packet.Write(player.id);
       packet.Write(player.username);
 

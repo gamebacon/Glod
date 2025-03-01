@@ -44,7 +44,6 @@ public class EnvironmentSpawner : MonoBehaviour
 
     public void SpawnEnvironmentObjects()
     {
-        Debug.Log("Spawning objects!!!!!!!! : " + objectsToSpawn.Count);
         foreach (SpawnableObject obj in objectsToSpawn)
         {
 

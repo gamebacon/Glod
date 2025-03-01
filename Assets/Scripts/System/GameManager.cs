@@ -72,7 +72,7 @@ public List<Vector3> FindSurvivalSpawnPositions(int size)
 
   public void SendPlayersIntoGame(int amount)
   {
-    Debug.Log($"Init spawnpos {amount} ");
+    // Debug.Log($"Init spawnpos {amount} ");
     spawnPositions = FindSurvivalSpawnPositions(amount);
     Invoke("SendPlayersIntoGameNow", 2f);
   }  
@@ -87,7 +87,7 @@ private void SendPlayersIntoGameNow()
             {
                 if (clientData?.player != null)
                 {
-                    Debug.Log($"spawn player {toClient.id} -> {clientData.player.username} [size: {spawnPositions.Count} index: {index}]");
+                    // Debug.Log($"spawn player {toClient.id} -> {clientData.player.username} [size: {spawnPositions.Count} index: {index}]");
 
                     // Check to ensure index is within bounds
                     if (index >= spawnPositions.Count)

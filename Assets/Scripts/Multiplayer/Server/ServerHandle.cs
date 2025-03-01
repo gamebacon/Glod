@@ -46,7 +46,7 @@ public class ServerHandle
 
   public static void PlayerFinishedLoading(int fromClient, Packet packet)
   {
-    Debug.Log((object) ("Player finished loading: " + (object) fromClient));
+    // Debug.Log((object) ("Player finished loading: " + (object) fromClient));
     Server.clients[fromClient].player.isReady = true;
     ServerSend.PlayerFinishedLoading(fromClient);
     int totalPlayers = 0;
@@ -62,7 +62,7 @@ public class ServerHandle
     }
     if (totalPlayers < totalReadyPlayers)
       return;
-    Debug.Log((object) ("ready players: " + (object) totalPlayers + " / " + (object) totalReadyPlayers));
+    // Debug.Log((object) ("ready players: " + (object) totalPlayers + " / " + (object) totalReadyPlayers));
     List<Vector3> spawnPositions = /* GameManager.gameSettings.gameMode == GameSettings.GameMode.Versus ? GameManager.instance.FindVersusSpawnPositions(nPlayers) : */ GameManager.instance.FindSurvivalSpawnPositions(totalReadyPlayers);
 
     if (totalPlayers < totalReadyPlayers)

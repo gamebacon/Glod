@@ -120,13 +120,13 @@ public async void CreateLobby()
     {
         Console.AddMessage("Starting lobby");
 
-        Debug.Log($"Starting game with {Server.clients.Count} clients");
+        // Debug.Log($"Starting game with {Server.clients.Count} clients");
 
         foreach (Client client in Server.clients.Values)
         {
             if (client?.player != null)
             {
-                Debug.Log($"Sending start packet to {client.player.ToString()}");
+                // Debug.Log($"Sending start packet to {client.player.ToString()}");
                 ServerSend.StartGame(client.player.id);
             } else {
             }
@@ -252,12 +252,12 @@ public void JoinLobby()
       return;
     }
 
-    Debug.Log($"Found available id in steam as: {availableLobbyId} steam name: {friend.Name}");
+    // Debug.Log($"Found available id in steam as: {availableLobbyId} steam name: {friend.Name}");
     steamIdToClientId[steamId] = availableLobbyId;
     Client client = Server.clients[availableLobbyId];
     client.inLobby = true;
     client.player = new Player(availableLobbyId, friend.Name, UnityEngine.Color.black, steamId);
-    Debug.Log($"finished adding client. ({friend.Name}) ");
+    // Debug.Log($"finished adding client. ({friend.Name}) ");
   }
 
 }

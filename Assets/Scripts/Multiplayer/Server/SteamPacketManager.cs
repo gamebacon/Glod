@@ -8,8 +8,6 @@ public class SteamPacketManager : MonoBehaviour
     {
         Server.InitializeServerPackets();
         LocalClient.InitializeClientData();
-
-        Debug.Log("Server and client packets initialized.");
     }
 
     private void Update()

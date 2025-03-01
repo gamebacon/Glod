@@ -76,7 +76,6 @@ public class LocalClient : MonoBehaviour
         { 41, new LocalClient.PacketHandler(ClientHandle.ReceivePlayerPing) },
         { 51, new LocalClient.PacketHandler(ClientHandle.PlayerFinishedLoading) },
     };
-        Debug.Log((object)"Initializing packets.");
     }
 
     public void ConnectToServer(string ip, string username)

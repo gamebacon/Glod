@@ -3,6 +3,9 @@ using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
+
+    [Range(0, 1)] public float masterVolume = 1.0f;
+
     // Define a list of sounds for different sound effects and music
     public List<Sound> sounds;
 
@@ -60,7 +63,7 @@ public class AudioManager : MonoBehaviour
         sound.source.pitch = sound.pitch * Random.Range(minPitchOffset, maxPitchOffset);
 
         // Apply a random volume offset relative to the original volume
-        sound.source.volume = sound.volume * Random.Range(minVolumeOffset, maxVolumeOffset);
+        sound.source.volume = (sound.volume * Random.Range(minVolumeOffset, maxVolumeOffset)) * masterVolume;
 
         // Play the sound
         sound.source.Play();

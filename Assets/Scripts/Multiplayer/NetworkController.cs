@@ -35,7 +35,6 @@ public class NetworkController : MonoBehaviour
     LoadingScreen.Instance.Show();
     */
     Invoke("StartLoadingScene", 1);
-    Debug.Log("Invoking game scene");
   }
 
   private void StartLoadingScene() {

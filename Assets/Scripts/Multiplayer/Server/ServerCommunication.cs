@@ -79,13 +79,13 @@ public class ServerCommunication : MonoBehaviour
         if (playerObject != null)
         {
             playerTransform = playerObject.transform;
-            Debug.Log("Player Transform found and assigned.");
+            // Debug.Log("Player Transform found and assigned.");
 
             // Attempt to find the Camera component
             playerCamera = playerObject.GetComponentInChildren<Camera>();
             if (playerCamera != null)
             {
-                Debug.Log("Player Camera found and assigned.");
+                // Debug.Log("Player Camera found and assigned.");
             }
             else
             {

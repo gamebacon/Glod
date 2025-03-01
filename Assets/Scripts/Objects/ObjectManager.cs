@@ -34,7 +34,6 @@ public class ObjectManager : MonoBehaviour
     // Method to instantiate and register an object
     public GameObject SpawnObject(GameObject obj, Vector3 position)
     {
-        Debug.Log("spawn obj");
         // Instantiate the object
         GameObject gameObject = Instantiate(obj, position, Quaternion.identity);
 
