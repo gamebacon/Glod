@@ -20,20 +20,29 @@ public class Hittable : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (isDead())
+        {
+            return;
+        }
+
         health -= damage;
         OnDamage?.Invoke();
+
         if (health <= 0)
         {
-            Debug.Log(health);
             Die();
         }
 
         gameEntity.entityCanvas.SetHealth(health, maxHealth);
     }
 
+    public bool isDead()
+    {
+        return health <= 0;
+    }
+
     void Die()
     {
         OnDie?.Invoke();
-        Destroy(this);
     }
 }

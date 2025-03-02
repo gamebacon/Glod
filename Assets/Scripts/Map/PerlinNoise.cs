@@ -19,7 +19,6 @@ public class PerlinNoise
 
     public PerlinNoise(int seed)
     {
-        Debug.Log($"Seed: {seed}");
         this.seed = seed;
     }
     public Queue<Vector3> Generate()

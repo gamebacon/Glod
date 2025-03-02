@@ -189,7 +189,7 @@ public class ServerHandle
           return;
 
         int entityId = packet.ReadInt();
-        Debug.Log($"Server handle entity attack from client {fromClient} to entity {entityId}");
+        // Debug.Log($"Server handle entity attack from client {fromClient} to entity {entityId}");
         ObjectManager.instance.Damage(10, entityId);
         ServerSend.HitEntity(fromClient, entityId);
     }
