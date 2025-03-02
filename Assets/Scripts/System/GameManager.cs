@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using System.Collections.Generic;
 using Steamworks;
+using UnityEngine.Rendering.Universal.Internal;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,7 +22,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private Transform spawn;
 
-    
+    [SerializeField]
+    public GameSettings gameSettings; 
 
     public static GameManager instance;
 
@@ -217,8 +219,19 @@ private void SendPlayersIntoGameNow()
 }
 
 
+[Serializable]
+public class GameSettings {
+    public readonly int seed;
+
+    public GameSettings(int seed)
+    {
+        this.seed = seed;
+    }
+
+}
+
  public enum GameState {
         Lobby,
         Game,
         GameOver,
-    }
+ }

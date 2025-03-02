@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 using Steamworks.Data;
 using Steamworks;
@@ -120,14 +119,17 @@ public async void CreateLobby()
     {
         Console.AddMessage("Starting lobby");
 
-        // Debug.Log($"Starting game with {Server.clients.Count} clients");
+        /*
+        *  Generate seed and provide to all clients when starting the game
+        */
+        int seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
 
         foreach (Client client in Server.clients.Values)
         {
             if (client?.player != null)
             {
                 // Debug.Log($"Sending start packet to {client.player.ToString()}");
-                ServerSend.StartGame(client.player.id);
+                ServerSend.StartGame(client.player.id, seed);
             } else {
             }
         }

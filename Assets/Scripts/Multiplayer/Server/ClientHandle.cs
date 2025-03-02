@@ -116,7 +116,7 @@ public class ClientHandle : MonoBehaviour
     int gameLength = num4;
     int multiplayer = num5;
 
-    // GameManager.gameSettings = new GameSettings(seed, gameMode, friendlyFire, difficulty, gameLength, multiplayer);
+    GameManager.instance.gameSettings = new GameSettings(seed);
 
     /*
     Console.AddMessage((object) "Game settings successfully loaded");

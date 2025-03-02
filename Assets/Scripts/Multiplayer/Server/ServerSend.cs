@@ -145,12 +145,13 @@ public class ServerSend
   }
 
 
-  public static void StartGame(int playerLobbyId)
+  public static void StartGame(int playerLobbyId, int seed)
   {
+
     using (Packet packet = new Packet(13))
     {
       packet.Write(playerLobbyId); // lobbyid
-      packet.Write(123); // seed
+      packet.Write(seed); // seed
       packet.Write(123); // gamemode
       packet.Write(123); // firnedly fire
       packet.Write(123); // difficulty
