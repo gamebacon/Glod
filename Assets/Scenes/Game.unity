@@ -1181,7 +1181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &593185443
 Transform:
   m_ObjectHideFlags: 0
@@ -6231,6 +6231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a5b900af128493c9b05c203b5fd44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterVolume: 1
   sounds:
   - name: Footsteps
     clip: {fileID: 8300000, guid: beb2adebbe549440ba470b216331c0f0, type: 3}

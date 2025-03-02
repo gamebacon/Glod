@@ -44,13 +44,18 @@ public class EnvironmentSpawner : MonoBehaviour
 
     public void SpawnEnvironmentObjects()
     {
+        int seed = Random.Range(int.MinValue, int.MaxValue);
+        PerlinNoise _perlinNoise = new PerlinNoise(seed);
+        Queue<Vector3> poses = _perlinNoise.Generate();
+
         foreach (SpawnableObject obj in objectsToSpawn)
         {
 
             for (int i = 0; i < obj.quantity; i++)
             {
-                Vector3 spawnPosition = GetRandomPositionWithinArea();
+                Vector3 spawnPosition = poses.Count > 0 ? poses.Dequeue() : Vector3.zero;
 
+                /*
                 // Ensure spacing from other objects
                 int attempts = 0;
                 while (IsTooCloseToOtherObjects(spawnPosition, obj.minSpacing) && attempts < 10)
@@ -64,6 +69,7 @@ public class EnvironmentSpawner : MonoBehaviour
                 {
                     continue;
                 }
+                */
 
                 // Adjust spawn position to be on the terrain surface
                 spawnPosition = GetTerrainHeightAdjustedPosition(spawnPosition);

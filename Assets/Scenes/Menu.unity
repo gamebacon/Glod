@@ -6978,6 +6978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a5b900af128493c9b05c203b5fd44a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  masterVolume: 0.188
   sounds:
   - name: Footsteps
     clip: {fileID: 8300000, guid: beb2adebbe549440ba470b216331c0f0, type: 3}
@@ -6987,7 +6988,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: WoodHit
     clip: {fileID: 8300000, guid: cec8f76c4d5fe41d6afe94340eee4874, type: 3}
-    volume: 0.708
+    volume: 0.527
     pitch: 1.34
     loop: 0
     source: {fileID: 0}
