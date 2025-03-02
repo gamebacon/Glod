@@ -160,11 +160,9 @@ private void OnLobbyCreated(Result result, Lobby lobby)
  private void OnLobbyEntered(Lobby lobby)
     {
         currentLobby = lobby;
-        Console.AddMessage("Joined lobby with ID: " + lobby.Id);
         foreach(Friend f in lobby.Members) {
-            Console.AddMessage(f.Name);
+            lobbyVisuals.AddPlayer(f.Name, f.Id.ToString());
         }
-        lobbyVisuals.AddPlayer(SteamManager.instance.playerName, SteamManager.instance.playerSteamIdString);
         LocalClient.serverOwner = true;
         LocalClient.instance.serverHost = lobby.Owner.Id.Value;
     }
