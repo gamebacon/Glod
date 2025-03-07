@@ -4516,12 +4516,12 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 815205356}
   - {fileID: 769468708}
   - {fileID: 1021017061}
   - {fileID: 492568159}
   - {fileID: 1619520737}
   - {fileID: 1993258038}
+  - {fileID: 1912708733}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &440388126
@@ -7328,37 +7328,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a36a30f765c0041b8b6eb45ef169ed4a, type: 3}
---- !u!1 &815205355
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 815205356}
-  m_Layer: 0
-  m_Name: ---------------------------------------------------
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &815205356
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 815205355}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 509.36578, y: 137.55685, z: 5.967397}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 440388125}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &817959073
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10600,7 +10569,6 @@ Transform:
   - {fileID: 1145027341}
   - {fileID: 1963025355}
   - {fileID: 1131757886}
-  - {fileID: 1912708733}
   - {fileID: 1555038605}
   - {fileID: 761929254}
   - {fileID: 1839235651}
@@ -16579,7 +16547,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1176644674}
+  m_Father: {fileID: 440388125}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1912708734
 MonoBehaviour:
