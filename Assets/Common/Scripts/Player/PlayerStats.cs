@@ -40,7 +40,7 @@ public class PlayerStats : MonoBehaviour
                 stats[PlayerStatType.HEALTH].Modify(-5);
             }
 
-            Debug.Log($"Hunger: {stats[PlayerStatType.HUNGER].Value}, Thirst: {stats[PlayerStatType.THIRST].Value}, Stamina: {stats[PlayerStatType.STAMINA].Value}, Health: {stats[PlayerStatType.HEALTH].Value}");
+            // Debug.Log($"Hunger: {stats[PlayerStatType.HUNGER].Value}, Thirst: {stats[PlayerStatType.THIRST].Value}, Stamina: {stats[PlayerStatType.STAMINA].Value}, Health: {stats[PlayerStatType.HEALTH].Value}");
         }
     }
 
