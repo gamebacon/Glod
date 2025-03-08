@@ -6,12 +6,20 @@ public class SteamPacketManager : MonoBehaviour
 {
     private void Start()
     {
+        if (GameManager.GetInstance().isSinglePlayer) {
+            return;
+        }
+
         Server.InitializeServerPackets();
         LocalClient.InitializeClientData();
     }
 
     private void Update()
     {
+        if (GameManager.GetInstance().isSinglePlayer) {
+            return;
+        }
+
         SteamClient.RunCallbacks();
         CheckForPackets();
     }

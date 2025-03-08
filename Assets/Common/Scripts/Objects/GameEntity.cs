@@ -18,6 +18,6 @@ public class GameEntity : MonoBehaviour
     // Optional: Cleanup when the object is destroyed
     private void OnDestroy()
     {
-        ObjectManager.RemoveObject(id);
+        ObjectManager.GetInstance().RemoveObject(id);
     }
 }

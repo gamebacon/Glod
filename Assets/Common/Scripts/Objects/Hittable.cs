@@ -14,7 +14,11 @@ public class Hittable : MonoBehaviour
 
     void Start() {
         gameEntity = GetComponent<GameEntity>();
+        maxHealth *= (int) gameObject.transform.localScale.x;
         health = maxHealth;
+
+
+        // gameEntity.entityCanvas.SetHealth(health, maxHealth);
     }
 
 

@@ -11,7 +11,7 @@ public class AudioManager : MonoBehaviour
     public List<Sound> sounds;
 
     // Static instance for global access
-    public static AudioManager Instance;
+    private static AudioManager Instance;
 
     // The range of pitch variation (minimum and maximum offsets for pitch)
     public float minPitchOffset = 0.9f; // Minimum pitch offset (slower)
@@ -22,16 +22,8 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        // Implement singleton pattern to ensure only one instance of AudioManager
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-            return;
-        }
+        // handle dups of instance?
+
 
         // Create an AudioSource component for each sound
         foreach (Sound sound in sounds)
@@ -42,6 +34,15 @@ public class AudioManager : MonoBehaviour
             sound.source.pitch = sound.pitch; // Initial pitch from the sound
             sound.source.loop = sound.loop;
         }
+    }
+
+    public static AudioManager GetInstance()
+    {
+        if (Instance == null)
+        {
+            Instance = FindFirstObjectByType<AudioManager>();
+        }
+        return Instance;
     }
 
     public bool IsPlaying(SoundType type)

@@ -4,8 +4,8 @@ using UnityEngine;
 public class Tree : MonoBehaviour
 {
        private Hittable hittable;
-    // Start is called before the first frame update
-    void Start()
+
+    void OnEnable()
     {
         /*
         // Set a random scale between a minimum and maximum value
@@ -24,12 +24,12 @@ public class Tree : MonoBehaviour
     }
 
     private void OnDamage () {
-        AudioManager.Instance.Play(SoundType.ENTITY_HIT_TREE);
+        AudioManager.GetInstance().Play(SoundType.ENTITY_HIT_TREE);
     }
 
     private void HandleTreeFall()
     {
-        AudioManager.Instance.Play(SoundType.ENTITY_DEATH_TREE);
+        AudioManager.GetInstance().Play(SoundType.ENTITY_DEATH_TREE);
         // Add Rigidbody to make the tree fall
         Rigidbody rb = gameObject.AddComponent<Rigidbody>();
 

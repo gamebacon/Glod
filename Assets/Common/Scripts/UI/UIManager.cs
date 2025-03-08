@@ -1,4 +1,6 @@
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI; // Required for the Button class
 
 public class UIManager : MonoBehaviour
@@ -12,19 +14,9 @@ public class UIManager : MonoBehaviour
 
     private MenuState menuState = MenuState.MainMenu;
 
-
-    public static UIManager instance;
-
-    void Start()
+     void OnEnable()
     {
-        if (instance == null) {
-            instance = this; 
-        } else if (this != instance) {
-            Destroy(gameObject);
-        }
-
         _cameraMenuTransition = GetComponent<CameraMenuTransition>();
-
 
         lobbyPanel.panel.SetActive(false);
         lobbyPanel.leaveButton.onClick.AddListener(HandleLeaveLobby);
@@ -46,9 +38,18 @@ public class UIManager : MonoBehaviour
     } 
     private void HandleCreateLobby() 
     {
-        lobbyPanel.startButton.gameObject.SetActive(true);
-        LobbyManager.instance.CreateLobby();
-        GoToLobby();
+
+        if (GameManager.GetInstance().isSinglePlayer)
+        {
+            GameManager.GetInstance().StartSinglePlayerGame();
+        } 
+        else
+        {
+            lobbyPanel.startButton.gameObject.SetActive(true);
+            LobbyManager.instance.CreateLobby();
+            GoToLobby();
+        } 
+
     } 
     private void HandleJoinLobby() 
     {

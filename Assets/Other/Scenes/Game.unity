@@ -315,8 +315,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fd473d41255cf45b690ee73466efce74, type: 2}
+  m_sharedMaterial: {fileID: -7709786610244525661, guid: fd473d41255cf45b690ee73466efce74, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1099,8 +1099,7 @@ MonoBehaviour:
     minScale: 4
     maxScale: 5
     minSpacing: 10
-  areaWidth: 1000
-  areaLength: 1000
+  localPlayerPrefab: {fileID: 250422283078590269, guid: 6a54457b60f0d47a990cd38cbc17cc1a, type: 3}
 --- !u!114 &518575711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7616,7 +7615,7 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 1
   m_RichText: 1
-  m_GlobalFontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_GlobalFontAsset: {fileID: 11400000, guid: fd473d41255cf45b690ee73466efce74, type: 2}
   m_OnFocusSelectAll: 1
   m_ResetOnDeActivation: 1
   m_KeepTextSelectionVisible: 0
@@ -8361,7 +8360,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 116805777}
   m_HandleRect: {fileID: 116805776}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000001
   m_Size: 0.40289998
   m_NumberOfSteps: 0
   m_OnValueChanged:

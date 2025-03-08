@@ -22,6 +22,12 @@ public class ServerCommunication : MonoBehaviour
 
     void Awake()
     {
+
+        if (GameManager.GetInstance().isSinglePlayer) 
+        {
+            return;
+        }
+
         // Set up quick and slow updates
         InvokeRepeating(nameof(QuickUpdate), quickUpdateFrequency, quickUpdateFrequency);
         InvokeRepeating(nameof(SlowUpdate), slowUpdateFrequency, slowUpdateFrequency);

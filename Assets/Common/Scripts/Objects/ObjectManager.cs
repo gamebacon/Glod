@@ -4,32 +4,62 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-    public static Dictionary<int, GameEntity> myObjects = new Dictionary<int, GameEntity>();
-    private static int idCounter = 0; // Counter for unique IDs
+    public Dictionary<int, GameEntity> myObjects;
+    private int idCounter = 0; // Counter for unique IDs
 
-    public static ObjectManager instance;
+    private static ObjectManager instance;
 
     public List<GameObject> debugSpawnList = new List<GameObject>();
     public Transform debugSpawnPos;
     public GameObject entityCanvasPrefab;
+
+    public int id;
+
     [SerializeField] private Transform parentTransform;
+
+
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else if (instance != this)
-        {
-           Destroy(instance);
-        }
-
         foreach (var obj in debugSpawnList)
         {
             SpawnObject(obj, debugSpawnPos.position);
         }
 
+        id = UnityEngine.Random.Range(0, 1000);
+        myObjects = new Dictionary<int, GameEntity>();
+
+    }
+
+    private void OnEnable()
+    {
+        if (myObjects == null)
+        {
+            myObjects = new Dictionary<int, GameEntity>();
+            RestoreObjects();
+        }
+    }
+
+    private void RestoreObjects()
+    {
+        foreach(Transform transform in parentTransform)
+        {
+            GameEntity entity = transform.GetComponent<GameEntity>();
+            myObjects.Add(entity.id, entity);
+        }
+    }
+
+    public static ObjectManager GetInstance()
+    {
+        if (instance == null)
+        {
+            instance = GameObject.FindFirstObjectByType<ObjectManager>();
+        }
+
+        Debug.Log(instance.myObjects);
+        Debug.Log(instance.id);
+
+        return instance;
     }
 
     // Method to instantiate and register an object
@@ -65,12 +95,13 @@ public class ObjectManager : MonoBehaviour
     }
 
     // Optional: Remove object from dictionary when destroyed
-    public static void RemoveObject(int id)
+    public void RemoveObject(int id)
     {
         if (myObjects.ContainsKey(id))
         {
             myObjects.Remove(id);
         }
+
     }
 
     internal void Damage(int damage, int entityId)

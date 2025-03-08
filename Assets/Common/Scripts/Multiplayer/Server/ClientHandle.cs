@@ -61,8 +61,8 @@ public class ClientHandle : MonoBehaviour
     Vector3 vector3 = packet.ReadVector3();
     Vector3 position = packet.ReadVector3();
     float orientationY = packet.ReadFloat();
-    GameManager.instance.SpawnPlayer(id, username, new Color(vector3.x, vector3.y, vector3.z), position, orientationY);
-    GameManager.instance.StartGame();
+    GameManager.GetInstance().SpawnPlayer(id, username, new Color(vector3.x, vector3.y, vector3.z), position, orientationY);
+    GameManager.GetInstance().StartGame();
   }
 
 /*
@@ -116,7 +116,7 @@ public class ClientHandle : MonoBehaviour
     int gameLength = num4;
     int multiplayer = num5;
 
-    GameManager.instance.gameSettings = new GameSettings(seed);
+    GameManager.GetInstance().gameSettings = new GameSettings(seed);
 
     /*
     Console.AddMessage((object) "Game settings successfully loaded");
@@ -156,7 +156,7 @@ public class ClientHandle : MonoBehaviour
     int id = packet.ReadInt();
     Vector3 pos = packet.ReadVector3();
     int num = packet.ReadInt();
-    GameManager.instance.KillPlayer(id, pos);
+    GameManager.GetInstance().KillPlayer(id, pos);
     if (LocalClient.instance.myId != num || LocalClient.instance.myId == id || GameManager.gameSettings.gameMode != GameSettings.GameMode.Survival)
       return;
     AchievementManager.Instance.AddPlayerKill();
@@ -177,11 +177,11 @@ public class ClientHandle : MonoBehaviour
   {
     LobbyManager.instance.LeaveLobby();
 
-    if (!GameManager.instance) {
+    if (!GameManager.GetInstance()) {
       return;
     }
 
-    GameManager.instance.LeaveGame();
+    GameManager.GetInstance().LeaveGame();
   }
 
   public static void DisconnectPlayer(Packet packet)
@@ -193,17 +193,17 @@ public class ClientHandle : MonoBehaviour
     if (id == LocalClient.instance.myId)
     {
       LobbyManager.instance.LeaveLobby();
-      if (!GameManager.instance) {
+      if (!GameManager.GetInstance()) {
         return;
       }
 
-      GameManager.instance.LeaveGame();
+      GameManager.GetInstance().LeaveGame();
     }
     else
     {
-      if (!(bool) (UnityEngine.Object) GameManager.instance)
+      if (!(bool) (UnityEngine.Object) GameManager.GetInstance())
         return;
-      GameManager.instance.DisconnectPlayer(id);
+      GameManager.GetInstance().DisconnectPlayer(id);
     }
   }
 /*
@@ -227,7 +227,7 @@ public class ClientHandle : MonoBehaviour
   public static void GameOver(Packet packet)
   {
     int winnerId = packet.ReadInt();
-    GameManager.instance.GameOver(winnerId);
+    GameManager.GetInstance().GameOver(winnerId);
   }
 
   public static void EntityHit(Packet packet)
@@ -235,7 +235,7 @@ public class ClientHandle : MonoBehaviour
     int sourceId = packet.ReadInt();
     int entityId = packet.ReadInt();
     Debug.Log($"[ClientHandle] {sourceId} hit {entityId}");
-    ObjectManager.instance.Damage(10, entityId);
+    ObjectManager.GetInstance().Damage(10, entityId);
   }
 
 }

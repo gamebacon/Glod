@@ -65,13 +65,13 @@ public class ServerHandle
     if (totalPlayers < totalReadyPlayers)
       return;
     // Debug.Log((object) ("ready players: " + (object) totalPlayers + " / " + (object) totalReadyPlayers));
-    List<Vector3> spawnPositions = /* GameManager.gameSettings.gameMode == GameSettings.GameMode.Versus ? GameManager.instance.FindVersusSpawnPositions(nPlayers) : */ GameManager.instance.FindSurvivalSpawnPositions(totalReadyPlayers);
+    List<Vector3> spawnPositions = /* GameManager.gameSettings.gameMode == GameSettings.GameMode.Versus ? GameManager.GetInstance().FindVersusSpawnPositions(nPlayers) : */ GameManager.GetInstance().FindSurvivalSpawnPositions(totalReadyPlayers);
 
     if (totalPlayers < totalReadyPlayers)
       return;
 
     // todo make single start game call in gm
-    GameManager.instance.SendPlayersIntoGame(totalReadyPlayers);
+    GameManager.GetInstance().SendPlayersIntoGame(totalReadyPlayers);
   }
 
   public static void PlayerDisconnect(int fromClient, Packet packet)
@@ -192,7 +192,7 @@ public class ServerHandle
 
         int entityId = packet.ReadInt();
         // Debug.Log($"Server handle entity attack from client {fromClient} to entity {entityId}");
-        ObjectManager.instance.Damage(10, entityId);
+        ObjectManager.GetInstance().Damage(10, entityId);
         ServerSend.HitEntity(fromClient, entityId);
     }
 }

@@ -8,12 +8,12 @@ public class UIButton : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler
 
     public void OnPointerEnter(PointerEventData ped)
     {
-        AudioManager.Instance.Play(SoundType.PLAYER_FOOTSTEP);
+        AudioManager.GetInstance().Play(SoundType.PLAYER_FOOTSTEP);
     }
 
     public void OnPointerDown(PointerEventData ped)
     {
-        AudioManager.Instance.Play(SoundType.ENTITY_HIT_TREE);
+        AudioManager.GetInstance().Play(SoundType.ENTITY_HIT_TREE);
     }
 }
 

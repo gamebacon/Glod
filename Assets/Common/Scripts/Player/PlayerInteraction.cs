@@ -5,7 +5,7 @@ public class PlayerInteraction : MonoBehaviour
     public float attackRange = 2f;           // Range for melee attacks
     public int attackDamage = 20;            // Damage dealt per attack
     public float interactionRange = 3f;      // Range for interacting with objects
-    public float attackCooldown = .5f;        // Time between attacks
+    public float attackCooldown = 0f;        // Time between attacks
     public float attackSpeed = 3f;        // Time between attacks
 
     private float _lastAttackTime;           // To track time since last attack
@@ -16,7 +16,7 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.instance.gameState != GameState.Game) {
+        if (GameManager.GetInstance().gameState != GameState.Game) {
             return;
         }
 
@@ -68,7 +68,7 @@ public class PlayerInteraction : MonoBehaviour
             {
                 GameEntity gameEntity = hit.collider.GetComponent<GameEntity>();
 
-                ClientSend.AttackEntity(gameEntity.id);
+                HandleAttack(gameEntity);
 
                 // hittable.TakeDamage(attackDamage);  // Call TakeDamage on Hittable script
                 // Play attack animation or sound (if applicable)
@@ -80,6 +80,18 @@ public class PlayerInteraction : MonoBehaviour
             }
         }
 
+    }
+
+    private void HandleAttack (GameEntity entity)
+    {
+        if (GameManager.GetInstance().isSinglePlayer)
+        {
+            ObjectManager.GetInstance().Damage(10, entity.id);
+        }
+        else
+        {
+            ClientSend.AttackEntity(entity.id);
+        }
     }
 
     void AttemptInteraction()

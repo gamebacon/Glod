@@ -15,8 +15,7 @@ public class SpawnableObject
 public class EnvironmentSpawner : MonoBehaviour
 {
     public List<SpawnableObject> objectsToSpawn;   // List of objects to spawn (trees, rocks, etc.)
-    public float areaWidth = 50f;                  // Width of the spawning area
-    public float areaLength = 50f;                 // Length of the spawning area
+    [SerializeField] private GameObject localPlayerPrefab;   // Localplayer for singleplayer 
     private Terrain terrain;                       // Reference to the active terrain
 
     private List<Vector3> _spawnedPositions = new List<Vector3>();  // Track spawned positions for spacing
@@ -34,17 +33,29 @@ public class EnvironmentSpawner : MonoBehaviour
             return;
         }
 
-        _objectManager = ObjectManager.instance;
+        _objectManager = ObjectManager.GetInstance();
 
 
         _terrainCenter = terrain.transform.position + new Vector3(terrain.terrainData.size.x / 2, 0, terrain.terrainData.size.z / 2);
 
         SpawnEnvironmentObjects();
+
+        if (GameManager.GetInstance().isSinglePlayer)
+        {
+            SpawnSinglePlayer();
+        }
     }
+
+    public void SpawnSinglePlayer()
+    {
+        Vector3 spawnPos = GetRandomPositionWithinArea();
+        Instantiate(localPlayerPrefab, spawnPos, Quaternion.identity);
+    }
+
 
     public void SpawnEnvironmentObjects()
     {
-        int seed = GameManager.instance.gameSettings.seed;
+        int seed = GameManager.GetInstance().gameSettings.seed;
         Debug.Log(seed);
         PerlinNoise _perlinNoise = new PerlinNoise(seed);
         Queue<Vector3> poses = _perlinNoise.Generate();
@@ -55,22 +66,6 @@ public class EnvironmentSpawner : MonoBehaviour
             for (int i = 0; i < obj.quantity; i++)
             {
                 Vector3 spawnPosition = poses.Count > 0 ? poses.Dequeue() : Vector3.zero;
-
-                /*
-                // Ensure spacing from other objects
-                int attempts = 0;
-                while (IsTooCloseToOtherObjects(spawnPosition, obj.minSpacing) && attempts < 10)
-                {
-                    spawnPosition = GetRandomPositionWithinArea();
-                    attempts++;
-                }
-
-                // If too many attempts are made, skip placing this object
-                if (attempts >= 10)
-                {
-                    continue;
-                }
-                */
 
                 // Adjust spawn position to be on the terrain surface
                 spawnPosition = GetTerrainHeightAdjustedPosition(spawnPosition);
@@ -90,14 +85,18 @@ public class EnvironmentSpawner : MonoBehaviour
 
     private Vector3 GetRandomPositionWithinArea()
     {
-        float xPosition = Random.Range(-areaWidth / 2, areaWidth / 2);
-        float zPosition = Random.Range(-areaLength / 2, areaLength / 2);
+        Vector3 size = terrain.terrainData.size;
+
+        float xPosition = Random.Range(-size.x / 2, size.x/ 2);
+        float zPosition = Random.Range(-size.z / 2, size.z / 2);
 
         // Add the random offsets to the terrain center to create the centered spawn position
-        return new Vector3(xPosition, 0, zPosition) + _terrainCenter;
+        Vector3  pos = new Vector3(xPosition, 0, zPosition) + _terrainCenter;
+
+        return GetTerrainHeightAdjustedPosition(pos, .5f);
     }
 
-    private Vector3 GetTerrainHeightAdjustedPosition(Vector3 position)
+    private Vector3 GetTerrainHeightAdjustedPosition(Vector3 position, float yOffset = 0)
     {
         if (terrain == null) return position;  // Fallback in case terrain is missing
 
@@ -105,7 +104,7 @@ public class EnvironmentSpawner : MonoBehaviour
         float terrainHeight = terrain.SampleHeight(position);
 
         // Update y-position to match terrain height
-        return new Vector3(position.x, terrainHeight, position.z);
+        return new Vector3(position.x, terrainHeight + yOffset, position.z);
     }
 
     private bool IsTooCloseToOtherObjects(Vector3 position, float minSpacing)

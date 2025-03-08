@@ -7,16 +7,21 @@ public class NetStatus : MonoBehaviour
   private static LinkedList<int> pings = new LinkedList<int>();
   private static int pingBuffer = 2;
 
-  private void Awake() => this.InvokeRepeating("SlowUpdate", 1f, 1f);
+  private void Awake()
+    {
+
+    if (GameManager.GetInstance().isSinglePlayer) 
+    {
+        return;
+    }
+
+     InvokeRepeating("SlowUpdate", 1f, 1f);
+    }
+
 
   private void SlowUpdate()
   {
-    /*
-    if (GameManager.instance.gameState == GameState.Game) {
-    }
-    */
     ClientSend.PingServer();
-    
   }
 
   public static void AddPing(int p)

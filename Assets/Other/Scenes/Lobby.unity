@@ -7385,6 +7385,7 @@ MonoBehaviour:
   onlinePlayerPrefab: {fileID: 8092689863384172085, guid: 2771d406c9e6f4460bc94f2a7d72ec60, type: 3}
   localPlayerPrefab: {fileID: 250422283078590269, guid: 6a54457b60f0d47a990cd38cbc17cc1a, type: 3}
   spawn: {fileID: 1993258038}
+  isSinglePlayer: 1
 --- !u!114 &769468714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8377,7 +8378,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1222714144}
   m_HandleRect: {fileID: 1222714143}
   m_Direction: 2
-  m_Value: 1.0000001
+  m_Value: 1.0000004
   m_Size: 0.40289998
   m_NumberOfSteps: 0
   m_OnValueChanged:

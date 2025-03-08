@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.instance.gameState != GameState.Game) {
+        if (GameManager.GetInstance().gameState != GameState.Game) {
             return;
         }
 
@@ -54,12 +54,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (movement.magnitude > 0.1f && isGrounded)
         {
-            if (!AudioManager.Instance.IsPlaying(SoundType.PLAYER_FOOTSTEP))
-                AudioManager.Instance.Play(SoundType.PLAYER_FOOTSTEP);
+            if (!AudioManager.GetInstance().IsPlaying(SoundType.PLAYER_FOOTSTEP))
+                AudioManager.GetInstance().Play(SoundType.PLAYER_FOOTSTEP);
         }
         else
         {
-            AudioManager.Instance.Stop(SoundType.PLAYER_FOOTSTEP);
+            AudioManager.GetInstance().Stop(SoundType.PLAYER_FOOTSTEP);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)

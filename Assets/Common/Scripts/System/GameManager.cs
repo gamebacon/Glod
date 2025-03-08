@@ -1,8 +1,10 @@
 using System;
 using UnityEngine;
 using System.Collections.Generic;
-using Steamworks;
-using UnityEngine.Rendering.Universal.Internal;
+using System.Reflection;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,16 +27,25 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public GameSettings gameSettings; 
 
-    public static GameManager instance;
+    public bool isSinglePlayer;
 
-  private void Awake()
-  {
-    if (GameManager.instance == null)
+    private static GameManager instance;
+
+
+    public static GameManager GetInstance()
     {
-      GameManager.instance = this;
-    } else if (GameManager.instance != this) {
-      Destroy(this);
+        if (instance == null)
+        {
+            instance = FindFirstObjectByType<GameManager>();
+        }
+        return instance;
     }
+
+    private void Awake()
+    {
+
+
+     // handle dups?
 
     GameManager.players = new Dictionary<int, PlayerManager>();
   }
@@ -42,7 +53,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.Play(SoundType.MENU_MUSIC);
+        AudioManager.GetInstance().Play(SoundType.MENU_MUSIC);
     }
 
 public List<Vector3> FindSurvivalSpawnPositions(int size)
@@ -116,13 +127,13 @@ private void SendPlayersIntoGameNow()
 
   public void StartGame()
   {
-    AudioManager.Instance.Stop(SoundType.MENU_MUSIC);
+    AudioManager.GetInstance().Stop(SoundType.MENU_MUSIC);
     /*
     LoadingScreen.Instance.Hide();
     this.lobbyCamera.SetActive(false);
     */
 
-    GameManager.instance.gameState = GameState.Game;
+    GameManager.GetInstance().gameState = GameState.Game;
 
 
     /*
@@ -215,6 +226,15 @@ private void SendPlayersIntoGameNow()
     */
 
   }
+
+    public void StartSinglePlayerGame()
+    {
+        int seed = UnityEngine.Random.Range(int.MinValue, int.MaxValue);
+        gameSettings = new GameSettings(seed);
+        SceneManager.LoadScene("Game");
+        gameState = GameState.Game;
+    }
+
 
 }
 
