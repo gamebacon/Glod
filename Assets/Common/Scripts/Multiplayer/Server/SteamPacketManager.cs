@@ -70,6 +70,7 @@ public class SteamPacketManager : MonoBehaviour
         }
         else if (channel == NetworkChannel.ToServer)
         {
+            // handle if player left lobby 
             //Debug.Log($"[To Server] Packet: {key}");
             if (LobbyManager.steamIdToClientId.TryGetValue(senderSteamId.Value, out int clientId))
             {
