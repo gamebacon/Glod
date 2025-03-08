@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private bool cameraActive = true;
 
     [SerializeField]
-    private Camera camera;
+    private Camera _camera;
 
     private float verticalClampAngle = 80f;
     private float currentVerticalRotation = 0f;
@@ -26,9 +26,9 @@ public class PlayerMovement : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
 
-        if (camera)
+        if (_camera)
         {
-            _cameraTransform = camera.transform;
+            _cameraTransform = _camera.transform;
         }
 
         Cursor.lockState = CursorLockMode.Locked;
@@ -54,12 +54,12 @@ public class PlayerMovement : MonoBehaviour
 
         if (movement.magnitude > 0.1f && isGrounded)
         {
-            if (!AudioManager.Instance.IsPlaying("Footsteps"))
-                AudioManager.Instance.Play("Footsteps");
+            if (!AudioManager.Instance.IsPlaying(SoundType.PLAYER_FOOTSTEP))
+                AudioManager.Instance.Play(SoundType.PLAYER_FOOTSTEP);
         }
         else
         {
-            AudioManager.Instance.Stop("Footsteps");
+            AudioManager.Instance.Stop(SoundType.PLAYER_FOOTSTEP);
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)

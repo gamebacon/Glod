@@ -17,7 +17,7 @@ public class PlayerMovementTest : MonoBehaviour
     private bool cameraActive = true;
 
     [SerializeField]
-    private Camera camera;
+    private Camera _camera;
 
     private float verticalClampAngle = 80f;
     private float currentVerticalRotation = 0f;
@@ -29,9 +29,9 @@ public class PlayerMovementTest : MonoBehaviour
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
 
-        if (camera)
+        if (_camera)
         {
-            _cameraTransform = camera.transform;
+            _cameraTransform = _camera.transform;
         }
 
         Cursor.lockState = CursorLockMode.Locked;

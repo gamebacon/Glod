@@ -43,7 +43,7 @@ public class SteamManager : MonoBehaviour {
                 Console.AddMessage("Connected to steam");
 
             } catch (Exception e) {
-
+                Debug.Log(e);
             }
         } else if (instance != this) {
             Destroy(gameObject);

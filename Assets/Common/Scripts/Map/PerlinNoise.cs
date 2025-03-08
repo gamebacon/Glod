@@ -10,7 +10,7 @@ public class PerlinNoise
 
     private float minSpacing = 20f;
 
-    private float treeSizeMultiplier = 3;
+    // private float treeSizeMultiplier = 3;
     private float treePosOffset = 5;
 
     private float noiseScale = 0.001f;

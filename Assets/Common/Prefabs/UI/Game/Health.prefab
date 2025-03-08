@@ -84,8 +84,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -3.3466034, y: 0}
+  m_SizeDelta: {x: -6.6932, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4842169190529487451
 CanvasRenderer:
@@ -111,11 +111,11 @@ MonoBehaviour:
   m_Color: {r: 0.53333336, g: 0.53333336, b: 0.53333336, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 335851776, guid: 86984ca7aac4a1345a166e88c02a0aa6, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 2
+  m_PixelsPerUnitMultiplier: 11.49
 --- !u!1 &1657428993952916023
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,8 +159,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0.13800001, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: 14.499998}
-  m_SizeDelta: {x: -16.277405, y: 29}
+  m_AnchoredPosition: {x: 1.1501007, y: 1.0662154}
+  m_SizeDelta: {x: -2.9674, y: 10.7823}
   m_Pivot: {x: 0.49999997, y: 0.49999976}
 --- !u!222 &5045992691690216435
 CanvasRenderer:
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -517002268, guid: d72de72549ff10a4fb4d66e55af64c78, type: 3}
+  m_Sprite: {fileID: 1362683066, guid: 00004e55b466839458ff5b1ac5beff17, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_PixelsPerUnitMultiplier: 157.9
 --- !u!1 &4375277025258602385
 GameObject:
   m_ObjectHideFlags: 0
@@ -314,7 +314,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8770480213100370744}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

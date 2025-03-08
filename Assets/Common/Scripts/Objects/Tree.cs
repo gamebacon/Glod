@@ -24,12 +24,12 @@ public class Tree : MonoBehaviour
     }
 
     private void OnDamage () {
-        AudioManager.Instance.Play("WoodHit");
+        AudioManager.Instance.Play(SoundType.ENTITY_HIT_TREE);
     }
 
     private void HandleTreeFall()
     {
-        AudioManager.Instance.Play("TreeFalling");
+        AudioManager.Instance.Play(SoundType.ENTITY_DEATH_TREE);
         // Add Rigidbody to make the tree fall
         Rigidbody rb = gameObject.AddComponent<Rigidbody>();
 

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4df5dabb45a96b44aa05b864d2a50cab
+guid: 00004e55b466839458ff5b1ac5beff17
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,23 +97,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Rectangle 6(2)_0
+      name: food_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 43
-        height: 43
+        width: 256
+        height: 256
       alignment: 0
       pivot: {x: 0, y: 0}
-      border: {x: 20, y: 20, z: 20, w: 20}
+      border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 861efd01787f516449c3034ebba39c5f
-      internalID: -1210923376
+      spriteID: e21753c5c39329047ae6923fb3c8e69d
+      internalID: 1362683066
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 2e4f7a7969d32634cb6b64528a865450
+    spriteID: 8a0bea5f8028e634abfbcb2de6d6fd02
     internalID: 0
     vertices: []
     indices: 
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Rectangle 6(2)_0: -1210923376
+      food_0: 1362683066
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

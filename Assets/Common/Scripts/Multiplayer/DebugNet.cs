@@ -81,8 +81,8 @@ public class DebugNet : MonoBehaviour
             displayText.AppendFormat("\npacket down/s: {0}", packetsReceived);
         }
 
-        uint totalAllocated = Profiler.GetTotalAllocatedMemory() / 1048576U;
-        uint totalReserved = Profiler.GetTotalReservedMemory() / 1048576U;
+        uint totalAllocated = (uint) Profiler.GetTotalAllocatedMemoryLong() / 1048576U;
+        uint totalReserved = (uint) Profiler.GetTotalReservedMemoryLong() / 1048576U;
 
         displayText.AppendFormat("\nRAM Total: {0} MB | {1} MB / {2} MB", totalAllocated, totalReserved, SystemInfo.systemMemorySize);
         Friend friend = new Friend(LocalClient.instance.serverHost.Value);

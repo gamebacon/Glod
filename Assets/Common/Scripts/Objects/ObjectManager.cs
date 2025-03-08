@@ -12,6 +12,7 @@ public class ObjectManager : MonoBehaviour
     public List<GameObject> debugSpawnList = new List<GameObject>();
     public Transform debugSpawnPos;
     public GameObject entityCanvasPrefab;
+    [SerializeField] private Transform parentTransform;
 
     private void Awake()
     {
@@ -35,11 +36,15 @@ public class ObjectManager : MonoBehaviour
     public GameObject SpawnObject(GameObject obj, Vector3 position)
     {
         // Instantiate the object
-        GameObject gameObject = Instantiate(obj, position, Quaternion.identity);
+        GameObject gameObject = Instantiate(obj, position, Quaternion.identity, parentTransform);
 
         // Add EntityCanvas
-         // Instantiate(entityCanvasPrefab, gameObject);
-         EntityCanvas entityCanvas = Instantiate(entityCanvasPrefab, Vector3.zero, Quaternion.identity, gameObject.transform).GetComponent<EntityCanvas>();
+         EntityCanvas entityCanvas = Instantiate(
+             entityCanvasPrefab,
+             Vector3.zero,
+             Quaternion.identity,
+             gameObject.transform
+         ).GetComponent<EntityCanvas>();
 
         // Add the MyGameObject component
         GameEntity entity = gameObject.AddComponent<GameEntity>();

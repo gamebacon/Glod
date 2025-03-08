@@ -4894,6 +4894,10 @@ PrefabInstance:
       propertyPath: camera
       value: 
       objectReference: {fileID: 5415448242281191962}
+    - target: {fileID: 1616282048136082781, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 5415448242281191962}
     - target: {fileID: 2623337572080480822, guid: 3ac80428a9b7c49b39ee294167f8a6a2, type: 3}
       propertyPath: m_Name
       value: LocalPlayer Variant

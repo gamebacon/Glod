@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.UI;
 using UnityEngine;
 
 public class AudioManager : MonoBehaviour
@@ -43,19 +44,19 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public bool IsPlaying(string soundName)
+    public bool IsPlaying(SoundType type)
     {
-        Sound sound = sounds.Find(s => s.name == soundName);
+        Sound sound = sounds.Find(s => s.type == type);
         return sound != null && sound.source.isPlaying;
     }
 
     // Method to play a sound by name with random pitch offset
-    public void Play(string soundName)
+    public void Play(SoundType type)
     {
-        Sound sound = sounds.Find(s => s.name == soundName);
+        Sound sound = sounds.Find(s => s.type == type);
         if (sound == null)
         {
-            Debug.LogWarning("Sound: " + soundName + " not found!");
+            Debug.LogWarning("Sound: " + type + " not found!");
             return;
         } 
 
@@ -70,12 +71,12 @@ public class AudioManager : MonoBehaviour
     }
 
     // Method to stop a sound by name
-    public void Stop(string soundName)
+    public void Stop(SoundType type)
     {
-        Sound sound = sounds.Find(s => s.name == soundName);
+        Sound sound = sounds.Find(s => s.type == type);
         if (sound == null)
         {
-            Debug.LogWarning("Sound: " + soundName + " not found!");
+            Debug.LogWarning("Sound: " + type + " not found!");
             return;
         }
         sound.source.Stop();
@@ -85,11 +86,17 @@ public class AudioManager : MonoBehaviour
 [System.Serializable]
 public class Sound
 {
-    public string name;
+    [SerializeField] private string name;
+    public SoundType type;
     public AudioClip clip;
     [Range(0f, 1f)] public float volume = 0.5f;  // The original volume for this sound
     [Range(0.1f, 3f)] public float pitch = 1f;   // The original pitch for this sound
     public bool loop = false;
 
     [HideInInspector] public AudioSource source;  // The AudioSource that will play this sound
+
+    public Sound() 
+    { 
+        this.name = this.type.ToString();
+    }
 }

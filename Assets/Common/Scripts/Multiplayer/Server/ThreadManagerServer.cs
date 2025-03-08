@@ -8,7 +8,7 @@ public class ThreadManagerServer : MonoBehaviour
   private static readonly List<Action> executeCopiedOnMainThread = new List<Action>();
   private static bool actionToExecuteOnMainThread = false;
   public static ThreadManagerServer Instance;
-  private int minPlayerAmount = 3;
+  // private int minPlayerAmount = 3;
 
   public static void ExecuteOnMainThread(Action _action)
   {

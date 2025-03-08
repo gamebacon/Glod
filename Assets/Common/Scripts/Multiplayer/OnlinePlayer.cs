@@ -16,10 +16,10 @@ public class OnlinePlayer : MonoBehaviour
   public GameObject dashFx;
   private float moveSpeed = 15f;
   private float rotationSpeed = 13f;
-  private float animationBlendSpeed = 8f;
+  // private float animationBlendSpeed = 8f;
   public GameObject weapon;
   private MeshFilter filter;
-  private MeshRenderer renderer;
+  private MeshRenderer _renderer;
   public Transform hpBar;
   public Transform upperBody;
   public SkinnedMeshRenderer[] armor;

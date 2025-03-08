@@ -29,7 +29,8 @@ public class ServerHandle
     else
     {
       Server.clients[fromClient].SendIntoGame();
-      return; // ??????
+            /*
+      ??????
       Debug.Log(packet.ToString());
 
       // worng data? (removing id)
@@ -39,6 +40,7 @@ public class ServerHandle
       Server.clients[fromClient].player.hasJoined = true;
       Server.clients[fromClient].player.username = packet.ReadString();
       ServerSend.Welcome(fromClient, "weclome");
+            */
     }
   }
 

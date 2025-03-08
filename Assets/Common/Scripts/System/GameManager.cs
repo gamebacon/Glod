@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        AudioManager.Instance.Play("Menu");
+        AudioManager.Instance.Play(SoundType.MENU_MUSIC);
     }
 
 public List<Vector3> FindSurvivalSpawnPositions(int size)
@@ -116,7 +116,7 @@ private void SendPlayersIntoGameNow()
 
   public void StartGame()
   {
-    AudioManager.Instance.Stop("Menu");
+    AudioManager.Instance.Stop(SoundType.MENU_MUSIC);
     /*
     LoadingScreen.Instance.Hide();
     this.lobbyCamera.SetActive(false);

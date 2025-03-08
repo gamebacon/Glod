@@ -16,7 +16,7 @@ public class Rock : MonoBehaviour
     // Update is called once per frame
     void OnDamage()
     {
-        AudioManager.Instance.Play("WoodHit");
+        AudioManager.Instance.Play(SoundType.ENTITY_HIT_TREE);
     }
 
 

@@ -15,14 +15,14 @@ public class PlayerManager : MonoBehaviour, IComparable
   public bool isDisconnected;
   public bool loaded;
   public TextMeshProUGUI nameText;
-  private Collider collider;
+  private Collider _collider;
   public Transform spectateOrbit;
 
   public int graveId { get; set; }
 
   private void Awake()
   {
-    this.collider = this.GetComponent<Collider>();
+    this._collider = this.GetComponent<Collider>();
   }
 
   private void Start()
@@ -54,5 +54,5 @@ public class PlayerManager : MonoBehaviour, IComparable
 
   public int CompareTo(object obj) => 0;
 
-  public Collider GetCollider() => this.collider;
+  public Collider GetCollider() => this._collider;
 }

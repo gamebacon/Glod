@@ -25,7 +25,7 @@ public class EndlessTerrain : MonoBehaviour {
 	static List<TerrainChunk> terrainChunksVisibleLastUpdate = new List<TerrainChunk>();
 
 	void Start() {
-		mapGenerator = FindObjectOfType<MapGenerator> ();
+		mapGenerator = FindFirstObjectByType<MapGenerator> ();
 
 		maxViewDst = detailLevels [detailLevels.Length - 1].visibleDstThreshold;
 		chunkSize = MapGenerator.mapChunkSize - 1;

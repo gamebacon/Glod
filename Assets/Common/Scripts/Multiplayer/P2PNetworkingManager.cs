@@ -20,6 +20,8 @@ public class P2PNetworkingManager : MonoBehaviour
             hostSteamId = LobbyManager.instance.HostSteamId; // Get the host's Steam ID
             StartClient();
         }
+
+        Debug.Log(isHost);
     }
 
     void OnDestroy()

@@ -3,12 +3,12 @@ using TMPro;
 
 public class LobbyPlayer : MonoBehaviour
 {
-    public TMP_Text tag; 
+    public TMP_Text gamerTag; 
     public string playerId; 
 
     public void Init(string name, string id) 
     {
-        this.tag.text = name;
+        this.gamerTag.text = name;
         this.playerId = id;
     }
 }
