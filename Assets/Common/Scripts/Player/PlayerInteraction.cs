@@ -5,7 +5,8 @@ public class PlayerInteraction : MonoBehaviour
     public float attackRange = 2f;           // Range for melee attacks
     public int attackDamage = 20;            // Damage dealt per attack
     public float interactionRange = 3f;      // Range for interacting with objects
-    public float attackCooldown = 1f;        // Time between attacks
+    public float attackCooldown = .5f;        // Time between attacks
+    public float attackSpeed = 3f;        // Time between attacks
 
     private float _lastAttackTime;           // To track time since last attack
 
@@ -40,6 +41,8 @@ public class PlayerInteraction : MonoBehaviour
         {
             return;
         }
+
+        _handAnimator.SetFloat("AttackSpeed", attackSpeed);
         _handAnimator.SetTrigger("Swing");
 
         // Update the last attack time
