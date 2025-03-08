@@ -3,8 +3,8 @@ using System;
 
 public class Hittable : MonoBehaviour
 {
-    public int health = 0;
-    private int maxHealth = 100;
+    public float health = 0;
+    private float maxHealth = 100;
 
     // Define a Die event that other scripts can subscribe to
     public event Action OnDie;
@@ -22,14 +22,14 @@ public class Hittable : MonoBehaviour
     }
 
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         if (isDead())
         {
             return;
         }
 
-        health -= damage;
+        health = Math.Max(0, health - damage);
         OnDamage?.Invoke();
 
         if (health <= 0)

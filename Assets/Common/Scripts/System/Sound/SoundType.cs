@@ -7,4 +7,6 @@ public enum SoundType
     ENTITY_HIT_TREE,
     ENTITY_DEATH_TREE,
     MENU_MUSIC,
+    UI_SELECT,
+    UI_CLICK,
 }

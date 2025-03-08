@@ -1,4 +1,5 @@
 using NUnit.Framework.Constraints;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -13,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     public float rotationSpeed = 2f;
 
     private bool isGrounded;
-    private bool isSprinting;
+    private bool isShifting;
     private bool cameraActive = true;
 
     [SerializeField]
@@ -22,9 +23,12 @@ public class PlayerMovement : MonoBehaviour
     private float verticalClampAngle = 80f;
     private float currentVerticalRotation = 0f;
 
+    private PlayerStats _playerStats;
+
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _playerStats = GetComponent<PlayerStats>();
 
         if (_camera)
         {
@@ -79,16 +83,27 @@ public class PlayerMovement : MonoBehaviour
             Cursor.visible = false;
         }
 
-        isSprinting = Input.GetKey(KeyCode.LeftShift);
+        isShifting = Input.GetKey(KeyCode.LeftShift);
     }
 
     void MovePlayer(Vector3 movement)
     {
 
+        bool isMoving = movement != Vector3.zero;
+
+        if (!isMoving)
+        {
+            return;
+        }
+
+
         float calculatedSpeed = speed;
 
-        if (isSprinting) {
+        bool canSprint = _playerStats.GetStatValue(PlayerStatType.STAMINA) > 0;
+
+        if (isShifting && canSprint) {
             calculatedSpeed *= 10;
+            _playerStats.SetStatValue(PlayerStatType.STAMINA, -0.1f);
         }
 
         Vector3 moveDirection = transform.TransformDirection(movement) * calculatedSpeed;

@@ -14,6 +14,13 @@ public class PlayerInteraction : MonoBehaviour
     [SerializeField]
     private Animator _handAnimator;
 
+    private PlayerStats _playerStats;
+
+    private void Start()
+    {
+        _playerStats = GetComponent<PlayerStats>();
+    }
+
     void Update()
     {
         if (GameManager.GetInstance().gameState != GameState.Game) {
@@ -82,11 +89,18 @@ public class PlayerInteraction : MonoBehaviour
 
     }
 
+    public float GetAttackDamage()
+    {
+        float critMultiplier = UnityEngine.Random.Range(1f, 1.5f);
+        float finalDamage = attackDamage * critMultiplier;
+        return finalDamage;
+    }
+
     private void HandleAttack (GameEntity entity)
     {
         if (GameManager.GetInstance().isSinglePlayer)
         {
-            ObjectManager.GetInstance().Damage(10, entity.id);
+            ObjectManager.GetInstance().Damage(GetAttackDamage(), entity.id);
         }
         else
         {

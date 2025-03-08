@@ -36,8 +36,8 @@ public class EntityCanvas : MonoBehaviour
         idText.text = $"ID: {id}";
     }
 
-    public void SetHealth(int currentHealth, int maxHealth) {
-        healthText.text = $"{currentHealth}/{maxHealth}";
+    public void SetHealth(float currentHealth, float maxHealth) {
+        healthText.text = $"{(int) currentHealth}/{maxHealth}";
     }
 
 }

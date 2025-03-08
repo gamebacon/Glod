@@ -56,9 +56,6 @@ public class ObjectManager : MonoBehaviour
             instance = GameObject.FindFirstObjectByType<ObjectManager>();
         }
 
-        Debug.Log(instance.myObjects);
-        Debug.Log(instance.id);
-
         return instance;
     }
 
@@ -104,7 +101,7 @@ public class ObjectManager : MonoBehaviour
 
     }
 
-    internal void Damage(int damage, int entityId)
+    internal void Damage(float damage, int entityId)
     {
         GameEntity entity = myObjects[entityId];
         entity.GetComponent<Hittable>().TakeDamage(damage);

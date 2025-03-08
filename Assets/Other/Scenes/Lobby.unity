@@ -7409,8 +7409,8 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: Hit wood
     type: 1
-    clip: {fileID: 8300000, guid: cec8f76c4d5fe41d6afe94340eee4874, type: 3}
-    volume: 0.527
+    clip: {fileID: 8300000, guid: 57545c1434a74a349a905f1689b16752, type: 3}
+    volume: 1
     pitch: 1.34
     loop: 0
     source: {fileID: 0}
@@ -7426,6 +7426,20 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 402d9b30625c94124a5f1a7b1da4b9db, type: 3}
     volume: 1
     pitch: 1.15
+    loop: 0
+    source: {fileID: 0}
+  - name: Select
+    type: 4
+    clip: {fileID: 8300000, guid: 9130829501d32674ab73e36b6a0402a0, type: 3}
+    volume: 1
+    pitch: 2.22
+    loop: 0
+    source: {fileID: 0}
+  - name: Click
+    type: 5
+    clip: {fileID: 8300000, guid: 9130829501d32674ab73e36b6a0402a0, type: 3}
+    volume: 1
+    pitch: 0.62
     loop: 0
     source: {fileID: 0}
   minPitchOffset: 0.9
@@ -8379,7 +8393,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1222714143}
   m_Direction: 2
   m_Value: 1.0000004
-  m_Size: 0.40289998
+  m_Size: 0.40290004
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

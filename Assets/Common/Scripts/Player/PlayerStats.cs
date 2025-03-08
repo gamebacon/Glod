@@ -5,14 +5,18 @@ using System.Collections;
 public class PlayerStats : MonoBehaviour
 {
     public Dictionary<PlayerStatType, PlayerStat> stats = new();
-    public float statUpdateInterval = 5f; // Adjust the time interval in seconds
+    public float statUpdateInterval = 0.1f; // Adjust the time interval in seconds
 
-    private void Awake()
+    private HUDManager _UIPlayerStats;
+
+    private void OnEnable()
     {
+        _UIPlayerStats = FindFirstObjectByType<HUDManager>();
+
         stats[PlayerStatType.HEALTH] = new PlayerStat(PlayerStatType.HEALTH, 100, 0, 0, 100);
-        stats[PlayerStatType.HUNGER] = new PlayerStat(PlayerStatType.HUNGER, 0, 5, 0, 100);
-        stats[PlayerStatType.THIRST] = new PlayerStat(PlayerStatType.THIRST, 0, 7, 0, 100);
-        stats[PlayerStatType.STAMINA] = new PlayerStat(PlayerStatType.STAMINA, 100, 0, 0, 100);
+        stats[PlayerStatType.HUNGER] = new PlayerStat(PlayerStatType.HUNGER, 0, 0.1f, 0, 100);
+        stats[PlayerStatType.THIRST] = new PlayerStat(PlayerStatType.THIRST, 0, 0.2f, 0, 100);
+        stats[PlayerStatType.STAMINA] = new PlayerStat(PlayerStatType.STAMINA, 100, 1, 0, 100);
 
         StartCoroutine(UpdateStatsOverTime());
     }
@@ -25,7 +29,9 @@ public class PlayerStats : MonoBehaviour
 
             foreach (var stat in stats.Values)
             {
+                // optimize
                 stat.UpdateOverTime();
+                _UIPlayerStats.SetSliderValue(stat.Type, stat.GetPercentageValue());
             }
 
             // Reduce health if hunger or thirst reaches 100
@@ -39,6 +45,11 @@ public class PlayerStats : MonoBehaviour
     }
 
     public float GetStatValue(PlayerStatType type) => stats.ContainsKey(type) ? stats[type].Value : 0;
+    public void SetStatValue(PlayerStatType type, float value)
+    {
+        float newValue = stats[type].Modify(value);
+        _UIPlayerStats.SetSliderValue(type, newValue);
+    }
 }
 
 
@@ -50,6 +61,11 @@ public class PlayerStat
     {
         get => _value;
         set => _value = Mathf.Clamp(value, MinValue, MaxValue);
+    }
+
+    public float GetPercentageValue()
+    {
+        return Value / MaxValue;
     }
 
     public float ChangeRate { get; private set; } // Rate of change per update
@@ -70,9 +86,10 @@ public class PlayerStat
         Value += ChangeRate;
     }
 
-    public void Modify(float amount)
+    public float Modify(float amount)
     {
         Value += amount;
+        return GetPercentageValue();
     }
 }
 
