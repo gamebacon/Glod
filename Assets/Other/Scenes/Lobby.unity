@@ -7423,10 +7423,10 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: menu music
     type: 3
-    clip: {fileID: 8300000, guid: 402d9b30625c94124a5f1a7b1da4b9db, type: 3}
+    clip: {fileID: 8300000, guid: cd70da935ca4daf479c66c6f20cd4d06, type: 3}
     volume: 1
-    pitch: 1.15
-    loop: 0
+    pitch: 0.76
+    loop: 1
     source: {fileID: 0}
   - name: Select
     type: 4

@@ -1,7 +1,5 @@
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI; // Required for the Button class
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
