@@ -1,10 +1,12 @@
 using UnityEngine;
+using System;
 
 public class Interactable : MonoBehaviour
 {
+
+    public event Action OnInteract;
     public virtual void Interact()
     {
-        // Define custom interaction logic in derived classes
-        Debug.Log("Interacting with " + gameObject.name);
+        OnInteract?.Invoke();
     }
 }

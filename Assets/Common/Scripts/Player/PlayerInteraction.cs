@@ -23,9 +23,11 @@ public class PlayerInteraction : MonoBehaviour
 
     void Update()
     {
+        /*
         if (GameManager.GetInstance().gameState != GameState.Game) {
             return;
         }
+        */
 
         // Handle melee attack
         if (Input.GetMouseButtonDown(0)) // Left mouse button
@@ -83,7 +85,7 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
-                Debug.Log("Hit an object, but it is not hittable: " + hit.collider.gameObject.name);
+                // Debug.Log("Hit an object, but it is not hittable: " + hit.collider.gameObject.name);
             }
         }
 
@@ -110,8 +112,6 @@ public class PlayerInteraction : MonoBehaviour
 
     void AttemptInteraction()
     {
-        Debug.Log("Attempting interaction");
-
         // Detect objects within interaction range
         RaycastHit hit;
         Vector3 interactionDirection = transform.forward;
@@ -119,25 +119,22 @@ public class PlayerInteraction : MonoBehaviour
         // Debug line for interaction range in the Scene view
         Debug.DrawRay(transform.position, interactionDirection * interactionRange, Color.blue, 1.0f);
 
-        if (Physics.Raycast(transform.position, interactionDirection, out hit, interactionRange))
+        if (Physics.Raycast(transform.position, interactionDirection, out hit, interactionRange, LayerMask.GetMask("Interactable")))
         {
-            Debug.Log("Raycast hit: " + hit.collider.gameObject.name);
-
             // Check if the object has an Interactable component
             Interactable interactable = hit.collider.GetComponent<Interactable>();
             if (interactable != null)
             {
-                Debug.Log("Interacting with: " + interactable.gameObject.name);
                 interactable.Interact();  // Call Interact on Interactable script
             }
             else
             {
-                Debug.Log("Hit an object, but it is not interactable: " + hit.collider.gameObject.name);
+               // Debug.Log("Hit an object, but it is not interactable: " + hit.collider.gameObject.name);
             }
         }
         else
         {
-            Debug.Log("Interaction failed - no interactable object in range");
+            // Debug.Log("Interaction failed - no interactable object in range");
         }
     }
 

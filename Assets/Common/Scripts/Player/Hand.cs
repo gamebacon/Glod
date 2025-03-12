@@ -2,7 +2,10 @@ using UnityEngine;
 
 public class Hand : MonoBehaviour
 {
-    private PlayerInteraction _playerInteraction; 
+    private PlayerInteraction _playerInteraction;
+
+    [SerializeField] private Transform rightHandRef;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,4 +25,11 @@ public class Hand : MonoBehaviour
     {
         _playerInteraction.RaycastAttack();
     } 
+    public void EqiupItem(Transform handItem)
+    {
+        handItem.parent = rightHandRef;
+        handItem.position = rightHandRef.position;
+        handItem.rotation = rightHandRef.rotation;
+    }
+
 }
