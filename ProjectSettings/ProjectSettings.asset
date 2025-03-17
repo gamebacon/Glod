@@ -43,10 +43,8 @@ PlayerSettings:
   - logo: {fileID: 10404, guid: 0000000000000000f000000000000000, type: 0}
     duration: 2
   - logo: {fileID: 2025170900, guid: a7c5474b530044a479176e171ba9bca3, type: 3}
-    duration: 10
+    duration: 8
   - logo: {fileID: 1948693735, guid: a3baa37010bb8a5489db6f2dbf5cd545, type: 3}
-    duration: 4
-  - logo: {fileID: 1458629509, guid: 554647bb75159c94bafa10e5fc0868a0, type: 3}
     duration: 4
   m_VirtualRealitySplashScreen: {fileID: 2800000, guid: 25b79ee6c641d444a890e0b22f7c7c9d, type: 3}
   m_HolographicTrackingLossScreen: {fileID: 0}

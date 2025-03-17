@@ -24,7 +24,7 @@ public class CameraMenuTransition : MonoBehaviour
 
         // If the movement is complete (position is close enough to the target)
         float distance = Vector3.Distance(_cameraTransform.position, targetPos);
-        if (distance < .01f)
+        if (distance < .001f)
         {
             _cameraTransform.position = targetPos;  // Ensure the camera lands at the target position.
             _cameraTransform.rotation = targetRot;  // Ensure the camera rotates to the target rotation.
