@@ -6,6 +6,8 @@ public class Hand : MonoBehaviour
 
     [SerializeField] private Transform rightHandRef;
 
+    private HandItem heldItem;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,6 +32,23 @@ public class Hand : MonoBehaviour
         handItem.parent = rightHandRef;
         handItem.position = rightHandRef.position;
         handItem.rotation = rightHandRef.rotation;
+
+        heldItem = handItem.GetComponent<HandItem>();
+        heldItem.rb.isKinematic = true;
+    }
+    public void DropItem()
+    {
+        if (heldItem == null)
+        {
+            return;
+        }
+
+        heldItem.transform.parent = null;
+
+        heldItem.rb.isKinematic = false;
+        heldItem.rb.AddForce(rightHandRef.transform.right * 100);
+
+        heldItem = null;
     }
 
 }

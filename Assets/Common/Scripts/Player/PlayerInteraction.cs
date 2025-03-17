@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerInteraction : MonoBehaviour
@@ -39,6 +40,10 @@ public class PlayerInteraction : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E)) // Press 'E' to interact
         {
             AttemptInteraction();
+        } // drop
+        else if (Input.GetMouseButtonDown(1)) // Press 'E' to interact
+        {
+            AttemptDropItem();
         }
     }
 
@@ -129,13 +134,19 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
-               // Debug.Log("Hit an object, but it is not interactable: " + hit.collider.gameObject.name);
+             Debug.Log("Hit an object, but it is not interactable: " + hit.collider.gameObject.name);
             }
         }
         else
         {
-            // Debug.Log("Interaction failed - no interactable object in range");
+            Debug.Log("Interaction failed - no interactable object in range");
         }
+    }
+
+    void AttemptDropItem ()
+    {
+        Hand hand = GameObject.FindGameObjectWithTag("Hand").GetComponent<Hand>();
+        hand.DropItem();
     }
 
     // Optional: Visualize attack and interaction ranges in the Scene view

@@ -1,9 +1,11 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 [RequireComponent(typeof(Interactable))]
 public class HandItem : MonoBehaviour
 {
     [SerializeField] private Transform position; 
+    public Rigidbody rb; 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -11,6 +13,7 @@ public class HandItem : MonoBehaviour
     {
 
         GetComponent<Interactable>().OnInteract += HandleEqiup;
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
