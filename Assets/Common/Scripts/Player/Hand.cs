@@ -1,10 +1,14 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class Hand : MonoBehaviour
 {
     private PlayerInteraction _playerInteraction;
 
-    [SerializeField] private Transform rightHandRef;
+    [SerializeField] private TwoBoneIKConstraint bone;
+
+    private HandPositioner _handRef;
 
     private HandItem heldItem;
 
@@ -12,8 +16,11 @@ public class Hand : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameObject.tag = "Hand";
+        bone.weight = 0;
 
         _playerInteraction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
+        _handRef = GameObject.FindGameObjectWithTag("HandPosRef").GetComponent<HandPositioner>();
     }
 
     // Update is called once per frame
@@ -27,14 +34,33 @@ public class Hand : MonoBehaviour
     {
         _playerInteraction.RaycastAttack();
     } 
-    public void EqiupItem(Transform handItem)
+    public void EqiupItem(HandItem item)
     {
-        handItem.parent = rightHandRef;
-        handItem.position = rightHandRef.position;
-        handItem.rotation = rightHandRef.rotation;
+        /*
+            Already holding something
+        */
+        if (heldItem)
+        {
+            return;
+        }
 
-        heldItem = handItem.GetComponent<HandItem>();
-        heldItem.rb.isKinematic = true;
+        /*
+            Parent and set pos
+        */
+
+        _handRef.Position(item);
+
+
+
+        /*
+            Prepare item props
+        */
+        item.rb.isKinematic = true;
+        item.col.isTrigger = true;
+
+        bone.weight = 1;
+
+        heldItem = item;
     }
     public void DropItem()
     {
@@ -46,9 +72,11 @@ public class Hand : MonoBehaviour
         heldItem.transform.parent = null;
 
         heldItem.rb.isKinematic = false;
-        heldItem.rb.AddForce(rightHandRef.transform.right * 100);
+        heldItem.rb.AddForce(_handRef.transform.forward * 100);
+        heldItem.col.isTrigger = false;
 
         heldItem = null;
+        bone.weight = 0;
     }
 
 }

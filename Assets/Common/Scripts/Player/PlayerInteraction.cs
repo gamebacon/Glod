@@ -1,5 +1,5 @@
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerInteraction : MonoBehaviour
 {
@@ -17,9 +17,15 @@ public class PlayerInteraction : MonoBehaviour
 
     private PlayerStats _playerStats;
 
+    private Transform _camTransform;
+
+    private Image _crossHairImage;
+
     private void Start()
     {
         _playerStats = GetComponent<PlayerStats>();
+        _camTransform = Camera.main.transform;
+        _crossHairImage = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
     }
 
     void Update()
@@ -45,6 +51,9 @@ public class PlayerInteraction : MonoBehaviour
         {
             AttemptDropItem();
         }
+
+
+        CheckCrossHair();
     }
 
     void AttemptAttack()
@@ -56,8 +65,10 @@ public class PlayerInteraction : MonoBehaviour
             return;
         }
 
+        /*
         _handAnimator.SetFloat("AttackSpeed", attackSpeed);
         _handAnimator.SetTrigger("Swing");
+        */
 
         // Update the last attack time
         _lastAttackTime = Time.time;
@@ -68,12 +79,14 @@ public class PlayerInteraction : MonoBehaviour
     {
         // Detect objects within attack range
         RaycastHit hit;
-        Vector3 attackDirection = transform.forward;
+        Vector3 attackDirection = _camTransform.forward;
+
+        Debug.Log("ray attack");
 
         // Debug line for attack range in the Scene view
-        Debug.DrawRay(transform.position, attackDirection * attackRange, Color.red, 1.0f);
+        Debug.DrawRay(_camTransform.position, attackDirection * attackRange, Color.red, 1.0f);
 
-        if (Physics.Raycast(transform.position, attackDirection, out hit, attackRange))
+        if (Physics.Raycast(_camTransform.position, attackDirection, out hit, attackRange))
         {
 
             // Check if the object has a Hittable component
@@ -90,7 +103,7 @@ public class PlayerInteraction : MonoBehaviour
             }
             else
             {
-                // Debug.Log("Hit an object, but it is not hittable: " + hit.collider.gameObject.name);
+                 Debug.Log("Hit an object, but it is not hittable: " + hit.collider.gameObject.name);
             }
         }
 
@@ -105,6 +118,7 @@ public class PlayerInteraction : MonoBehaviour
 
     private void HandleAttack (GameEntity entity)
     {
+        Debug.Log("Handle attack!");
         if (GameManager.GetInstance().isSinglePlayer)
         {
             ObjectManager.GetInstance().Damage(GetAttackDamage(), entity.id);
@@ -119,12 +133,12 @@ public class PlayerInteraction : MonoBehaviour
     {
         // Detect objects within interaction range
         RaycastHit hit;
-        Vector3 interactionDirection = transform.forward;
+        Vector3 interactionDirection = _camTransform.forward;
 
         // Debug line for interaction range in the Scene view
-        Debug.DrawRay(transform.position, interactionDirection * interactionRange, Color.blue, 1.0f);
+        Debug.DrawRay(_camTransform.position, interactionDirection * interactionRange, Color.blue, 1.0f);
 
-        if (Physics.Raycast(transform.position, interactionDirection, out hit, interactionRange, LayerMask.GetMask("Interactable")))
+        if (Physics.Raycast(_camTransform.position, interactionDirection, out hit, interactionRange, LayerMask.GetMask("Interactable")))
         {
             // Check if the object has an Interactable component
             Interactable interactable = hit.collider.GetComponent<Interactable>();
@@ -147,6 +161,17 @@ public class PlayerInteraction : MonoBehaviour
     {
         Hand hand = GameObject.FindGameObjectWithTag("Hand").GetComponent<Hand>();
         hand.DropItem();
+    }
+
+    private void CheckCrossHair()
+    {
+        if (Physics.Raycast(_camTransform.position, _camTransform.forward, interactionRange, LayerMask.GetMask("Interactable")))
+        {
+            _crossHairImage.color = Color.red;
+        } else
+        {
+            _crossHairImage.color = Color.white;
+        }
     }
 
     // Optional: Visualize attack and interaction ranges in the Scene view

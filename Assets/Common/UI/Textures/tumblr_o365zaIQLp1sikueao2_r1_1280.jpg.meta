@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c98bf2b55b66d6b4cb3dfa71a59838e8
+guid: c3c615dd53c727a40b8b03c5c679d95f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,23 +97,23 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Crosshair(1)_0
+      name: tumblr_o365zaIQLp1sikueao2_r1_1280_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 1280
+        height: 1280
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a23bfd5c9b96bd749a4e549c6bdc8110
-      internalID: -1663025208
+      spriteID: b94ce7af3ecc55440a6eedcf61611b4b
+      internalID: -1679344854
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 09fc094ec3c806c4bb655ff78cb956d5
+    spriteID: f454be058b9162c489927b3f020c3dfe
     internalID: 0
     vertices: []
     indices: 
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Crosshair(1)_0: -1663025208
+      tumblr_o365zaIQLp1sikueao2_r1_1280_0: -1679344854
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

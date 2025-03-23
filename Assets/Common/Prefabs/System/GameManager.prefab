@@ -1,0 +1,175 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5916823178518467019
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1585838267604352723}
+  - component: {fileID: 2870312013330240233}
+  - component: {fileID: 805575663015066844}
+  - component: {fileID: 3261569946896986445}
+  - component: {fileID: 7709337685541765336}
+  - component: {fileID: 5633497999840332804}
+  - component: {fileID: 5848518410087247740}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1585838267604352723
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5916823178518467019}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -494.51105, y: -147.92355, z: 5.967397}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2870312013330240233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5916823178518467019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a5b900af128493c9b05c203b5fd44a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterVolume: 0.188
+  sounds:
+  - name: Footsteps
+    type: 0
+    clip: {fileID: 8300000, guid: beb2adebbe549440ba470b216331c0f0, type: 3}
+    volume: 0.1
+    pitch: 1.57
+    loop: 0
+    source: {fileID: 0}
+  - name: Hit wood
+    type: 1
+    clip: {fileID: 8300000, guid: 57545c1434a74a349a905f1689b16752, type: 3}
+    volume: 1
+    pitch: 1.34
+    loop: 0
+    source: {fileID: 0}
+  - name: falling tree
+    type: 2
+    clip: {fileID: 8300000, guid: 404b6ae4bb9ed4021a0ce8b49202a2aa, type: 3}
+    volume: 0.546
+    pitch: 1.57
+    loop: 0
+    source: {fileID: 0}
+  - name: menu music
+    type: 3
+    clip: {fileID: 8300000, guid: cd70da935ca4daf479c66c6f20cd4d06, type: 3}
+    volume: 1
+    pitch: 0.76
+    loop: 1
+    source: {fileID: 0}
+  - name: Select
+    type: 4
+    clip: {fileID: 8300000, guid: 9130829501d32674ab73e36b6a0402a0, type: 3}
+    volume: 1
+    pitch: 2.22
+    loop: 0
+    source: {fileID: 0}
+  - name: Click
+    type: 5
+    clip: {fileID: 8300000, guid: 9130829501d32674ab73e36b6a0402a0, type: 3}
+    volume: 1
+    pitch: 0.62
+    loop: 0
+    source: {fileID: 0}
+  minPitchOffset: 0.9
+  maxPitchOffset: 1.1
+  minVolumeOffset: 0.9
+  maxVolumeOffset: 1.1
+--- !u!114 &805575663015066844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5916823178518467019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d25fba2fa9004b6e8c67ebfbbf458ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameState: 0
+  onlinePlayerPrefab: {fileID: 8092689863384172085, guid: 2771d406c9e6f4460bc94f2a7d72ec60, type: 3}
+  localPlayerPrefab: {fileID: 250422283078590269, guid: 6a54457b60f0d47a990cd38cbc17cc1a, type: 3}
+  spawn: {fileID: 0}
+  isSinglePlayer: 1
+--- !u!114 &3261569946896986445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5916823178518467019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f969149296641ca9c86ebe66a97dac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isRealInstance: 0
+  appId: 480
+  playerName: 
+  playerSteamIdString: 
+  connectedToSteam: 0
+--- !u!114 &7709337685541765336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5916823178518467019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 554281abb3ed041d6a9bb46b48a00edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  consoleText: {fileID: 0}
+--- !u!114 &5633497999840332804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5916823178518467019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56951b304f27d406a95da1552b306a11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myId: 0
+  ip: 127.0.0.1
+  port: 26950
+--- !u!114 &5848518410087247740
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5916823178518467019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2201c5bfc361dc945a52accf6e85078e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isActive: 1
+  screenshotKey: 293

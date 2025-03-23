@@ -16,7 +16,6 @@ public class PlayerMovementTest : MonoBehaviour
     private bool isSprinting;
     private bool cameraActive = true;
 
-    [SerializeField]
     private Camera _camera;
 
     private float verticalClampAngle = 80f;
@@ -28,11 +27,8 @@ public class PlayerMovementTest : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody>();
         _animator = GetComponent<Animator>();
-
-        if (_camera)
-        {
-            _cameraTransform = _camera.transform;
-        }
+        _camera = Camera.main;
+        _cameraTransform = _camera.transform;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
