@@ -307,7 +307,7 @@ MonoBehaviour:
   active: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.4
+    m_Value: 0
   xMultiplier:
     m_OverrideState: 0
     m_Value: 1
@@ -375,10 +375,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.46}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.344
+    m_Value: 0.373
   smoothness:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0.402
   rounded:
     m_OverrideState: 0
     m_Value: 1
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c23e3b12dc18c42a140437e53d3951, type: 3}
   m_Name: Tonemapping
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   mode:
     m_OverrideState: 1
     m_Value: 1
@@ -625,38 +625,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   active: 0
   mode:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 2
   gaussianStart:
-    m_OverrideState: 0
-    m_Value: 10
+    m_OverrideState: 1
+    m_Value: 1
   gaussianEnd:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 30
   gaussianMaxRadius:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 1.076
   highQualitySampling:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   focusDistance:
-    m_OverrideState: 0
-    m_Value: 10
+    m_OverrideState: 1
+    m_Value: 0.41
   aperture:
-    m_OverrideState: 0
-    m_Value: 5.6
+    m_OverrideState: 1
+    m_Value: 3.7
   focalLength:
-    m_OverrideState: 0
-    m_Value: 50
+    m_OverrideState: 1
+    m_Value: 26
   bladeCount:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 5
   bladeCurvature:
-    m_OverrideState: 0
-    m_Value: 1
+    m_OverrideState: 1
+    m_Value: 0.253
   bladeRotation:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: -72
 --- !u!114 &5978834852038912520
 MonoBehaviour:
   m_ObjectHideFlags: 3

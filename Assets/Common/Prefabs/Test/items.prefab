@@ -109,7 +109,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -164,8 +164,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a8de2e7f0f90948b48e57cba6110c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  collider: {fileID: 0}
+  itemInfo: {fileID: 11400000, guid: 0dce8e2772c9109428042bb74baea30a, type: 2}
+  rb: {fileID: 6232989760947812950}
+  col: {fileID: 4455594951698025811}
+  type: 0
 --- !u!64 &4455594951698025811
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -413,6 +415,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Fishing_Rod
       objectReference: {fileID: 0}
+    - target: {fileID: 412090124883188085, guid: 65c61591445ed8245b88a9bd45165f5b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1077443766365422543, guid: 65c61591445ed8245b88a9bd45165f5b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.1174724
@@ -528,8 +534,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a8de2e7f0f90948b48e57cba6110c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemInfo: {fileID: 0}
   rb: {fileID: 0}
-  collider: {fileID: 0}
+  col: {fileID: 0}
+  type: 0
 --- !u!1001 &2830002355824766439
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -581,6 +589,10 @@ PrefabInstance:
     - target: {fileID: 6701725070713121756, guid: 122489d113ea97d4bbf387d2dc2d5e86, type: 3}
       propertyPath: m_Name
       value: SM_Hammer
+      objectReference: {fileID: 0}
+    - target: {fileID: 6701725070713121756, guid: 122489d113ea97d4bbf387d2dc2d5e86, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -657,8 +669,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a8de2e7f0f90948b48e57cba6110c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemInfo: {fileID: 11400000, guid: 34f92fb1ef92bb14db24b07a7af850e2, type: 2}
   rb: {fileID: 0}
-  collider: {fileID: 0}
+  col: {fileID: 0}
+  type: 2
 --- !u!1001 &6456929752387537555
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -710,6 +724,10 @@ PrefabInstance:
     - target: {fileID: 4199143115356664583, guid: a501219ff3ba3ab42aae76e837efaea0, type: 3}
       propertyPath: m_Name
       value: Orange_01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4199143115356664583, guid: a501219ff3ba3ab42aae76e837efaea0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -781,8 +799,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a8de2e7f0f90948b48e57cba6110c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemInfo: {fileID: 0}
   rb: {fileID: 0}
-  collider: {fileID: 0}
+  col: {fileID: 0}
+  type: 0
 --- !u!4 &7536234805736366894 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3534633869010282941, guid: a501219ff3ba3ab42aae76e837efaea0, type: 3}
@@ -896,8 +916,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a8de2e7f0f90948b48e57cba6110c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rb: {fileID: 0}
-  collider: {fileID: 0}
+  itemInfo: {fileID: 0}
+  rb: {fileID: 1187100654796907345}
+  col: {fileID: 0}
+  type: 1
 --- !u!54 &1187100654796907345
 Rigidbody:
   m_ObjectHideFlags: 0

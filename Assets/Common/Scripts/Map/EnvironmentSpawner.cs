@@ -56,7 +56,6 @@ public class EnvironmentSpawner : MonoBehaviour
     public void SpawnEnvironmentObjects()
     {
         int seed = GameManager.GetInstance().gameSettings.seed;
-        Debug.Log(seed);
         PerlinNoise _perlinNoise = new PerlinNoise(seed);
         Queue<Vector3> poses = _perlinNoise.Generate();
 

@@ -8,7 +8,7 @@ public class UIToolBar : MonoBehaviour
     [SerializeField] public List<HotBarItem> items;
     public int activeIndex = 0;
 
-    private void Awake()
+    private void Start()
     {
         SetActiveIndex(activeIndex);
     }

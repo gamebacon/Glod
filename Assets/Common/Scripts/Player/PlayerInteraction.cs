@@ -1,3 +1,4 @@
+using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,13 +20,19 @@ public class PlayerInteraction : MonoBehaviour
 
     private Transform _camTransform;
 
-    private Image _crossHairImage;
+    private Hand _hand;
+
+    private ControlManager _controlManager;
+
+    private HUDManager _HUDManager;
 
     private void Start()
     {
         _playerStats = GetComponent<PlayerStats>();
         _camTransform = Camera.main.transform;
-        _crossHairImage = GameObject.FindGameObjectWithTag("Crosshair").GetComponent<Image>();
+        _hand = GameObject.FindGameObjectWithTag("Hand").GetComponent<Hand>();
+        _controlManager = GameManager.GetInstance().controlManager;
+        _HUDManager = FindFirstObjectByType<HUDManager>();
     }
 
     void Update()
@@ -36,24 +43,23 @@ public class PlayerInteraction : MonoBehaviour
         }
         */
 
-        // Handle melee attack
-        if (Input.GetMouseButtonDown(0)) // Left mouse button
+        if (Input.GetKeyDown(_controlManager.GetKey(PlayerAction.ATTACK))) 
         {
+            Debug.Log("Attack");
             AttemptAttack();
         }
-
-        // Handle interactions
-        if (Input.GetKeyDown(KeyCode.E)) // Press 'E' to interact
+        if (Input.GetKeyDown(_controlManager.GetKey(PlayerAction.INTERACT)))
         {
+            Debug.Log("Interact");
             AttemptInteraction();
-        } // drop
-        else if (Input.GetMouseButtonDown(1)) // Press 'E' to interact
+        } 
+        if (Input.GetKeyDown(_controlManager.GetKey(PlayerAction.DROP_ITEM)))
         {
+            Debug.Log("Drop");
             AttemptDropItem();
         }
 
 
-        CheckCrossHair();
     }
 
     void AttemptAttack()
@@ -138,17 +144,19 @@ public class PlayerInteraction : MonoBehaviour
         // Debug line for interaction range in the Scene view
         Debug.DrawRay(_camTransform.position, interactionDirection * interactionRange, Color.blue, 1.0f);
 
+        // if (Physics.Raycast(_camTransform.position, _camTransform.forward, out RaycastHit hit, _interaction.interactionRange, LayerMask.GetMask("Interactable")))
         if (Physics.Raycast(_camTransform.position, interactionDirection, out hit, interactionRange, LayerMask.GetMask("Interactable")))
         {
-            // Check if the object has an Interactable component
             Interactable interactable = hit.collider.GetComponent<Interactable>();
+            Item item = hit.collider.GetComponent<Item>();
+
             if (interactable != null)
             {
                 interactable.Interact();  // Call Interact on Interactable script
             }
-            else
+            if (item != null)
             {
-             Debug.Log("Hit an object, but it is not interactable: " + hit.collider.gameObject.name);
+                _hand.AttemptEquipItem(item);
             }
         }
         else
@@ -159,20 +167,10 @@ public class PlayerInteraction : MonoBehaviour
 
     void AttemptDropItem ()
     {
-        Hand hand = GameObject.FindGameObjectWithTag("Hand").GetComponent<Hand>();
-        hand.DropItem();
+        _hand.DropItem();
     }
 
-    private void CheckCrossHair()
-    {
-        if (Physics.Raycast(_camTransform.position, _camTransform.forward, interactionRange, LayerMask.GetMask("Interactable")))
-        {
-            _crossHairImage.color = Color.red;
-        } else
-        {
-            _crossHairImage.color = Color.white;
-        }
-    }
+
 
     // Optional: Visualize attack and interaction ranges in the Scene view
     void OnDrawGizmos()

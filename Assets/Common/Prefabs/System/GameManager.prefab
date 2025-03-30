@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7709337685541765336}
   - component: {fileID: 5633497999840332804}
   - component: {fileID: 5848518410087247740}
+  - component: {fileID: 5236650426144741340}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -30,7 +31,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5916823178518467019}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -494.51105, y: -147.92355, z: 5.967397}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -113,6 +114,7 @@ MonoBehaviour:
   onlinePlayerPrefab: {fileID: 8092689863384172085, guid: 2771d406c9e6f4460bc94f2a7d72ec60, type: 3}
   localPlayerPrefab: {fileID: 250422283078590269, guid: 6a54457b60f0d47a990cd38cbc17cc1a, type: 3}
   spawn: {fileID: 0}
+  controlManager: {fileID: 0}
   isSinglePlayer: 1
 --- !u!114 &3261569946896986445
 MonoBehaviour:
@@ -173,3 +175,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isActive: 1
   screenshotKey: 293
+--- !u!114 &5236650426144741340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5916823178518467019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ff0f056849d6fd48b6c502c5661c67f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _controlMapper: {fileID: 11400000, guid: 65503f630675350488a400dba969369a, type: 2}

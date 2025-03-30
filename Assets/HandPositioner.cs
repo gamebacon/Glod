@@ -7,39 +7,22 @@ using UnityEngine;
 public class HandPositioner : MonoBehaviour
 {
 
-    [SerializeField] private List<HandItemPosition> handPositions; 
 
-
-    [System.Serializable]
-    public class HandItemPosition
+    public void AddOrUpdatePosition(Item item)
     {
-        public ItemType type;
-        public Vector3 rotation;
-        public Vector3 position;
-
-        public HandItemPosition(ItemType type, Vector3 rotation, Vector3 position)
-        {
-            this.type = type;
-            this.rotation = rotation;
-            this.position = position;
-        }   
-    }
-
-    public void AddPosition(ItemType type)
-    {
-
+        // add safety checks!
         HandItemPosition position = new HandItemPosition(
-            type,
             transform.localEulerAngles,
             transform.localPosition
         );
 
-        handPositions.Add( position );
+        item.itemInfo.SetHandPosition( position );
+     
     }
 
-    internal void Position(HandItem item)
+    internal void Position(Item item)
     {
-        HandItemPosition position = handPositions.Find(p => p.type == item.GetItemType());
+        HandItemPosition position = item.itemInfo.GetHandItemPosition();
 
         if (position != null)
         {
@@ -63,14 +46,32 @@ public class HandPositioner : MonoBehaviour
         {
             DrawDefaultInspector();
 
-            if (GUILayout.Button("Copy tranform ref"))
+            if (GUILayout.Button("Save item hand position"))
             {
                 HandPositioner positioner = GameObject.FindGameObjectWithTag("HandPosRef").GetComponent<HandPositioner>();
-                HandItem item = target.GetComponentInChildren<HandItem>();
-                // item.SetPos(posRef.localPosition, posRef.localEulerAngles);
-                positioner.AddPosition(item.GetItemType());
+                Item item = target.GetComponentInChildren<Item>();
+                if (item)
+                {
+                    positioner.AddOrUpdatePosition(item);
+                } else
+                {
+                    Debug.Log("Not holding any item!");
+                }
             }
         }
     }
-
 }
+
+    [System.Serializable]
+    public class HandItemPosition
+    {
+        public Vector3 rotation;
+        public Vector3 position;
+
+        public HandItemPosition(Vector3 rotation, Vector3 position)
+        {
+            this.rotation = rotation;
+            this.position = position;
+        }   
+    }
+

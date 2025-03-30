@@ -1,4 +1,5 @@
 using NUnit.Framework.Constraints;
+using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -10,16 +11,27 @@ public class Hand : MonoBehaviour
 
     private HandPositioner _handRef;
 
-    private HandItem heldItem;
+    private Item heldItem;
 
+    private Transform _playerTransform;
+
+    public Action<Item> OnEqiupItem;
+    public Action<Item> OnDropItem;
+
+    private void Awake()
+    {
+        gameObject.tag = "Hand";
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        gameObject.tag = "Hand";
         bone.weight = 0;
 
-        _playerInteraction = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInteraction>();
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+
+        _playerTransform = player.transform;
+        _playerInteraction = player.GetComponent<PlayerInteraction>();
         _handRef = GameObject.FindGameObjectWithTag("HandPosRef").GetComponent<HandPositioner>();
     }
 
@@ -34,7 +46,7 @@ public class Hand : MonoBehaviour
     {
         _playerInteraction.RaycastAttack();
     } 
-    public void EqiupItem(HandItem item)
+    public void AttemptEquipItem(Item item)
     {
         /*
             Already holding something
@@ -61,6 +73,8 @@ public class Hand : MonoBehaviour
         bone.weight = 1;
 
         heldItem = item;
+
+        OnEqiupItem?.Invoke(heldItem);
     }
     public void DropItem()
     {
@@ -71,12 +85,16 @@ public class Hand : MonoBehaviour
 
         heldItem.transform.parent = null;
 
-        heldItem.rb.isKinematic = false;
-        heldItem.rb.AddForce(_handRef.transform.forward * 100);
         heldItem.col.isTrigger = false;
+        heldItem.rb.isKinematic = false;
+
+        heldItem.rb.AddForce(_playerTransform.transform.forward * 100);
+
+        bone.weight = 0;
+
+        OnDropItem?.Invoke(heldItem);
 
         heldItem = null;
-        bone.weight = 0;
     }
 
 }

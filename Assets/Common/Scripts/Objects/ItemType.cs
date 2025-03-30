@@ -1,6 +1,8 @@
 [System.Serializable]
 public enum ItemType
 {
+    None,
     MAP,
-    AXE
+    AXE,
+    HAMMER,
 }

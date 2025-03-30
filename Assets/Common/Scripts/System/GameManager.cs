@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public GameSettings gameSettings; 
 
+    public ControlManager controlManager; 
+
     public bool isSinglePlayer;
 
     private static GameManager instance;
@@ -48,6 +50,7 @@ public class GameManager : MonoBehaviour
      // handle dups?
 
     GameManager.players = new Dictionary<int, PlayerManager>();
+        controlManager = GetComponent<ControlManager>();
   }
 
 

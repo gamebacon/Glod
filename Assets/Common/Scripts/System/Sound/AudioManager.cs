@@ -58,7 +58,12 @@ public class AudioManager : MonoBehaviour
         {
             Debug.LogWarning("Sound: " + type + " not found!");
             return;
-        } 
+        }
+        else if (sound.source == null)
+        {
+            Debug.LogWarning("The source of sound: " + type + " is null!");
+            return;
+        }
 
         // Apply a random pitch offset relative to the original pitch
         sound.source.pitch = sound.pitch * Random.Range(minPitchOffset, maxPitchOffset);
@@ -98,5 +103,10 @@ public class Sound
     public Sound() 
     { 
         this.name = this.type.ToString();
+    }
+
+    public string ToString()
+    {
+        return $"{type} {volume} {pitch}";
     }
 }

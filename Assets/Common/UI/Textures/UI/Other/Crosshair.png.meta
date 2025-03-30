@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 2798548aceaeab047a284dff12d0d033
+guid: 3f8ef632dd1f3344193322f5ba08427d
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -97,13 +97,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Crosshair(3)_0
+      name: Crosshair(4)_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 128
-        height: 128
+        width: 29
+        height: 29
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -112,8 +112,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7bf46d75fb7d1604d8f4c0edaec3b6d6
-      internalID: 359637311
+      spriteID: 96f42e615a338c241b628dbcbb5f2943
+      internalID: 694452022
       vertices: []
       indices: 
       edges: []
@@ -122,7 +122,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: bb00f4db11e13f647b2b481fbeb1fdbb
+    spriteID: 28ce062addd63bd49b15b783734688e1
     internalID: 0
     vertices: []
     indices: 
@@ -132,7 +132,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Crosshair(3)_0: 359637311
+      Crosshair(4)_0: 694452022
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

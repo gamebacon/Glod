@@ -7,6 +7,20 @@ public class HUDManager : MonoBehaviour
 {
 
     [SerializeField] private List<StatSlider> statSliders;
+    [SerializeField] private UIActionHelper actionHelper;
+    [SerializeField] private ControlManager _controlManager;
+
+
+    private void Start()
+    {
+        _controlManager = GameManager.GetInstance().controlManager;
+
+        Hand hand = GameObject.FindGameObjectWithTag("Hand").GetComponent<Hand>();
+
+        hand.OnEqiupItem += HandleEqiupItem;
+        hand.OnDropItem += HandleDropItem;
+    }
+
 
     public void SetSliderValue(PlayerStatType type, float value)
     {
@@ -15,8 +29,22 @@ public class HUDManager : MonoBehaviour
         if (statSlider.GetValue() != value) {
             statSlider.SetValue(value);
         }
+    }
 
 
+    void HandleEqiupItem(Item item)
+    {
+        actionHelper.SetVisible(true);
+
+        actionHelper.SetText(
+            $"[{_controlManager.GetKeyString(PlayerAction.ATTACK)}]  use",
+            $"[{_controlManager.GetKeyString(PlayerAction.DROP_ITEM)}]  drop"
+        );
+    }
+
+    void HandleDropItem(Item item)
+    {
+        actionHelper.SetVisible(false);
     }
 
 
