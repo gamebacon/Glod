@@ -49,8 +49,9 @@ public class PlayerInteraction : MonoBehaviour
         }
         if (Input.GetKeyDown(_controlManager.GetKey(PlayerAction.INTERACT)))
         {
-            AttemptInteraction();
-        } 
+            _handAnimator.SetTrigger("Grab");
+            // AttemptInteraction();
+        }
         if (Input.GetKeyDown(_controlManager.GetKey(PlayerAction.DROP_ITEM)))
         {
             AttemptDropItem();
@@ -132,35 +133,7 @@ public class PlayerInteraction : MonoBehaviour
         }
     }
 
-    void AttemptInteraction()
-    {
-        // Detect objects within interaction range
-        RaycastHit hit;
-        Vector3 interactionDirection = _camTransform.forward;
 
-        // Debug line for interaction range in the Scene view
-        Debug.DrawRay(_camTransform.position, interactionDirection * interactionRange, Color.blue, 1.0f);
-
-        // if (Physics.Raycast(_camTransform.position, _camTransform.forward, out RaycastHit hit, _interaction.interactionRange, LayerMask.GetMask("Interactable")))
-        if (Physics.Raycast(_camTransform.position, interactionDirection, out hit, interactionRange, LayerMask.GetMask("Interactable")))
-        {
-            Interactable interactable = hit.collider.GetComponent<Interactable>();
-            Item item = hit.collider.GetComponent<Item>();
-
-            if (interactable != null)
-            {
-                interactable.Interact();  // Call Interact on Interactable script
-            }
-            if (item != null)
-            {
-                _hand.AttemptEquipItem(item);
-            }
-        }
-        else
-        {
-            Debug.Log("Interaction failed - no interactable object in range");
-        }
-    }
 
     void AttemptDropItem ()
     {

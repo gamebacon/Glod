@@ -6,6 +6,8 @@ using UnityEngine.Animations.Rigging;
 public class Hand : MonoBehaviour
 {
     private PlayerInteraction _playerInteraction;
+    public float interactionRange = 3f;      // Range for interacting with objects
+
 
     [SerializeField] private TwoBoneIKConstraint bone;
 
@@ -18,15 +20,19 @@ public class Hand : MonoBehaviour
     public Action<Item> OnEqiupItem;
     public Action<Item> OnDropItem;
 
+    private Transform _camTransform;
+
+
     private void Awake()
     {
         gameObject.tag = "Hand";
+        _camTransform = Camera.main.transform;
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        bone.weight = 0;
+        SetBoneWeight(0);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
 
@@ -42,11 +48,42 @@ public class Hand : MonoBehaviour
     }
 
 
+    public void RayCastItem()
+    {
+        // Detect objects within interaction range
+        RaycastHit hit;
+        Vector3 interactionDirection = _camTransform.forward;
+
+        // Debug line for interaction range in the Scene view
+        Debug.DrawRay(_camTransform.position, interactionDirection * interactionRange, Color.blue, 1.0f);
+
+        // if (Physics.Raycast(_camTransform.position, _camTransform.forward, out RaycastHit hit, _interaction.interactionRange, LayerMask.GetMask("Interactable")))
+        if (Physics.Raycast(_camTransform.position, interactionDirection, out hit, interactionRange, LayerMask.GetMask("Interactable")))
+        {
+            Interactable interactable = hit.collider.GetComponent<Interactable>();
+            Item item = hit.collider.GetComponent<Item>();
+
+            if (interactable != null)
+            {
+                interactable.Interact();  // Call Interact on Interactable script
+            }
+            if (item != null)
+            {
+                AttemptEquipItem(item);
+            }
+        }
+        else
+        {
+            Debug.Log("Interaction failed - no interactable object in range");
+        }
+    }
+
+
     public void Hit()
     {
         _playerInteraction.RaycastAttack();
     } 
-    public void AttemptEquipItem(Item item)
+    private void AttemptEquipItem(Item item)
     {
         /*
             Already holding something
@@ -70,7 +107,7 @@ public class Hand : MonoBehaviour
         item.rb.isKinematic = true;
         item.col.isTrigger = true;
 
-        bone.weight = 1;
+        SetBoneWeight(1);
 
         heldItem = item;
 
@@ -90,11 +127,18 @@ public class Hand : MonoBehaviour
 
         heldItem.rb.AddForce(_playerTransform.transform.forward * 100);
 
-        bone.weight = 0;
+        SetBoneWeight(0);
 
         OnDropItem?.Invoke(heldItem);
 
         heldItem = null;
+    }
+
+
+    private void SetBoneWeight(float weight)
+    {
+        return;
+        this.bone.weight = weight;
     }
 
 }
