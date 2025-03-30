@@ -45,17 +45,14 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Input.GetKeyDown(_controlManager.GetKey(PlayerAction.ATTACK))) 
         {
-            Debug.Log("Attack");
             AttemptAttack();
         }
         if (Input.GetKeyDown(_controlManager.GetKey(PlayerAction.INTERACT)))
         {
-            Debug.Log("Interact");
             AttemptInteraction();
         } 
         if (Input.GetKeyDown(_controlManager.GetKey(PlayerAction.DROP_ITEM)))
         {
-            Debug.Log("Drop");
             AttemptDropItem();
         }
 
