@@ -45,16 +45,15 @@ public class PlayerInteraction : MonoBehaviour
 
         if (Input.GetKeyDown(_controlManager.GetKey(PlayerAction.ATTACK))) 
         {
-            AttemptAttack();
+            _handAnimator.SetTrigger("Swing");
         }
         if (Input.GetKeyDown(_controlManager.GetKey(PlayerAction.INTERACT)))
         {
             _handAnimator.SetTrigger("Grab");
-            // AttemptInteraction();
         }
         if (Input.GetKeyDown(_controlManager.GetKey(PlayerAction.DROP_ITEM)))
         {
-            AttemptDropItem();
+            _handAnimator.SetTrigger("Throw");
         }
 
 
@@ -84,8 +83,6 @@ public class PlayerInteraction : MonoBehaviour
         // Detect objects within attack range
         RaycastHit hit;
         Vector3 attackDirection = _camTransform.forward;
-
-        Debug.Log("ray attack");
 
         // Debug line for attack range in the Scene view
         Debug.DrawRay(_camTransform.position, attackDirection * attackRange, Color.red, 1.0f);
@@ -122,7 +119,6 @@ public class PlayerInteraction : MonoBehaviour
 
     private void HandleAttack (GameEntity entity)
     {
-        Debug.Log("Handle attack!");
         if (GameManager.GetInstance().isSinglePlayer)
         {
             ObjectManager.GetInstance().Damage(GetAttackDamage(), entity.id);
