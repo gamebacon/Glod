@@ -129,6 +129,8 @@ public class Hand : MonoBehaviour
 
         SetBoneWeight(0);
 
+        heldItem.itemInfo.ResetFingers();
+
         OnDropItem?.Invoke(heldItem);
 
         heldItem = null;

@@ -23,6 +23,7 @@ public class HandPositioner : MonoBehaviour
     internal void Position(Item item)
     {
         HandItemPosition position = item.itemInfo.GetHandItemPosition();
+        item.itemInfo.ApplyFingers();
 
         if (position != null)
         {
